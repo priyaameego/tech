@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,7 +17,11 @@ import {
   Layers,
   Cpu,
   GraduationCap,
-  Play
+  Play,
+  Cloud,
+  Workflow,
+  BarChart3,
+  MessageSquare
 } from 'lucide-react';
 import {
   COMPANY_INFO,
@@ -35,117 +40,135 @@ export const ConceptEnterprise: React.FC = () => {
 
   const slides = [
     {
-      title: 'ZisanTech Solutions',
-      headingMain: 'Best SAP ERP Consultancy In India',
-      description: 'For over a decade, ZisanTech has been a trusted provider of ERP solutions and a recognized RISE with SAP S/4HANA Cloud Implementation Partner.',
-      bgImage: '/slide1_bg.webp',
-      badge: 'RISE with SAP S/4HANA',
-      btnText: 'Get a free demo',
-      btnLink: '/contact'
+      badge: 'IDEAL FOR ALL BUSINESS SIZES',
+      line1: 'Empower Your Business',
+      highlight: 'Customizable SAP',
+      line2: 'Solutions',
+      line3: 'With ZisanTech',
+      description: 'Elevate your small or medium-sized enterprise to the next level with our certified SAP S/4HANA solutions, agile implementations, and 24/7 dedicated support.',
+      bgImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80',
+      btnText: 'GET A FREE DEMO',
+      btnLink: '/contact',
+      secondaryBtnText: 'DISCOVER SERVICES',
+      secondaryBtnLink: '/services1/SAP SERVICES/1'
     },
     {
-      title: 'Solutions for your businesses',
-      headingMain: 'Unlock the Power of SAP S/4HANA with ZisanTech',
-      description: 'Your Trusted Partner for Cloud, On-Premise, and Hybrid Solutions, empowering your enterprise to achieve operational excellence and real-time visibility.',
-      bgImage: '/slide2_bg.webp',
-      badge: 'Operational Excellence',
-      btnText: 'Explore SAP Solutions',
-      btnLink: '/services1/SAP SERVICES/1'
+      badge: 'CERTIFIED RISE WITH SAP PRACTICE',
+      line1: 'Accelerate Next-Gen',
+      highlight: 'Cloud ERP Migration',
+      line2: 'With Zero Downtime',
+      line3: 'Guaranteed',
+      description: 'Proven enterprise SAP S/4HANA migrations, statutory tax automation (E-Invoicing & E-Way Bill), and seamless third-party ERP integrations.',
+      bgImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=80',
+      btnText: 'CONSULT AN ARCHITECT',
+      btnLink: '/contact',
+      secondaryBtnText: 'EXPLORE SOLUTIONS',
+      secondaryBtnLink: '/services1/SAP SERVICES/1'
     },
     {
-      title: 'Ideal for All Business Sizes',
-      headingMain: 'Empower Your Business with Customizable SAP Solutions',
-      description: 'Elevate your enterprise and SME operations to the next level with our innovative SAP add-ons, GST E-Invoice integrations, and 24/7 SLA support.',
-      bgImage: '/slide3_bg.webp',
-      badge: 'Customizable ERP',
-      btnText: 'Discover Services',
-      btnLink: '/services'
+      badge: '10+ YEARS OF PROVEN DELIVERY',
+      line1: 'Build A Sustainable',
+      highlight: 'Digital Future',
+      line2: 'With Enterprise SAP',
+      line3: 'Solutions',
+      description: 'Comprehensive SAP consulting, tailored ERP modules for Indian manufacturing and retail, and hands-on professional corporate training.',
+      bgImage: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1800&q=80',
+      btnText: 'SCHEDULE CONSULTATION',
+      btnLink: '/contact',
+      secondaryBtnText: 'ABOUT ZISANTECH',
+      secondaryBtnLink: '/about'
     }
   ];
 
-  // Auto-slide every 6.5 seconds
+  // Auto-slide every 7 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6500);
+    }, 7000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
   return (
-    <div className="bg-white text-slate-800 font-sans selection:bg-[#063B83] selection:text-white">
+    <div className="bg-white text-slate-800 font-sans selection:bg-[#063B83] selection:text-white overflow-hidden">
       {/* =========================================================================
-          1. PREMIUM HERO REVOLUTION SLIDER BANNER (Mawai Reference Standard)
+          1. MAWAI AUTHENTIC HERO BANNER WITH VIBRANT 2-TONE TYPOGRAPHY
       ========================================================================= */}
-      <section className="relative w-full h-[600px] sm:h-[660px] lg:h-[720px] overflow-hidden bg-slate-950">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-            }`}
-          >
-            {/* Grayscale Enterprise Collaboration Visual with HUD Icons */}
-            <img
-              src={slide.bgImage}
-              alt={slide.headingMain}
-              className="w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[7000ms]"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80';
-              }}
-            />
+      <section className="relative w-full h-[620px] sm:h-[680px] lg:h-[750px] overflow-hidden bg-slate-950">
+        {/* Slides Container - Smooth crossfade where text is ALWAYS visible */}
+        {slides.map((slide, index) => {
+          const isActive = index === currentSlide;
+          return (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
+              {/* Background Visual (Absolute positioning ensures text is NEVER pushed down) */}
+              <img
+                src={slide.bgImage}
+                alt={slide.line1}
+                className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[7000ms]"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80';
+                }}
+              />
 
-            {/* Premium Gradient Overlay with Soft Royal Blue Vignette */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/35"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,rgba(8,127,229,0.22)_0%,transparent_65%)]"></div>
+              {/* Premium Gradient Overlay with Soft Royal Blue Vignette */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,rgba(8,127,229,0.22)_0%,transparent_65%)]"></div>
 
-            {/* Slide Text Content */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-20">
-              <div className="max-w-3xl text-left space-y-6 animate-fade-in">
-                {/* Subtitle Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded bg-white/10 backdrop-blur-md border border-white/20">
-                  <span className="w-2 h-2 rounded-full bg-[#08B9E8] animate-ping"></span>
-                  <span className="text-xs font-bold tracking-widest text-[#08B9E8] uppercase font-mono">
-                    {slide.title}
-                  </span>
-                </div>
+              {/* Slide Content: Perfectly Centered & Always in View */}
+              <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+                <div className="max-w-3xl text-left space-y-6 pt-10 sm:pt-0">
+                  {/* Mawai Top Badge with Gold Accent Bar */}
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/20 rounded shadow-md">
+                    <span className="w-6 h-0.5 bg-[#F59E0B]"></span>
+                    <span className="text-xs font-bold tracking-widest text-white uppercase font-sans">
+                      {slide.badge}
+                    </span>
+                  </div>
 
-                {/* Main Headline */}
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] tracking-tight font-heading">
-                  {slide.headingMain}
-                </h1>
+                  {/* Main Headline - Exact 2-Tone Mawai Style with Gold SAP Highlights & Geometric Typography */}
+                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.12] tracking-tight font-heading">
+                    {slide.line1} <br />
+                    With <span className="text-[#F59E0B]">{slide.highlight}</span> <br />
+                    <span className="text-[#F59E0B]">{slide.line2}</span> {slide.line3}
+                  </h1>
 
-                {/* Description */}
-                <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-xl font-normal">
-                  {slide.description}
-                </p>
+                  {/* Description */}
+                  <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-xl font-normal">
+                    {slide.description}
+                  </p>
 
-                {/* Action CTA Buttons */}
-                <div className="pt-3 flex flex-wrap items-center gap-4">
-                  <Link
-                    to={slide.btnLink}
-                    className="px-8 py-4 bg-[#063B83] hover:bg-[#087FE5] text-white text-xs sm:text-sm font-bold tracking-wider uppercase rounded shadow-xl transition-all flex items-center gap-2 group hover:-translate-y-0.5"
-                  >
-                    <span>{slide.btnText}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                  </Link>
+                  {/* Action CTA Button - Exact Mawai Gold Style */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                    <a
+                      href="#contact-cta"
+                      className="w-full sm:w-auto text-center px-8 py-4 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 text-xs sm:text-sm font-extrabold tracking-widest uppercase rounded shadow-2xl transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95"
+                    >
+                      <span>{slide.btnText}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                    </a>
 
-                  <Link
-                    to="/about"
-                    className="px-6 py-4 bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded backdrop-blur-md border border-white/25 transition-all hover:-translate-y-0.5"
-                  >
-                    About ZisanTech
-                  </Link>
+                    <a
+                      href="#services"
+                      className="w-full sm:w-auto text-center px-6 py-4 bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded backdrop-blur-md border border-white/25 transition-all hover:-translate-y-0.5 active:scale-95"
+                    >
+                      {slide.secondaryBtnText}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {/* Carousel Arrow Controls */}
         <button
           onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/50 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90"
           aria-label="Previous Slide"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -153,7 +176,7 @@ export const ConceptEnterprise: React.FC = () => {
 
         <button
           onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/50 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90"
           aria-label="Next Slide"
         >
           <ChevronRight className="w-6 h-6" />
@@ -175,49 +198,76 @@ export const ConceptEnterprise: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          2. MAWAI 3-FEATURE BENEFIT BAR (Overlapping Cards)
+          2. MAWAI 3-FEATURE BENEFIT BAR (Overlapping 3D Tilt Cards)
       ========================================================================= */}
-      <section className="relative z-30 -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="benefits" className="relative z-30 -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#063B83] space-y-3 hover:-translate-y-1.5 transition-all duration-300">
-            <div className="w-12 h-12 rounded-lg bg-blue-50 text-[#063B83] flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            className="bg-white p-7 rounded-xl shadow-xl border-t-4 border-[#063B83] space-y-3 transition-shadow duration-300 hover:shadow-2xl"
+          >
+            <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#063B83] flex items-center justify-center shadow-sm">
               <Clock className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-[#071B49]">Swift ERP Implementation</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               Minimize downtime with our seasoned consulting team, ensuring a fast and seamless SAP S/4HANA Cloud rollout.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#087FE5] space-y-3 hover:-translate-y-1.5 transition-all duration-300">
-            <div className="w-12 h-12 rounded-lg bg-sky-50 text-[#087FE5] flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            className="bg-white p-7 rounded-xl shadow-xl border-t-4 border-[#087FE5] space-y-3 transition-shadow duration-300 hover:shadow-2xl"
+          >
+            <div className="w-12 h-12 rounded-xl bg-sky-50 text-[#087FE5] flex items-center justify-center shadow-sm">
               <TrendingUp className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-[#071B49]">Real-time Analytics</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               Gain a decisive operational edge with instant data insights from SAP, driving enterprise efficiency and executive visibility.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#063B83] space-y-3 hover:-translate-y-1.5 transition-all duration-300">
-            <div className="w-12 h-12 rounded-lg bg-blue-50 text-[#063B83] flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            className="bg-white p-7 rounded-xl shadow-xl border-t-4 border-[#063B83] space-y-3 transition-shadow duration-300 hover:shadow-2xl"
+          >
+            <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#063B83] flex items-center justify-center shadow-sm">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-[#071B49]">Affordable Scalability</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               Enjoy the scalability and flexibility of SAP Cloud offerings, adapting seamlessly to your corporate growth without friction.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* =========================================================================
           3. MAWAI "ABOUT SECTION" (Digitize Your Business Processes)
       ========================================================================= */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="about" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Text */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 space-y-6"
+          >
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
                 Digitize Your Business Processes
@@ -232,14 +282,14 @@ export const ConceptEnterprise: React.FC = () => {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
-              <div className="p-4 rounded-lg bg-[#f5f8fc] border-l-4 border-[#063B83] space-y-1.5">
+              <div className="p-4 rounded-xl bg-[#f5f8fc] border-l-4 border-[#063B83] space-y-1.5 shadow-sm">
                 <h4 className="text-sm font-bold text-[#071B49]">Affordable ERP Solution</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Tailored implementations engineered for enterprise agility and mid-market growth.
                 </p>
               </div>
 
-              <div className="p-4 rounded-lg bg-[#f5f8fc] border-l-4 border-[#087FE5] space-y-1.5">
+              <div className="p-4 rounded-xl bg-[#f5f8fc] border-l-4 border-[#087FE5] space-y-1.5 shadow-sm">
                 <h4 className="text-sm font-bold text-[#071B49]">Customized ERP Add-ons</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   GST E-Invoicing, E-Way Bill, and proprietary workflow automation for Indian compliance.
@@ -248,18 +298,24 @@ export const ConceptEnterprise: React.FC = () => {
             </div>
 
             <div className="pt-2">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-7 py-3 bg-[#063B83] hover:bg-[#087FE5] text-white text-xs font-bold uppercase tracking-wider rounded shadow transition-colors"
+              <a
+                href="#services"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#063B83] hover:bg-[#087FE5] text-white text-xs font-bold uppercase tracking-wider rounded shadow transition-all hover:-translate-y-0.5 active:scale-95"
               >
                 <span>Discover More</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Image Composition */}
-          <div className="lg:col-span-5 relative">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 relative"
+          >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80"
@@ -267,29 +323,35 @@ export const ConceptEnterprise: React.FC = () => {
                 className="w-full h-[400px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#071B49]/80 via-transparent to-transparent"></div>
-              <div className="absolute bottom-5 left-5 right-5 p-4 rounded-lg bg-white/95 backdrop-blur-md border border-slate-200 flex items-center justify-between">
+              <div className="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 flex items-center justify-between shadow-lg">
                 <div>
                   <p className="text-xs font-bold text-[#071B49]">Certified SAP Consultants</p>
                   <p className="text-[11px] text-slate-500">24/7 SLA Hyper-care Support</p>
                 </div>
-                <div className="w-10 h-10 rounded-full bg-[#063B83] text-white flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-[#063B83] text-white flex items-center justify-center shadow">
                   <Award className="w-5 h-5" />
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* =========================================================================
-          4. MAWAI "WHY CHOOSE US" SECTION (Full-width Navy Blue)
+          4. MAWAI "WHY CHOOSE US" SECTION (Full-width Navy Blue with 3D Depth)
       ========================================================================= */}
-      <section className="bg-[#071B49] text-white py-20 relative overflow-hidden">
+      <section id="why-us" className="bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] text-white py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-sky-400 font-mono">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 space-y-6"
+            >
+              <span className="text-xs font-bold uppercase tracking-widest text-[#08B9E8] font-mono">
                 WHY CHOOSE ZISANTECH
               </span>
 
@@ -310,7 +372,7 @@ export const ConceptEnterprise: React.FC = () => {
                   'Expert certified SAP consultants with 24/7 round-the-clock support.'
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm text-slate-200">
-                    <div className="w-5 h-5 rounded-full bg-[#087FE5] text-white flex items-center justify-center flex-shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-[#087FE5] text-white flex items-center justify-center flex-shrink-0 shadow">
                       <CheckCircle className="w-3.5 h-3.5" />
                     </div>
                     <span>{item}</span>
@@ -319,31 +381,37 @@ export const ConceptEnterprise: React.FC = () => {
               </div>
 
               <div className="pt-4">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 px-7 py-3 bg-[#087FE5] hover:bg-[#063B83] text-white text-xs font-bold uppercase tracking-wider rounded transition-colors shadow-lg"
+                <a
+                  href="#contact-cta"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#087FE5] hover:bg-[#063B83] text-white text-xs font-bold uppercase tracking-wider rounded transition-all shadow-lg hover:-translate-y-0.5 active:scale-95"
                 >
                   <span>Connect With An Architect</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Video / Visual Banner */}
-            <div className="lg:col-span-5">
-              <div className="rounded-xl overflow-hidden shadow-2xl border-4 border-white/20 relative">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5"
+            >
+              <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 relative group">
                 <img
                   src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
                   alt="Enterprise IT Team"
-                  className="w-full h-[360px] object-cover"
+                  className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-[#063B83]/40 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-white text-[#063B83] flex items-center justify-center shadow-2xl pl-1 hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 rounded-full bg-white text-[#063B83] flex items-center justify-center shadow-2xl pl-1 group-hover:scale-110 transition-transform">
                     <Play className="w-7 h-7 fill-current" />
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -351,45 +419,75 @@ export const ConceptEnterprise: React.FC = () => {
       {/* =========================================================================
           5. MAWAI FUN FACTS / METRICS STRIP
       ========================================================================= */}
-      <section className="bg-[#f5f8fc] py-16 border-y border-slate-200">
+      <section id="metrics" className="bg-[#f5f8fc] py-16 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="space-y-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="space-y-2"
+            >
               <p className="text-4xl sm:text-5xl font-extrabold text-[#063B83] font-heading">
                 {COMPANY_INFO.experienceYears}
               </p>
               <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">Years of Trust</p>
-            </div>
+            </motion.div>
 
-            <div className="space-y-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="space-y-2"
+            >
               <p className="text-4xl sm:text-5xl font-extrabold text-[#087FE5] font-heading">
                 {COMPANY_INFO.clientsCount}
               </p>
               <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">Happy Clients</p>
-            </div>
+            </motion.div>
 
-            <div className="space-y-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="space-y-2"
+            >
               <p className="text-4xl sm:text-5xl font-extrabold text-[#063B83] font-heading">
                 {COMPANY_INFO.consultantsCount}
               </p>
               <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">SAP Consultants</p>
-            </div>
+            </motion.div>
 
-            <div className="space-y-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              className="space-y-2"
+            >
               <p className="text-4xl sm:text-5xl font-extrabold text-[#087FE5] font-heading">
                 {COMPANY_INFO.studentsTrained}
               </p>
               <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">Trained Professionals</p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          6. MAWAI "INDUSTRIES WE SERVE" SECTION
+          6. MAWAI "INDUSTRIES WE SERVE" SECTION (With 3D Hover Zoom)
       ========================================================================= */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+      <section id="industries" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-16 space-y-3"
+        >
           <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
             Industries We Serve
           </span>
@@ -399,43 +497,51 @@ export const ConceptEnterprise: React.FC = () => {
           <p className="text-sm text-slate-600 leading-relaxed">
             Your industry-specific customized SAP ERP solutions for all business sizes, ensuring statutory compliance. We optimize processes, integrate best practices, and drive operational success.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {INDUSTRIES.map((ind: IndustryItem) => (
-            <Link
+          {INDUSTRIES.map((ind: IndustryItem, i) => (
+            <motion.div
               key={ind.id}
-              to={`/industries/${ind.id}`}
-              className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 h-72 flex flex-col justify-end p-6 border border-slate-200"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              whileHover={{ y: -6, scale: 1.02 }}
             >
-              <img
-                src={ind.image}
-                alt={ind.name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+              <a
+                href="#contact-cta"
+                className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 h-72 flex flex-col justify-end p-6 border border-slate-200 block"
+              >
+                <img
+                  src={ind.image}
+                  alt={ind.name}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-              <div className="relative z-10 space-y-2">
-                <h3 className="text-xl font-bold text-white group-hover:text-sky-300 transition-colors font-heading">
-                  {ind.name}
-                </h3>
-                <p className="text-xs text-slate-300 line-clamp-2">
-                  {ind.summary}
-                </p>
-                <div className="pt-2 flex items-center text-xs font-bold text-sky-400 group-hover:text-white transition-colors">
-                  <span>Read More</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                <div className="relative z-10 space-y-2">
+                  <h3 className="text-xl font-bold text-white group-hover:text-sky-300 transition-colors font-heading">
+                    {ind.name}
+                  </h3>
+                  <p className="text-xs text-slate-300 line-clamp-2">
+                    {ind.summary}
+                  </p>
+                  <div className="pt-2 flex items-center text-xs font-bold text-sky-400 group-hover:text-white transition-colors">
+                    <span>Enquire Solutions</span>
+                    <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </a>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* =========================================================================
-          7. MAWAI "SERVICES & SOLUTIONS" CARDS SECTION
+          7. MAWAI "SERVICES & SOLUTIONS" CARDS SECTION (3D Hover Glow)
       ========================================================================= */}
-      <section className="bg-[#f5f8fc] py-24 border-t border-slate-200">
+      <section id="services" className="bg-[#f5f8fc] py-24 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -446,20 +552,25 @@ export const ConceptEnterprise: React.FC = () => {
                 Enterprise SAP & IT Services
               </h2>
             </div>
-            <Link
-              to="/services1/SAP SERVICES/1"
+            <a
+              href="#contact-cta"
               className="mt-4 md:mt-0 text-xs font-bold uppercase tracking-wider text-[#063B83] hover:text-[#087FE5] flex items-center gap-1.5"
             >
-              <span>View All 12 Services</span>
+              <span>Consult On Services</span>
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {SERVICES.slice(0, 6).map((service: ServiceItem) => (
-              <div
+            {SERVICES.slice(0, 6).map((service: ServiceItem, idx) => (
+              <motion.div
                 key={service.id}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 flex flex-col justify-between group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                whileHover={{ y: -8, scale: 1.015 }}
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-[#087FE5]/50 flex flex-col justify-between group"
               >
                 <div>
                   <div className="h-48 w-full overflow-hidden relative">
@@ -468,7 +579,7 @@ export const ConceptEnterprise: React.FC = () => {
                       alt={service.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#063B83] text-white text-[10px] font-bold uppercase font-mono">
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#063B83] text-white text-[10px] font-bold uppercase font-mono shadow">
                       {service.category}
                     </div>
                   </div>
@@ -485,22 +596,22 @@ export const ConceptEnterprise: React.FC = () => {
 
                 <div className="p-6 pt-0">
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <Link
-                      to={service.url}
+                    <a
+                      href="#contact-cta"
                       className="text-xs font-bold text-[#063B83] group-hover:text-[#087FE5] flex items-center gap-1"
                     >
-                      <span>Learn More</span>
+                      <span>Explore Scope</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                    <Link
-                      to="/contact"
-                      className="text-xs text-slate-400 hover:text-slate-600"
+                    </a>
+                    <a
+                      href="#contact-cta"
+                      className="text-xs text-slate-400 hover:text-slate-600 font-medium"
                     >
                       Enquire
-                    </Link>
+                    </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -509,8 +620,14 @@ export const ConceptEnterprise: React.FC = () => {
       {/* =========================================================================
           8. MAWAI "CAREERS / TRAINING" SECTION (Take Your Careers to New Heights)
       ========================================================================= */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+      <section id="training" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-16 space-y-3"
+        >
           <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
             Career Incubation
           </span>
@@ -520,13 +637,18 @@ export const ConceptEnterprise: React.FC = () => {
           <p className="text-sm text-slate-600 leading-relaxed">
             Upskill with real enterprise projects, 24/7 dedicated server sandboxes, and structured curriculum designed by veteran SAP consultants.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TRAINING_MODULES.slice(0, 8).map((mod: TrainingItem) => (
-            <div
+          {TRAINING_MODULES.slice(0, 8).map((mod: TrainingItem, i) => (
+            <motion.div
               key={mod.id}
-              className="bg-white rounded-lg p-5 shadow border border-slate-200 hover:border-[#087FE5] hover:shadow-lg transition-all flex flex-col justify-between"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.08 }}
+              whileHover={{ y: -6, borderColor: '#087FE5' }}
+              className="bg-white rounded-xl p-5 shadow border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between"
             >
               <div>
                 <span className="text-[10px] font-mono font-bold text-[#063B83] bg-blue-50 px-2 py-0.5 rounded">
@@ -537,24 +659,24 @@ export const ConceptEnterprise: React.FC = () => {
               </div>
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                <Link
-                  to={mod.url}
+                <a
+                  href="#contact-cta"
                   className="text-xs font-semibold text-[#087FE5] hover:underline flex items-center gap-1"
                 >
-                  <span>Syllabus</span>
+                  <span>Request Syllabus</span>
                   <ArrowRight className="w-3 h-3" />
-                </Link>
+                </a>
                 <span className="text-[11px] text-slate-400">{mod.duration}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* =========================================================================
-          9. MAWAI "BLOGS" SECTION
+          9. MAWAI "BLOGS" SECTION (Executive Tech Insights)
       ========================================================================= */}
-      <section className="bg-[#f5f8fc] py-24 border-t border-slate-200">
+      <section id="blogs" className="bg-[#f5f8fc] py-24 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -565,20 +687,25 @@ export const ConceptEnterprise: React.FC = () => {
                 Latest From Our Blog
               </h2>
             </div>
-            <Link
-              to="/blog"
+            <a
+              href="#contact-cta"
               className="mt-4 md:mt-0 text-xs font-bold uppercase tracking-wider text-[#063B83] hover:text-[#087FE5] flex items-center gap-1.5"
             >
-              <span>View All Blogs</span>
+              <span>View Articles</span>
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {BLOGS.slice(0, 3).map((blog: BlogItem) => (
-              <div
+            {BLOGS.slice(0, 3).map((blog: BlogItem, idx) => (
+              <motion.div
                 key={blog.id}
-                className="bg-white rounded-xl overflow-hidden shadow border border-slate-200 flex flex-col justify-between group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                whileHover={{ y: -6 }}
+                className="bg-white rounded-xl overflow-hidden shadow border border-slate-200 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="h-44 w-full overflow-hidden relative">
@@ -587,14 +714,14 @@ export const ConceptEnterprise: React.FC = () => {
                       alt={blog.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <span className="absolute top-3 left-3 px-2 py-0.5 rounded bg-white text-[#063B83] text-[10px] font-bold uppercase font-mono">
+                    <span className="absolute top-3 left-3 px-2 py-0.5 rounded bg-white text-[#063B83] text-[10px] font-bold uppercase font-mono shadow">
                       {blog.category}
                     </span>
                   </div>
 
                   <div className="p-6 space-y-2">
                     <h3 className="text-base font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors line-clamp-2">
-                      <Link to={blog.url}>{blog.title}</Link>
+                      <a href="#contact-cta">{blog.title}</a>
                     </h3>
                     <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
                       {blog.excerpt}
@@ -605,16 +732,16 @@ export const ConceptEnterprise: React.FC = () => {
                 <div className="p-6 pt-0">
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                     <span className="text-slate-400 font-mono text-[11px]">{blog.date}</span>
-                    <Link
-                      to={blog.url}
+                    <a
+                      href="#contact-cta"
                       className="font-bold text-[#063B83] group-hover:text-[#087FE5] flex items-center gap-1"
                     >
-                      <span>Read More</span>
+                      <span>Read Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                    </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -623,30 +750,39 @@ export const ConceptEnterprise: React.FC = () => {
       {/* =========================================================================
           10. MAWAI CALL TO ACTION SECTION (Navy Blue Banner)
       ========================================================================= */}
-      <section className="bg-[#071B49] text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <section id="contact-cta" className="bg-gradient-to-r from-[#071B49] via-[#05143A] to-[#030A1C] text-white py-16 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-heading">
             Need Expert SAP ERP Consulting for Your Business?
           </h2>
           <p className="text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Speak directly with our senior SAP S/4HANA architects to evaluate your ERP roadmap, cloud migration strategy, and statutory tax integrations.
           </p>
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/contact"
-              className="px-8 py-3.5 bg-[#087FE5] hover:bg-white hover:text-[#071B49] text-white text-xs font-bold uppercase tracking-wider rounded transition-all shadow-xl"
-            >
-              Get a Free Demo / Consultation
-            </Link>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={`tel:${COMPANY_INFO.primaryPhone}`}
-              className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all"
+              className="w-full sm:w-auto text-center px-8 py-3.5 bg-[#F59E0B] hover:bg-[#D97706] text-black text-xs font-bold uppercase tracking-wider rounded transition-all shadow-xl active:scale-95"
+            >
+              Get a Free Demo / Consultation
+            </a>
+            <a
+              href={`tel:${COMPANY_INFO.primaryPhone}`}
+              className="w-full sm:w-auto text-center px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all active:scale-95"
             >
               Call: {COMPANY_INFO.primaryPhone}
             </a>
           </div>
         </div>
       </section>
+
+      {/* Floating Action / Chat Button on the Right Edge (Matches Mawai Gold/Amber Bubble) */}
+      <a
+        href="#contact-cta"
+        className="fixed right-6 bottom-8 z-40 w-14 h-14 rounded-full bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all group"
+        aria-label="Enquire / Chat"
+      >
+        <MessageSquare className="w-6 h-6 group-hover:scale-110 transition-transform" />
+      </a>
     </div>
   );
 };
