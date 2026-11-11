@@ -21,7 +21,9 @@ import {
   Rocket,
   ThumbsUp,
   BarChart3,
-  Globe
+  Globe,
+  User,
+  Tag
 } from 'lucide-react';
 import {
   COMPANY_INFO,
@@ -340,15 +342,21 @@ export const ConceptEnterprise: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
             </div>
 
-            {/* Overlapping Image: Digital City Hologram Network */}
-            <div className="relative sm:absolute sm:right-0 sm:bottom-4 w-full sm:w-[68%] rounded-2xl overflow-hidden shadow-2xl border-4 border-white mt-4 sm:mt-0 z-10 group">
+            {/* Overlapping Image: Digital City Hologram Network with 3D Float Animation */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative sm:absolute sm:right-0 sm:bottom-4 w-full sm:w-[68%] rounded-2xl overflow-hidden shadow-2xl border-4 border-white mt-4 sm:mt-0 z-10 group cursor-pointer"
+            >
               <img
                 src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80"
                 alt="Digital Transformation Cloud Architecture"
-                className="w-full h-[220px] sm:h-[260px] object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-[#063B83]/70 via-transparent to-transparent"></div>
-            </div>
+              {/* 3D Sheen Light Swipe on Hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
+            </motion.div>
 
             {/* Floating Counter Badge: 360+ Satisfied Clients */}
             <div className="relative sm:absolute sm:-bottom-6 sm:left-4 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-100 flex items-center gap-3.5 mt-4 sm:mt-0 max-w-xs">
@@ -506,17 +514,19 @@ export const ConceptEnterprise: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="lg:col-span-5"
             >
-              <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 relative group">
+              <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 relative group cursor-pointer bg-slate-900">
                 <img
                   src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
                   alt="Enterprise IT Team"
-                  className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[360px] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-[#063B83]/40 flex items-center justify-center">
+                <div className="absolute inset-0 bg-[#063B83]/40 group-hover:bg-[#071B49]/50 transition-colors flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-white text-[#063B83] flex items-center justify-center shadow-2xl pl-1 group-hover:scale-110 transition-transform">
                     <Play className="w-7 h-7 fill-current" />
                   </div>
                 </div>
+                {/* 3D Light Sheen Swipe on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
               </div>
             </motion.div>
           </div>
@@ -613,30 +623,48 @@ export const ConceptEnterprise: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              whileHover={{ y: -8, scale: 1.015 }}
             >
               <a
                 href="#contact-cta"
-                className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 h-72 flex flex-col justify-end p-6 border border-slate-200 block"
+                className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#087FE5]/30 transition-all duration-500 h-[360px] flex flex-col justify-end p-7 border border-slate-200/80 hover:border-[#087FE5] block bg-slate-900"
               >
+                {/* Background Image with Smooth 3D Scale Zoom */}
                 <img
                   src={ind.image}
                   alt={ind.name}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-                <div className="relative z-10 space-y-2">
-                  <h3 className="text-xl font-bold text-white group-hover:text-sky-300 transition-colors font-heading">
+                {/* Multi-Stop Gradient Overlay (Dark Navy at Bottom, Light Vignette) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071B49] via-[#071B49]/60 to-black/20 group-hover:from-[#063B83]/95 group-hover:via-[#071B49]/70 transition-all duration-500" />
+
+                {/* 3D Light Sheen Sweep Effect on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+
+                {/* Top-Right Pill Badge */}
+                <div className="absolute top-4 right-4 z-20">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#071B49]/80 backdrop-blur-md text-[10px] font-mono font-bold text-[#08B9E8] border border-[#08B9E8]/30 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#08B9E8] animate-pulse" />
+                    SAP Vertical
+                  </span>
+                </div>
+
+                {/* Bottom Content Area with Smooth Text Stagger */}
+                <div className="relative z-20 space-y-2.5">
+                  <div className="inline-block px-2.5 py-0.5 rounded bg-[#087FE5]/30 backdrop-blur-md border border-[#087FE5]/40 text-[#08B9E8] text-[10px] font-bold uppercase tracking-wider font-mono">
+                    {ind.tagline || 'ENTERPRISE ERP VERTICAL'}
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#08B9E8] transition-colors font-heading leading-tight">
                     {ind.name}
                   </h3>
-                  <p className="text-xs text-slate-300 line-clamp-2">
+                  <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 leading-relaxed">
                     {ind.summary}
                   </p>
-                  <div className="pt-2 flex items-center text-xs font-bold text-sky-400 group-hover:text-white transition-colors">
-                    <span>Enquire Solutions</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                  <div className="pt-2 flex items-center text-xs font-bold text-[#08B9E8] group-hover:text-white transition-colors">
+                    <span>Explore Industry Architecture</span>
+                    <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </div>
               </a>
@@ -646,56 +674,76 @@ export const ConceptEnterprise: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          7. MAWAI "SERVICES & SOLUTIONS" CARDS SECTION (3D Hover Glow)
+          7. MAWAI "SERVICES & SOLUTIONS" CARDS SECTION (3D Hover Glow & Sheen)
       ========================================================================= */}
-      <section id="services" className="bg-[#f5f8fc] py-24 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <section id="services" className="bg-[#f5f8fc] py-24 border-t border-slate-200 relative overflow-hidden">
+        {/* Subtle decorative background aura */}
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-[#087FE5]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 left-0 w-80 h-80 bg-[#063B83]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
-                Our Expertise
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#071B49] mt-2 font-heading">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#087FE5]/10 border border-[#087FE5]/20 text-xs font-bold uppercase tracking-widest text-[#063B83] mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#087FE5] animate-pulse" />
+                Proven Enterprise Practice
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#071B49] font-heading tracking-tight">
                 Enterprise SAP & IT Services
               </h2>
+              <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl">
+                End-to-end consulting, migration, customization, and 24/7 managed support powered by certified SAP architects.
+              </p>
             </div>
             <a
               href="#contact-cta"
-              className="mt-4 md:mt-0 text-xs font-bold uppercase tracking-wider text-[#063B83] hover:text-[#087FE5] flex items-center gap-1.5"
+              className="mt-6 md:mt-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#063B83] to-[#087FE5] hover:shadow-lg hover:shadow-[#087FE5]/25 transition-all group"
             >
-              <span>Consult On Services</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Explore All Services</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SERVICES.slice(0, 6).map((service: ServiceItem, idx) => (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                whileHover={{ y: -8, scale: 1.015 }}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-[#087FE5]/50 flex flex-col justify-between group"
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                whileHover={{ y: -10 }}
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#087FE5]/20 transition-all duration-500 border border-slate-200/90 hover:border-[#087FE5] flex flex-col justify-between"
               >
                 <div>
-                  <div className="h-48 w-full overflow-hidden relative">
+                  {/* Image container with 3D sheen swipe reflection & zoom */}
+                  <div className="h-56 w-full overflow-hidden relative">
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-0.5 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#063B83] text-white text-[10px] font-bold uppercase font-mono shadow">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#071B49]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                    
+                    {/* 3D Sheen Light Reflection Sweep on Hover */}
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+
+                    {/* Category Badge */}
+                    <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-md bg-[#071B49]/90 backdrop-blur-md text-[#08B9E8] text-[10px] font-bold uppercase font-mono tracking-wider border border-[#087FE5]/40 shadow-md">
                       {service.category}
+                    </div>
+
+                    <div className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur text-[#063B83] flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-75 transition-all shadow-md">
+                      <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
 
+                  {/* Body Content */}
                   <div className="p-6 space-y-3">
-                    <h3 className="text-lg font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors font-heading">
+                    <h3 className="text-xl font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors font-heading leading-snug">
                       {service.title}
                     </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                       {service.shortDesc}
                     </p>
                   </div>
@@ -705,16 +753,16 @@ export const ConceptEnterprise: React.FC = () => {
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <a
                       href="#contact-cta"
-                      className="text-xs font-bold text-[#063B83] group-hover:text-[#087FE5] flex items-center gap-1"
+                      className="text-xs font-bold text-[#063B83] group-hover:text-[#087FE5] flex items-center gap-1.5 transition-colors"
                     >
                       <span>Explore Scope</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </a>
                     <a
                       href="#contact-cta"
-                      className="text-xs text-slate-400 hover:text-slate-600 font-medium"
+                      className="text-xs text-slate-400 group-hover:text-[#071B49] font-semibold transition-colors"
                     >
-                      Enquire
+                      Enquire Now →
                     </a>
                   </div>
                 </div>
@@ -735,13 +783,13 @@ export const ConceptEnterprise: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16 space-y-3"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
-            Career Incubation
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#071B49] font-heading">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#087FE5]/10 border border-[#087FE5]/20 text-xs font-bold uppercase tracking-widest text-[#063B83]">
+            Career Incubation & Enablement
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#071B49] font-heading tracking-tight">
             Take Your Careers to New Heights with the Leading ERP Solution Provider
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
             Upskill with real enterprise projects, 24/7 dedicated server sandboxes, and structured curriculum designed by veteran SAP consultants.
           </p>
         </motion.div>
@@ -753,27 +801,39 @@ export const ConceptEnterprise: React.FC = () => {
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.08 }}
-              whileHover={{ y: -6, borderColor: '#087FE5' }}
-              className="bg-white rounded-xl p-5 shadow border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between"
+              transition={{ duration: 0.35, delay: i * 0.06 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl hover:shadow-[#087FE5]/20 border border-slate-200/90 hover:border-[#087FE5] transition-all duration-300 flex flex-col justify-between overflow-hidden"
             >
+              {/* Subtle gradient corner glow */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#087FE5]/10 to-transparent rounded-bl-full pointer-events-none group-hover:from-[#087FE5]/20 transition-all" />
+
               <div>
-                <span className="text-[10px] font-mono font-bold text-[#063B83] bg-blue-50 px-2 py-0.5 rounded">
-                  {mod.code}
-                </span>
-                <h3 className="text-sm font-bold text-[#071B49] mt-2 mb-1.5">{mod.title}</h3>
-                <p className="text-xs text-slate-500 line-clamp-3 mb-4">{mod.shortDesc}</p>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-mono font-bold text-[#063B83] bg-blue-50/90 border border-blue-200/60 px-2.5 py-1 rounded-md shadow-xs group-hover:bg-[#063B83] group-hover:text-white transition-colors">
+                    {mod.code}
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400 font-mono">Live Sandbox</span>
+                </div>
+                <h3 className="text-base font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors font-heading mb-2">
+                  {mod.title}
+                </h3>
+                <p className="text-xs text-slate-600 line-clamp-3 mb-4 leading-relaxed font-normal">
+                  {mod.shortDesc}
+                </p>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <a
                   href="#contact-cta"
-                  className="text-xs font-semibold text-[#087FE5] hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-[#087FE5] group-hover:text-[#063B83] flex items-center gap-1 group-hover:gap-1.5 transition-all"
                 >
                   <span>Request Syllabus</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
-                <span className="text-[11px] text-slate-400">{mod.duration}</span>
+                <span className="text-[11px] font-semibold text-slate-500 font-mono bg-slate-50 px-2 py-0.5 rounded">
+                  {mod.duration}
+                </span>
               </div>
             </motion.div>
           ))}
@@ -781,71 +841,111 @@ export const ConceptEnterprise: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          9. MAWAI "BLOGS" SECTION (Executive Tech Insights)
+          9. MAWAI "BLOGS" SECTION (Exact Match with Image 1: Date Block, Hover Zoom & Brand Blue)
       ========================================================================= */}
-      <section id="blogs" className="bg-[#f5f8fc] py-24 border-t border-slate-200">
+      <section id="blogs" className="bg-[#f8fafc] py-24 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
-                Insights & Knowledge
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#071B49] mt-2 font-heading">
-                Latest From Our Blog
-              </h2>
-            </div>
-            <a
-              href="#contact-cta"
-              className="mt-4 md:mt-0 text-xs font-bold uppercase tracking-wider text-[#063B83] hover:text-[#087FE5] flex items-center gap-1.5"
-            >
-              <span>View Articles</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+          {/* Centered Mawai Header */}
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5] font-mono">
+              INSIGHTS & PERSPECTIVES
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#071B49] font-heading">
+              Blogs
+            </h2>
+            <div className="w-12 h-1 bg-[#087FE5] mx-auto mt-2 rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {BLOGS.slice(0, 3).map((blog: BlogItem, idx) => (
+            {[
+              {
+                id: 1,
+                day: '2',
+                month: 'DEC',
+                title: 'Empowering Your Business with SAP',
+                author: 'by Admin',
+                category: 'Technology',
+                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+                excerpt: 'How next-generation SAP ERP cloud architectures drive operational agility, eliminate process bottlenecks, and scale revenue.'
+              },
+              {
+                id: 2,
+                day: '7',
+                month: 'JAN',
+                title: 'SAP: Driving Industry Transformation ...',
+                author: 'by Admin',
+                category: 'Technology',
+                image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
+                excerpt: 'Explore how AI-integrated SAP S/4HANA automates predictive maintenance, supply chains, and statutory tax compliance.'
+              },
+              {
+                id: 3,
+                day: '12',
+                month: 'FEB',
+                title: 'SAP S/4HANA Cloud: Private or Public? ...',
+                author: 'by Admin',
+                category: 'Technology',
+                image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+                excerpt: 'Comprehensive decision framework comparing private versus public cloud ERP deployments for high-growth enterprises.'
+              }
+            ].map((blog, idx) => (
               <motion.div
                 key={blog.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="bg-white rounded-xl overflow-hidden shadow border border-slate-200 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/90 hover:border-[#087FE5]/50 flex flex-col justify-between cursor-pointer"
               >
                 <div>
-                  <div className="h-44 w-full overflow-hidden relative">
+                  {/* Image with Top-Right Date Badge & Smooth Hover Zoom */}
+                  <div className="relative h-60 sm:h-64 w-full overflow-hidden bg-slate-100">
                     <img
                       src={blog.image}
                       alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
-                    <span className="absolute top-3 left-3 px-2 py-0.5 rounded bg-white text-[#063B83] text-[10px] font-bold uppercase font-mono shadow">
-                      {blog.category}
-                    </span>
+                    {/* Subtle Dark Vignette on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    {/* Top-Right Mawai Date Badge (Brand Electric Blue & White) */}
+                    <div className="absolute top-3 right-3 z-20 bg-gradient-to-b from-[#087FE5] to-[#063B83] text-white px-3.5 py-2 rounded-lg shadow-lg text-center flex flex-col items-center justify-center min-w-[50px] border border-white/20 group-hover:scale-105 transition-transform">
+                      <span className="text-lg font-black leading-none font-heading">{blog.day}</span>
+                      <span className="text-[10px] font-extrabold tracking-wider leading-none mt-1 uppercase font-mono">{blog.month}</span>
+                    </div>
                   </div>
 
-                  <div className="p-6 space-y-2">
-                    <h3 className="text-base font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors line-clamp-2">
+                  {/* Content Container */}
+                  <div className="p-6 sm:p-7 space-y-3">
+                    {/* Meta info: by Admin & Technology */}
+                    <div className="flex items-center gap-4 text-xs font-medium text-slate-500">
+                      <span className="flex items-center gap-1.5 text-slate-600">
+                        <User className="w-3.5 h-3.5 text-[#087FE5]" />
+                        <span>{blog.author}</span>
+                      </span>
+                      <span className="flex items-center gap-1.5 text-slate-600">
+                        <Tag className="w-3.5 h-3.5 text-[#087FE5]" />
+                        <span>{blog.category}</span>
+                      </span>
+                    </div>
+
+                    {/* Blog Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors leading-snug font-heading">
                       <a href="#contact-cta">{blog.title}</a>
                     </h3>
-                    <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+
+                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
                       {blog.excerpt}
                     </p>
                   </div>
                 </div>
 
-                <div className="p-6 pt-0">
+                <div className="p-6 sm:p-7 pt-0">
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="text-slate-400 font-mono text-[11px]">{blog.date}</span>
-                    <a
-                      href="#contact-cta"
-                      className="font-bold text-[#063B83] group-hover:text-[#087FE5] flex items-center gap-1"
-                    >
-                      <span>Read Article</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
+                    <span className="text-xs font-bold text-[#087FE5] group-hover:text-[#063B83] flex items-center gap-1 transition-colors">
+                      <span>Read Full Insight</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                    </span>
                   </div>
                 </div>
               </motion.div>
