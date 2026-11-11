@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {
   Phone,
   Mail,
@@ -68,12 +67,12 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-5">
             <a href="/" className="inline-block p-3 bg-white rounded-xl shadow-lg border border-slate-200 hover:scale-[1.02] transition-transform">
               <img
-                src="/zisantech_3d_white_crisp.png"
+                src="/zisantech_official_logo.png"
                 alt="ZisanTech - INNOVATE • DEVELOP • GROW"
                 className="h-10 sm:h-12 w-auto object-contain"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/zisantech_official_logo.png';
+                  target.src = '/zisantech_logo_transparent.png';
                 }}
               />
             </a>
@@ -86,12 +85,12 @@ export const Footer: React.FC = () => {
             <div className="pt-2">
               <div className="p-3 bg-white rounded-xl shadow-md border border-slate-200 inline-flex items-center gap-3">
                 <img
-                  src="/sap_gold_partner.png"
+                  src="/sap_gold_partner_perfect.svg"
                   alt="Official SAP Gold Partner"
-                  className="h-11 w-auto object-contain"
+                  className="h-10 sm:h-11 w-auto object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = '/sap_partner_badge.svg';
+                    target.src = '/sap_gold_partner.png';
                   }}
                 />
                 <div className="border-l border-slate-200 pl-3">
@@ -212,11 +211,11 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} ZisanTech Solutions. All Rights Reserved. SAP, SAP S/4HANA, and RISE with SAP are registered trademarks of SAP SE.
           </p>
           <div className="flex items-center space-x-6 text-[11px]">
-            <Link to="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/about" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link to="/contact" className="hover:text-white transition-colors flex items-center gap-1">
+            <a href="#about" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#about" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#contact-cta" className="hover:text-white transition-colors flex items-center gap-1">
               <Lock className="w-3 h-3 text-[#08B9E8]" /> Client Portal
-            </Link>
+            </a>
           </div>
         </div>
       </div>

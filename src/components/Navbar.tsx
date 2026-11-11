@@ -145,19 +145,19 @@ export const Navbar: React.FC = () => {
 
       {/* 2. MAIN HEADER: Brand Logo (Left), Navigation (Center), Authentic SAP Gold Partner (Right) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between relative">
-        {/* Left: Official ZisanTech 3D Metallic Brand Logo (100% Uncut with full circular medallion) */}
+        {/* Left: Official ZisanTech Brand Logo (Restored original clean vector logo) */}
         <button
           onClick={() => scrollToSection('top')}
           className="flex items-center gap-2 group flex-shrink-0 cursor-pointer text-left"
           aria-label="ZisanTech Home"
         >
           <img
-            src="/zisantech_3d_white_crisp.png"
+            src="/zisantech_official_logo.png"
             alt="ZisanTech - INNOVATE • DEVELOP • GROW"
-            className="h-12 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '/zisantech_full_uncut_3d.png';
+              target.src = '/zisantech_logo_transparent.png';
             }}
           />
         </button>
@@ -447,16 +447,16 @@ export const Navbar: React.FC = () => {
           </button>
         </nav>
 
-        {/* Right: Authentic SAP Gold Partner Logo - Uncut & Crisp with 3D Depth */}
+        {/* Right: Authentic SAP Gold Partner Logo in Clean Subtle Card (Matches Original) */}
         <div className="hidden lg:flex items-center space-x-2 flex-shrink-0 pl-3">
-          <div className="p-1 transition-all duration-300 hover:scale-105">
+          <div className="flex items-center p-1.5 bg-white border border-slate-200 rounded-lg shadow-sm hover:shadow transition-all">
             <img
-              src="/sap_gold_partner.png"
+              src="/sap_gold_partner_perfect.svg"
               alt="Official SAP Gold Partner"
-              className="h-11 sm:h-12 w-auto object-contain drop-shadow-sm"
+              className="h-9 sm:h-10 w-auto object-contain"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-                target.src = '/sap_partner_badge.svg';
+                target.src = '/sap_gold_partner.png';
               }}
             />
           </div>
@@ -476,14 +476,20 @@ export const Navbar: React.FC = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <img
-              src="/sap_gold_partner.png"
-              alt="Official SAP Gold Partner"
-              className="h-9 w-auto object-contain"
-            />
+            <div className="p-1 bg-white border border-slate-200 rounded-lg shadow-sm">
+              <img
+                src="/sap_gold_partner_perfect.svg"
+                alt="Official SAP Gold Partner"
+                className="h-8 w-auto object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/sap_gold_partner.png';
+                }}
+              />
+            </div>
             <button
               onClick={() => scrollToSection('contact-cta')}
-              className="px-3 py-1.5 bg-[#063B83] text-white text-xs font-bold rounded"
+              className="px-3.5 py-1.5 bg-[#063B83] text-white text-xs font-bold rounded shadow-sm"
             >
               Consult Now
             </button>

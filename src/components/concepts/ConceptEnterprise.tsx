@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ChevronLeft,
@@ -18,9 +17,6 @@ import {
   Cpu,
   GraduationCap,
   Play,
-  Cloud,
-  Workflow,
-  BarChart3,
   MessageSquare
 } from 'lucide-react';
 import {
@@ -42,59 +38,56 @@ export const ConceptEnterprise: React.FC = () => {
     {
       badge: 'IDEAL FOR ALL BUSINESS SIZES',
       line1: 'Empower Your Business',
-      highlight: 'Customizable SAP',
-      line2: 'Solutions',
-      line3: 'With ZisanTech',
+      highlight: 'With Customizable SAP',
+      line2: 'Solutions With ZisanTech',
       description: 'Elevate your small or medium-sized enterprise to the next level with our certified SAP S/4HANA solutions, agile implementations, and 24/7 dedicated support.',
-      bgImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80',
+      bgImage: '/slide1_bg.webp',
       btnText: 'GET A FREE DEMO',
-      btnLink: '/contact',
-      secondaryBtnText: 'DISCOVER SERVICES',
-      secondaryBtnLink: '/services1/SAP SERVICES/1'
+      btnLink: '#contact-cta',
+      secondaryBtnText: 'EXPLORE SERVICES',
+      secondaryBtnLink: '#services'
     },
     {
       badge: 'CERTIFIED RISE WITH SAP PRACTICE',
-      line1: 'Accelerate Next-Gen',
-      highlight: 'Cloud ERP Migration',
-      line2: 'With Zero Downtime',
-      line3: 'Guaranteed',
-      description: 'Proven enterprise SAP S/4HANA migrations, statutory tax automation (E-Invoicing & E-Way Bill), and seamless third-party ERP integrations.',
-      bgImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=80',
+      line1: 'Unlock The Power Of',
+      highlight: 'SAP S/4HANA Cloud ERP',
+      line2: 'With ZisanTech Enterprise',
+      description: 'Your Trusted Partner for Cloud, On-Premise, and Hybrid Solutions, empowering your enterprise to achieve operational excellence and real-time visibility.',
+      bgImage: '/slide2_bg.webp',
       btnText: 'CONSULT AN ARCHITECT',
-      btnLink: '/contact',
+      btnLink: '#contact-cta',
       secondaryBtnText: 'EXPLORE SOLUTIONS',
-      secondaryBtnLink: '/services1/SAP SERVICES/1'
+      secondaryBtnLink: '#services'
     },
     {
       badge: '10+ YEARS OF PROVEN DELIVERY',
-      line1: 'Build A Sustainable',
-      highlight: 'Digital Future',
-      line2: 'With Enterprise SAP',
-      line3: 'Solutions',
+      line1: 'Best SAP ERP Consultancy',
+      highlight: 'Tailored For Enterprise Growth',
+      line2: '& Process Automation',
       description: 'Comprehensive SAP consulting, tailored ERP modules for Indian manufacturing and retail, and hands-on professional corporate training.',
-      bgImage: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1800&q=80',
-      btnText: 'SCHEDULE CONSULTATION',
-      btnLink: '/contact',
+      bgImage: '/slide3_bg.webp',
+      btnText: 'SCHEDULE DEMO',
+      btnLink: '#contact-cta',
       secondaryBtnText: 'ABOUT ZISANTECH',
-      secondaryBtnLink: '/about'
+      secondaryBtnLink: '#about'
     }
   ];
 
-  // Auto-slide every 7 seconds
+  // Auto-slide every 6 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
+    }, 6000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
   return (
     <div className="bg-white text-slate-800 font-sans selection:bg-[#063B83] selection:text-white overflow-hidden">
       {/* =========================================================================
-          1. MAWAI AUTHENTIC HERO BANNER WITH VIBRANT 2-TONE TYPOGRAPHY
+          1. MAWAI AUTHENTIC REVOLUTION SLIDER HERO BANNER
       ========================================================================= */}
-      <section className="relative w-full h-[620px] sm:h-[680px] lg:h-[750px] overflow-hidden bg-slate-950">
-        {/* Slides Container - Smooth crossfade where text is ALWAYS visible */}
+      <section className="relative w-full h-[580px] sm:h-[640px] md:h-[680px] lg:h-[720px] overflow-hidden bg-slate-950">
+        {/* Slides Container - Smooth crossfade with Framer Motion luxury animated text */}
         {slides.map((slide, index) => {
           const isActive = index === currentSlide;
           return (
@@ -108,78 +101,107 @@ export const ConceptEnterprise: React.FC = () => {
               <img
                 src={slide.bgImage}
                 alt={slide.line1}
-                className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[7000ms]"
+                className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[6000ms]"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80';
                 }}
               />
 
-              {/* Premium Gradient Overlay with Soft Royal Blue Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,rgba(8,127,229,0.22)_0%,transparent_65%)]"></div>
+              {/* Digital Transformation Glass HUD Overlay with Royal Navy Vignette */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/35"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,rgba(6,59,131,0.35)_0%,transparent_65%)]"></div>
 
-              {/* Slide Content: Perfectly Centered & Always in View */}
-              <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-                <div className="max-w-3xl text-left space-y-6 pt-10 sm:pt-0">
-                  {/* Mawai Top Badge with Gold Accent Bar */}
-                  <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/20 rounded shadow-md">
-                    <span className="w-6 h-0.5 bg-[#F59E0B]"></span>
-                    <span className="text-xs font-bold tracking-widest text-white uppercase font-sans">
-                      {slide.badge}
-                    </span>
-                  </div>
-
-                  {/* Main Headline - Exact 2-Tone Mawai Style with Gold SAP Highlights & Geometric Typography */}
-                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.12] tracking-tight font-heading">
-                    {slide.line1} <br />
-                    With <span className="text-[#F59E0B]">{slide.highlight}</span> <br />
-                    <span className="text-[#F59E0B]">{slide.line2}</span> {slide.line3}
-                  </h1>
-
-                  {/* Description */}
-                  <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-xl font-normal">
-                    {slide.description}
-                  </p>
-
-                  {/* Action CTA Button - Exact Mawai Gold Style */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                    <a
-                      href="#contact-cta"
-                      className="w-full sm:w-auto text-center px-8 py-4 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 text-xs sm:text-sm font-extrabold tracking-widest uppercase rounded shadow-2xl transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95"
+              {/* Slide Content: Active Staggered Fluid Motion */}
+              {isActive && (
+                <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+                  <div className="max-w-3xl text-left space-y-5 sm:space-y-6 pt-8 sm:pt-0">
+                    {/* 1. Mawai Top Badge with Gold Accent Bar */}
+                    <motion.div
+                      key={`badge-${currentSlide}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 shadow-md"
                     >
-                      <span>{slide.btnText}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                    </a>
+                      <span className="w-5 h-0.5 bg-[#F59E0B] rounded-full"></span>
+                      <span className="text-[11px] sm:text-xs font-bold tracking-widest text-slate-100 uppercase font-mono">
+                        {slide.badge}
+                      </span>
+                    </motion.div>
 
-                    <a
-                      href="#services"
-                      className="w-full sm:w-auto text-center px-6 py-4 bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded backdrop-blur-md border border-white/25 transition-all hover:-translate-y-0.5 active:scale-95"
+                    {/* 2. Main Headline - Exact 2-Tone Mawai Style with Gold SAP Highlights */}
+                    <motion.h1
+                      key={`headline-${currentSlide}`}
+                      initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-extrabold text-white leading-[1.14] tracking-tight font-heading"
                     >
-                      {slide.secondaryBtnText}
-                    </a>
+                      {slide.line1} <br />
+                      <span className="text-[#F59E0B] drop-shadow-[0_2px_12px_rgba(245,158,11,0.3)]">
+                        {slide.highlight}
+                      </span>{' '}
+                      <br />
+                      {slide.line2}
+                    </motion.h1>
+
+                    {/* 3. Description */}
+                    <motion.p
+                      key={`desc-${currentSlide}`}
+                      initial={{ opacity: 0, y: 25 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-xs sm:text-sm md:text-base text-slate-200 leading-relaxed max-w-xl font-normal"
+                    >
+                      {slide.description}
+                    </motion.p>
+
+                    {/* 4. Action CTA Buttons - Mawai Gold Demo Button */}
+                    <motion.div
+                      key={`btns-${currentSlide}`}
+                      initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                      className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
+                    >
+                      <a
+                        href={slide.btnLink}
+                        className="w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 text-xs sm:text-sm font-extrabold tracking-wider uppercase rounded-lg shadow-xl shadow-[#F59E0B]/20 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                      >
+                        <span>{slide.btnText}</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                      </a>
+
+                      <a
+                        href={slide.secondaryBtnLink}
+                        className="w-full sm:w-auto text-center px-6 sm:px-7 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm tracking-wider uppercase rounded-lg backdrop-blur-md border border-white/25 transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                      >
+                        {slide.secondaryBtnText}
+                      </a>
+                    </motion.div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           );
         })}
 
-        {/* Carousel Arrow Controls */}
+        {/* Carousel Arrow Controls (Mawai Style round dark glass buttons) */}
         <button
           onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/50 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#F59E0B] hover:text-slate-950 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
           aria-label="Previous Slide"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
         <button
           onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/50 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#F59E0B] hover:text-slate-950 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
           aria-label="Next Slide"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
         {/* Slide Indicators */}
@@ -188,8 +210,8 @@ export const ConceptEnterprise: React.FC = () => {
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-2 transition-all rounded-full ${
-                i === currentSlide ? 'w-8 bg-[#087FE5]' : 'w-2.5 bg-white/40 hover:bg-white'
+              className={`h-2 transition-all rounded-full cursor-pointer ${
+                i === currentSlide ? 'w-8 bg-[#F59E0B]' : 'w-2.5 bg-white/40 hover:bg-white'
               }`}
               aria-label={`Slide ${i + 1}`}
             />
@@ -200,7 +222,7 @@ export const ConceptEnterprise: React.FC = () => {
       {/* =========================================================================
           2. MAWAI 3-FEATURE BENEFIT BAR (Overlapping 3D Tilt Cards)
       ========================================================================= */}
-      <section id="benefits" className="relative z-30 -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="benefits" className="relative z-30 -mt-8 sm:-mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -761,7 +783,7 @@ export const ConceptEnterprise: React.FC = () => {
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={`tel:${COMPANY_INFO.primaryPhone}`}
-              className="w-full sm:w-auto text-center px-8 py-3.5 bg-[#F59E0B] hover:bg-[#D97706] text-black text-xs font-bold uppercase tracking-wider rounded transition-all shadow-xl active:scale-95"
+              className="w-full sm:w-auto text-center px-8 py-3.5 bg-[#087FE5] hover:bg-white hover:text-[#071B49] text-white text-xs font-bold uppercase tracking-wider rounded transition-all shadow-xl active:scale-95"
             >
               Get a Free Demo / Consultation
             </a>
@@ -775,10 +797,10 @@ export const ConceptEnterprise: React.FC = () => {
         </div>
       </section>
 
-      {/* Floating Action / Chat Button on the Right Edge (Matches Mawai Gold/Amber Bubble) */}
+      {/* Floating Action / Chat Button on the Right Edge */}
       <a
         href="#contact-cta"
-        className="fixed right-6 bottom-8 z-40 w-14 h-14 rounded-full bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all group"
+        className="fixed right-6 bottom-8 z-40 w-14 h-14 rounded-full bg-[#087FE5] hover:bg-[#063B83] text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all group"
         aria-label="Enquire / Chat"
       >
         <MessageSquare className="w-6 h-6 group-hover:scale-110 transition-transform" />
