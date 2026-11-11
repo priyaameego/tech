@@ -142,7 +142,7 @@ export const ConceptEnterprise: React.FC = () => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   };
 
-  // Mawai 3-Feature Benefit Cards below Hero
+  // ZisanTech 3-Feature Benefit Cards below Hero
   const benefitCards = [
     {
       icon: BarChart3,
@@ -357,7 +357,7 @@ export const ConceptEnterprise: React.FC = () => {
     <div className="w-full bg-[#FFFFFF] text-[#252B29] selection:bg-[#087F5B] selection:text-white font-sans overflow-hidden">
       
       {/* ========================================================
-          1. MAWAI REVOLUTION SLIDER HERO BANNER (SAP & IT IMAGERY)
+          1. ZISANTECH REVOLUTION SLIDER HERO BANNER (SAP & IT IMAGERY)
           ======================================================== */}
       <section
         className="relative w-full h-[620px] sm:h-[680px] md:h-[720px] lg:h-[760px] overflow-hidden bg-[#252B29]"
@@ -516,7 +516,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          2. MAWAI 3-FEATURE BENEFIT BAR (Emerald & Gold Hover Cards)
+          2. ZISANTECH 3-FEATURE BENEFIT BAR (Emerald & Gold Hover Cards)
           ======================================================== */}
       <section className="relative z-30 -mt-10 sm:-mt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -555,7 +555,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          3. MAWAI "ABOUT SECTION" (Dual-Layer Image Montage & Interactive Hover)
+          3. ZISANTECH "ABOUT SECTION" (Dual-Layer Image Montage & Interactive Hover)
           ======================================================== */}
       <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
@@ -638,7 +638,7 @@ export const ConceptEnterprise: React.FC = () => {
               With a strong foundation in SAP consulting and training, we enable organizations to build capable teams while implementing systems that deliver long-term value. Our approach emphasizes clarity, adaptability, and measurable outcomes in every project we undertake.
             </p>
 
-            {/* Mawai Bullet Points with Icon Pulse */}
+            {/* ZisanTech Bullet Points with Icon Pulse */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
               {[
                 'Swift ERP Implementation & Support',
@@ -669,7 +669,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          4. MAWAI "WHY CHOOSE US" SECTION
+          4. ZISANTECH "WHY CHOOSE US" SECTION
           ======================================================== */}
       <section className="bg-gradient-to-br from-[#252B29] via-[#1A1F1D] to-[#252B29] text-white py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -746,7 +746,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          5. MAWAI FUN FACTS / METRICS STRIP
+          5. ZISANTECH FUN FACTS / METRICS STRIP
           ======================================================== */}
       <section className="bg-[#F5F3ED] py-16 border-y border-[#D2E2D9]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -810,7 +810,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          6. MAWAI "INDUSTRIES WE SERVE" (Smooth 3D Photographic Zoom)
+          6. ZISANTECH "INDUSTRIES WE SERVE" (Smooth 3D Photographic Zoom)
           ======================================================== */}
       <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -1015,7 +1015,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          8. MAWAI "OUR APPROACH" (Analyze → Design → Deploy → Support)
+          8. ZISANTECH "OUR APPROACH" (Analyze → Design → Deploy → Support)
           ======================================================== */}
       <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -1168,7 +1168,7 @@ export const ConceptEnterprise: React.FC = () => {
 
 
       {/* ========================================================
-          10. MAWAI CALL TO ACTION SECTION
+          10. ZISANTECH CALL TO ACTION SECTION
           ======================================================== */}
       <section className="bg-gradient-to-r from-[#087F5B] via-[#055B41] to-[#044230] text-white py-16 relative overflow-hidden">
         {/* Subtle decorative champagne gold ambient lighting */}

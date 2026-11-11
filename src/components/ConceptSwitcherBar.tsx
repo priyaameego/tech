@@ -16,7 +16,7 @@ const CONCEPTS: ConceptMeta[] = [
   {
     id: 'enterprise',
     name: '1. Premium Enterprise',
-    tagline: 'Mawai / ScoreLabs Enterprise Aesthetic',
+    tagline: 'Flagship ZisanTech Enterprise Aesthetic',
     badge: 'Flagship Corporate',
     icon: <Building2 className="w-4 h-4" />,
     accent: 'bg-blue-600',
