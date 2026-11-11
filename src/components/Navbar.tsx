@@ -306,12 +306,15 @@ export const Navbar: React.FC = () => {
 
             {/* Action Consultation Button on Pure White Navbar */}
             <div className="hidden lg:flex items-center space-x-3">
-              <div className="relative group cursor-default select-none">
+              <div className="relative group cursor-pointer select-none">
                 <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-[#087F5B] via-[#C6A66B] to-[#087F5B] opacity-80 blur-sm group-hover:opacity-100 transition duration-300"></div>
-                <div className="relative px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-[#FFFFFF] text-sm font-bold tracking-wide shadow-lg flex items-center gap-2">
+                <button
+                  type="button"
+                  className="relative px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-[#FFFFFF] text-sm font-bold tracking-wide shadow-lg flex items-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all"
+                >
                   <span>Get Consultation</span>
                   <Sparkles className="w-4 h-4 text-[#DFCA9C]" />
-                </div>
+                </button>
               </div>
             </div>
 
@@ -411,10 +414,13 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="pt-3">
-            <div className="w-full py-3 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-[#FFFFFF] text-center font-bold text-sm shadow-lg flex items-center justify-center gap-2 cursor-default select-none">
+            <button
+              type="button"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/60 text-[#FFFFFF] text-center font-bold text-sm shadow-lg flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98] transition-all"
+            >
               <span>Get Consultation</span>
               <Sparkles className="w-4 h-4 text-[#DFCA9C]" />
-            </div>
+            </button>
           </div>
         </div>
       )}

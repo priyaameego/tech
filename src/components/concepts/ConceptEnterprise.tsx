@@ -450,24 +450,32 @@ export const ConceptEnterprise: React.FC = () => {
                     {slide.description}
                   </motion.p>
 
-                  {/* Buttons with Hover Elevation */}
+                  {/* Buttons with Responsive Wrap, Touch Feedback & Luxury Hover */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.7, delay: 0.65 }}
-                    className="flex flex-wrap items-center gap-4 pt-2"
+                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 pt-3 max-w-lg sm:max-w-none"
                   >
-                    <div className="relative group cursor-default select-none transition-transform duration-300 hover:scale-105">
-                      <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#087F5B] via-[#C6A66B] to-[#087F5B] opacity-85 blur-md group-hover:opacity-100 transition duration-300"></div>
-                      <div className="relative px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/60 text-[#FFFFFF] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-2xl flex items-center gap-2">
+                    <div className="relative group cursor-pointer select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]">
+                      <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#087F5B] via-[#C6A66B] to-[#087F5B] opacity-80 blur-md group-hover:opacity-100 transition duration-300"></div>
+                      <button
+                        type="button"
+                        className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/60 text-[#FFFFFF] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-300 group-hover:brightness-110"
+                      >
                         <span>{slide.btnText}</span>
-                        <ArrowRight className="w-4 h-4 text-[#DFCA9C]" />
-                      </div>
+                        <ArrowRight className="w-4 h-4 text-[#DFCA9C] transition-transform duration-300 group-hover:translate-x-1" />
+                      </button>
                     </div>
 
-                    <div className="relative cursor-default select-none px-7 py-3.5 rounded-xl bg-[#1A1F1D]/90 hover:bg-[#1A1F1D] border border-[#C6A66B]/50 text-[#DFCA9C] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 flex items-center gap-2">
-                      <span>{slide.secondaryBtnText}</span>
-                      <Sparkles className="w-4 h-4 text-[#087F5B]" />
+                    <div className="relative group cursor-pointer select-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]">
+                      <button
+                        type="button"
+                        className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-[#1A1F1D]/90 hover:bg-[#1A1F1D] border border-[#C6A66B]/50 hover:border-[#C6A66B] text-[#DFCA9C] hover:text-[#FFFFFF] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-lg backdrop-blur-md transition-all duration-300 flex items-center justify-center gap-2.5"
+                      >
+                        <span>{slide.secondaryBtnText}</span>
+                        <Sparkles className="w-4 h-4 text-[#087F5B] group-hover:text-[#DFCA9C] transition-colors" />
+                      </button>
                     </div>
                   </motion.div>
 
@@ -657,10 +665,13 @@ export const ConceptEnterprise: React.FC = () => {
 
             {/* CTA Button */}
             <div className="pt-2">
-              <div className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-default select-none">
+              <button
+                type="button"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 sm:px-9 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/60 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer group"
+              >
                 <span>Discover More About Us</span>
-                <ArrowRight className="w-4 h-4 text-[#DFCA9C]" />
-              </div>
+                <ArrowRight className="w-4 h-4 text-[#DFCA9C] transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
             </div>
           </motion.div>
 
@@ -1212,17 +1223,23 @@ export const ConceptEnterprise: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-5 max-w-md sm:max-w-none mx-auto"
           >
-            <div className="cursor-default select-none px-8 py-3.5 bg-white hover:bg-[#F5F3ED] text-[#087F5B] text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl hover:scale-105 flex items-center gap-2">
+            <button
+              type="button"
+              className="cursor-pointer select-none px-7 sm:px-9 py-3.5 sm:py-4 bg-white hover:bg-[#F5F3ED] text-[#087F5B] text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98] flex items-center justify-center gap-2.5 group"
+            >
               <span>Get a Free Demo / Consultation</span>
-              <ArrowRight className="w-4 h-4 text-[#C6A66B]" />
-            </div>
+              <ArrowRight className="w-4 h-4 text-[#C6A66B] transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
 
-            <div className="cursor-default select-none px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl border border-white/20 transition-all flex items-center gap-2">
+            <button
+              type="button"
+              className="cursor-pointer select-none px-6 sm:px-8 py-3.5 sm:py-4 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl border border-white/25 hover:border-[#DFCA9C]/60 transition-all hover:scale-[1.03] active:scale-[0.98] flex items-center justify-center gap-2.5"
+            >
               <PhoneCall className="w-4 h-4 text-[#DFCA9C]" />
               <span>{COMPANY_INFO.primaryPhone}</span>
-            </div>
+            </button>
           </motion.div>
         </div>
       </section>
