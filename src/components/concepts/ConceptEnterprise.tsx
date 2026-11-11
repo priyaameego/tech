@@ -31,7 +31,6 @@ import {
 } from '../../data/siteData';
 
 export const ConceptEnterprise: React.FC = () => {
-  // Slider state matching Mawai's 3-slide Revolution Slider
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -64,20 +63,20 @@ export const ConceptEnterprise: React.FC = () => {
     }
   ];
 
-  // Auto-advance slide every 6 seconds
+  // Auto-slide every 6.5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    }, 6500);
     return () => clearInterval(timer);
   }, [slides.length]);
 
   return (
     <div className="bg-white text-slate-800 font-sans selection:bg-[#063B83] selection:text-white">
       {/* =========================================================================
-          1. MAWAI REVOLUTION HERO SLIDER BANNER
+          1. PREMIUM HERO REVOLUTION SLIDER BANNER (Mawai Reference Standard)
       ========================================================================= */}
-      <section className="relative w-full h-[580px] sm:h-[640px] lg:h-[700px] overflow-hidden bg-slate-900">
+      <section className="relative w-full h-[600px] sm:h-[660px] lg:h-[720px] overflow-hidden bg-slate-950">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -85,27 +84,28 @@ export const ConceptEnterprise: React.FC = () => {
               index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
             }`}
           >
-            {/* Background Image with Black & White overlay like Mawai */}
+            {/* Grayscale Enterprise Collaboration Visual with HUD Icons */}
             <img
               src={slide.bgImage}
               alt={slide.headingMain}
-              className="w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[6000ms]"
+              className="w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[7000ms]"
               onError={(e) => {
-                // fallback to high quality enterprise image
                 const target = e.target as HTMLImageElement;
                 target.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80';
               }}
             />
-            {/* Digital Transformation Glass HUD Icons Overlay (Exact Mawai Hero Feel) */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(6,59,131,0.35)_0%,transparent_70%)]"></div>
 
-            {/* Slide Content */}
+            {/* Premium Gradient Overlay with Soft Royal Blue Vignette */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/35"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,rgba(8,127,229,0.22)_0%,transparent_65%)]"></div>
+
+            {/* Slide Text Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-20">
-              <div className="max-w-2xl text-left space-y-5 animate-fade-in">
-                {/* Sub-title */}
-                <div className="inline-block">
-                  <span className="text-xs sm:text-sm font-bold tracking-widest text-sky-400 uppercase font-mono bg-white/10 px-3 py-1 rounded backdrop-blur-sm border border-white/15">
+              <div className="max-w-3xl text-left space-y-6 animate-fade-in">
+                {/* Subtitle Badge */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded bg-white/10 backdrop-blur-md border border-white/20">
+                  <span className="w-2 h-2 rounded-full bg-[#08B9E8] animate-ping"></span>
+                  <span className="text-xs font-bold tracking-widest text-[#08B9E8] uppercase font-mono">
                     {slide.title}
                   </span>
                 </div>
@@ -120,21 +120,21 @@ export const ConceptEnterprise: React.FC = () => {
                   {slide.description}
                 </p>
 
-                {/* Primary CTA Button: Mawai Style */}
+                {/* Action CTA Buttons */}
                 <div className="pt-3 flex flex-wrap items-center gap-4">
                   <Link
                     to={slide.btnLink}
-                    className="px-8 py-3.5 bg-[#063B83] hover:bg-[#087FE5] text-white text-sm font-bold tracking-wider uppercase rounded shadow-lg transition-all flex items-center gap-2 group"
+                    className="px-8 py-4 bg-[#063B83] hover:bg-[#087FE5] text-white text-xs sm:text-sm font-bold tracking-wider uppercase rounded shadow-xl transition-all flex items-center gap-2 group hover:-translate-y-0.5"
                   >
                     <span>{slide.btnText}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                   </Link>
 
                   <Link
                     to="/about"
-                    className="px-6 py-3.5 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold tracking-wide uppercase rounded backdrop-blur-md border border-white/20 transition-all"
+                    className="px-6 py-4 bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded backdrop-blur-md border border-white/25 transition-all hover:-translate-y-0.5"
                   >
-                    About Us
+                    About ZisanTech
                   </Link>
                 </div>
               </div>
@@ -142,10 +142,10 @@ export const ConceptEnterprise: React.FC = () => {
           </div>
         ))}
 
-        {/* Slider Navigation Arrows (Mawai Left/Right buttons) */}
+        {/* Carousel Arrow Controls */}
         <button
           onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110"
           aria-label="Previous Slide"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -153,7 +153,7 @@ export const ConceptEnterprise: React.FC = () => {
 
         <button
           onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-[#063B83] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110"
           aria-label="Next Slide"
         >
           <ChevronRight className="w-6 h-6" />
@@ -166,7 +166,7 @@ export const ConceptEnterprise: React.FC = () => {
               key={i}
               onClick={() => setCurrentSlide(i)}
               className={`h-2 transition-all rounded-full ${
-                i === currentSlide ? 'w-8 bg-[#087FE5]' : 'w-2.5 bg-white/50 hover:bg-white'
+                i === currentSlide ? 'w-8 bg-[#087FE5]' : 'w-2.5 bg-white/40 hover:bg-white'
               }`}
               aria-label={`Slide ${i + 1}`}
             />
@@ -179,7 +179,7 @@ export const ConceptEnterprise: React.FC = () => {
       ========================================================================= */}
       <section className="relative z-30 -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#063B83] space-y-3 hover:-translate-y-1 transition-all duration-300">
+          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#063B83] space-y-3 hover:-translate-y-1.5 transition-all duration-300">
             <div className="w-12 h-12 rounded-lg bg-blue-50 text-[#063B83] flex items-center justify-center">
               <Clock className="w-6 h-6" />
             </div>
@@ -189,7 +189,7 @@ export const ConceptEnterprise: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#087FE5] space-y-3 hover:-translate-y-1 transition-all duration-300">
+          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#087FE5] space-y-3 hover:-translate-y-1.5 transition-all duration-300">
             <div className="w-12 h-12 rounded-lg bg-sky-50 text-[#087FE5] flex items-center justify-center">
               <TrendingUp className="w-6 h-6" />
             </div>
@@ -199,7 +199,7 @@ export const ConceptEnterprise: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#063B83] space-y-3 hover:-translate-y-1 transition-all duration-300">
+          <div className="bg-white p-7 rounded-lg shadow-xl border-t-4 border-[#063B83] space-y-3 hover:-translate-y-1.5 transition-all duration-300">
             <div className="w-12 h-12 rounded-lg bg-blue-50 text-[#063B83] flex items-center justify-center">
               <ShieldCheck className="w-6 h-6" />
             </div>
@@ -258,7 +258,7 @@ export const ConceptEnterprise: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Image Composition (Mawai Style Corporate Team Visual) */}
+          {/* Right Image Composition */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
               <img
@@ -282,7 +282,7 @@ export const ConceptEnterprise: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          4. MAWAI "OFFER / WHY CHOOSE US" SECTION (Full-width Navy Blue)
+          4. MAWAI "WHY CHOOSE US" SECTION (Full-width Navy Blue)
       ========================================================================= */}
       <section className="bg-[#071B49] text-white py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -8,7 +8,6 @@ import {
   Mail,
   MapPin,
   ArrowRight,
-  ChevronRight,
   Cpu,
   Layers,
   GraduationCap,
@@ -17,8 +16,7 @@ import {
   Fuel,
   Sprout,
   Workflow,
-  FlaskConical,
-  Award
+  FlaskConical
 } from 'lucide-react';
 import { SERVICES, TRAINING_MODULES, INDUSTRIES, COMPANY_INFO } from '../data/siteData';
 
@@ -43,7 +41,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="w-full sticky top-0 z-50 bg-white shadow-md font-sans">
-      {/* 1. TOP MICRO-BAR: Identical to Mawai Top Bar (Email, Address, Social Icons) */}
+      {/* 1. TOP MICRO-BAR: Mawai Professional Top Bar (Email, Address, Phone, Social) */}
       <div className="bg-[#f5f8fc] border-b border-slate-200 text-xs text-slate-600 py-2 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center space-x-6">
@@ -89,23 +87,20 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. MAIN HEADER: Mawai Structure (Brand Logo on Left, Navigation in Center, SAP Gold Partner Badge on Right) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        {/* Left: ZisanTech Official Logo */}
+      {/* 2. MAIN HEADER: Brand Logo (Left), Navigation (Center), SAP Gold Partner (Right) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+        {/* Left: Official ZisanTech Brand Logo from User Image */}
         <Link to="/" className="flex items-center gap-3 group">
           <img
-            src="/zisantech_logo.png"
-            alt="ZisanTech Solutions"
-            className="h-10 sm:h-12 w-auto object-contain"
+            src="/zisantech_logo_transparent.png"
+            alt="ZisanTech - INNOVATE • DEVELOP • GROW"
+            className="h-11 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105"
             onError={(e) => {
-              const target = e.target as HTMLElement;
-              target.style.display = 'none';
+              // fallback
+              const target = e.target as HTMLImageElement;
+              target.src = '/zisantech_official_logo.png';
             }}
           />
-          <div className="hidden sm:block border-l border-slate-200 pl-3">
-            <p className="text-sm font-extrabold text-[#071B49] leading-tight tracking-tight uppercase">ZisanTech</p>
-            <p className="text-[10px] font-semibold text-[#087FE5] tracking-wider uppercase">SAP Consulting</p>
-          </div>
         </Link>
 
         {/* Center: Desktop Navigation Bar with Smooth Dropdowns */}
@@ -251,7 +246,7 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Industries Dropdown (Requirement: "We Serve Industries") */}
+          {/* Industries Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setActiveDropdown('industries')}
@@ -323,17 +318,13 @@ export const Navbar: React.FC = () => {
           </Link>
         </nav>
 
-        {/* Right: SAP Partner Badge (Mawai's Signature Header Badge) */}
+        {/* Right: Official SAP Gold Partner Badge (Mawai Style) */}
         <div className="hidden lg:flex items-center space-x-3">
           <div className="flex items-center gap-2 p-1 bg-white border border-slate-200 rounded shadow-sm hover:shadow transition-shadow">
             <img
               src="/SAPlogo.webp"
               alt="SAP Gold Partner"
               className="h-10 w-auto object-contain"
-              onError={(e) => {
-                const target = e.target as HTMLElement;
-                target.style.display = 'none';
-              }}
             />
           </div>
         </div>

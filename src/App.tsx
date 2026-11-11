@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ConceptProvider } from './context/ConceptContext';
-import { ConceptSwitcherBar } from './components/ConceptSwitcherBar';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 
@@ -30,17 +29,14 @@ export const App: React.FC = () => {
     <ConceptProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans selection:bg-brand-blue selection:text-white">
-          {/* Interactive 5-Concept Switcher Bar */}
-          <ConceptSwitcherBar />
-
-          {/* Sticky Modern Navbar with "We Serve Industries" and all dropdowns */}
+        <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans selection:bg-[#087FE5] selection:text-white">
+          {/* Clean Premium Sticky Navbar with Brand Logo & SAP Partner Badge */}
           <Navbar />
 
           {/* Page Routing */}
           <main className="flex-grow">
             <Routes>
-              {/* Homepage with 5 switchable concepts */}
+              {/* Homepage */}
               <Route path="/" element={<HomePage />} />
 
               {/* Core Information Pages */}
