@@ -7,117 +7,94 @@
     scroll-behavior: smooth;
   }
   body {
-    color: #18243A;
-    background-color: #F3F7FC;
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #252B29;
+    background-color: #F5F3ED;
+    font-family: 'Plus Jakarta Sans', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.01em;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sora', 'Montserrat', sans-serif;
+    font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
     letter-spacing: -0.025em;
   }
 }
 
-/* ZisanTech Official Brand Colors & Surfaces */
-.bg-brand-navy {
-  background-color: #071B49;
+/* 3D Perspective & Transform Classes */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
-.bg-brand-corporate {
-  background-color: #063B83;
+.perspective-1200 {
+  perspective: 1200px;
 }
 
-.bg-brand-surface {
-  background-color: #F3F7FC;
+.transform-style-3d {
+  transform-style: preserve-3d;
 }
 
-/* Premium Enterprise Glass & Card Elements */
-.card-enterprise {
-  background: #ffffff;
-  border: 1px solid rgba(7, 27, 73, 0.08);
-  box-shadow: 0 10px 30px rgba(7, 27, 73, 0.06);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.backface-hidden {
+  backface-visibility: hidden;
 }
 
-.card-enterprise:hover {
-  border-color: rgba(8, 127, 229, 0.4);
-  box-shadow: 0 20px 40px rgba(7, 27, 73, 0.12), 0 0 25px rgba(8, 185, 232, 0.12);
-  transform: translateY(-4px);
+/* 3D Interactive Card Hover Effect */
+.card-3d-hover {
+  transition: transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.45s ease, border-color 0.3s ease;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px);
 }
 
-.glass-navy {
-  background: rgba(7, 27, 73, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(8, 185, 232, 0.18);
+.card-3d-hover:hover {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-3deg) translateY(-10px) translateZ(16px);
+  box-shadow: 0 25px 50px -12px rgba(8, 127, 91, 0.25), 0 15px 30px -8px rgba(198, 166, 107, 0.3);
+  border-color: #C6A66B;
 }
 
-.glass-navy-card {
-  background: rgba(11, 38, 99, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 16px 40px rgba(4, 15, 43, 0.4);
+/* Animated Shimmer on Cards */
+@keyframes shimmerCard {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
 }
 
-.glass-navy-card:hover {
-  background: rgba(11, 38, 99, 0.9);
-  border-color: rgba(8, 185, 232, 0.5);
-  box-shadow: 0 20px 45px rgba(4, 15, 43, 0.6), 0 0 30px rgba(8, 185, 232, 0.2);
-  transform: translateY(-4px);
+.animate-shimmer-card {
+  animation: shimmerCard 3.5s infinite;
 }
 
-/* Gradient Texts using Official Colors */
-.text-gradient-zisantech {
-  background: linear-gradient(135deg, #071B49 0%, #087FE5 60%, #08B9E8 100%);
+/* 3D Floating Animation */
+@keyframes float3D {
+  0%, 100% {
+    transform: perspective(1000px) translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(1000px) translateY(-12px) rotateX(3deg) rotateY(-3deg);
+  }
+}
+
+.animate-float-3d {
+  animation: float3D 5s ease-in-out infinite;
+}
+
+/* Luxury Gradient Text */
+.text-gradient-emerald-gold {
+  background: linear-gradient(135deg, #087F5B 0%, #C6A66B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #FFFFFF 0%, #08B9E8 60%, #087FE5 100%);
+.text-gradient-gold {
+  background: linear-gradient(135deg, #DFCA9C 0%, #C6A66B 50%, #A6894D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Official Pill Badges */
-.badge-cyan {
-  background: rgba(8, 185, 232, 0.1);
-  border: 1px solid rgba(8, 185, 232, 0.35);
-  color: #08B9E8;
-}
-
-.badge-electric {
-  background: rgba(8, 127, 229, 0.1);
-  border: 1px solid rgba(8, 127, 229, 0.3);
-  color: #087FE5;
-}
-
-/* Brand Button Styles */
-.btn-electric {
-  background: linear-gradient(135deg, #087FE5 0%, #063B83 100%);
-  color: #ffffff;
-  box-shadow: 0 8px 25px rgba(8, 127, 229, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-electric:hover {
-  background: linear-gradient(135deg, #08B9E8 0%, #087FE5 100%);
-  box-shadow: 0 12px 30px rgba(8, 185, 232, 0.45);
-  transform: translateY(-2px);
-}
-
-.btn-cyan {
-  background: #08B9E8;
-  color: #071B49;
-  font-weight: 700;
-  box-shadow: 0 6px 20px rgba(8, 185, 232, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-cyan:hover {
-  background: #38c8f0;
-  box-shadow: 0 10px 28px rgba(8, 185, 232, 0.5);
-  transform: translateY(-2px);
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

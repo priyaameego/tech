@@ -1,603 +1,818 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeft,
   ChevronRight,
   ArrowRight,
   ShieldCheck,
-  CheckCircle,
+  CheckCircle2,
   Award,
-  Users,
-  Briefcase,
-  TrendingUp,
-  Clock,
-  Sparkles,
-  Phone,
+  Factory,
+  ShoppingBag,
+  Fuel,
+  Sprout,
+  Workflow,
+  FlaskConical,
   Layers,
   Cpu,
-  GraduationCap,
-  Play,
-  MessageSquare,
-  Rocket,
-  ThumbsUp,
+  Globe2,
+  Clock,
+  Compass,
+  FileCheck,
   BarChart3,
-  Globe,
-  User,
-  Tag
+  Server,
+  Zap,
+  PhoneCall,
+  Mail,
+  Database,
+  Code2,
+  Target,
+  Search,
+  SlidersHorizontal,
+  TrendingUp,
+  Sparkles,
+  Users,
+  Briefcase,
+  Activity,
+  Boxes,
+  Network,
+  Check,
+  MapPin,
+  Laptop,
+  CheckCheck
 } from 'lucide-react';
-import {
-  COMPANY_INFO,
-  SERVICES,
-  TRAINING_MODULES,
-  INDUSTRIES,
-  BLOGS,
-  ServiceItem,
-  IndustryItem,
-  TrainingItem,
-  BlogItem
-} from '../../data/siteData';
+import { COMPANY_INFO } from '../../data/siteData';
+
+// Word-by-word animated reveal component for premium headings
+const AnimatedHeading: React.FC<{
+  text: string;
+  className?: string;
+  highlightWords?: string[];
+  highlightClass?: string;
+}> = ({ text, className = '', highlightWords = [], highlightClass = 'text-transparent bg-clip-text bg-gradient-to-r from-[#DFCA9C] via-[#C6A66B] to-[#DFCA9C]' }) => {
+  const words = text.split(' ');
+  return (
+    <span className={className}>
+      {words.map((word, i) => {
+        const isHighlight = highlightWords.some(hw => word.toLowerCase().includes(hw.toLowerCase()));
+        return (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: i * 0.05 }}
+            className={`inline-block mr-[0.28em] ${isHighlight ? highlightClass : ''}`}
+          >
+            {word}
+          </motion.span>
+        );
+      })}
+    </span>
+  );
+};
 
 export const ConceptEnterprise: React.FC = () => {
+  // 4-Slide Automatic Hero Revolution Slider
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const slides = [
+  // Exact ZisanTech authentic messaging across 4 SAP & IT Enterprise Slides
+  const heroSlides = [
     {
-      badge: 'IDEAL FOR ALL BUSINESS SIZES',
+      id: 1,
+      badge: 'SAP S/4HANA ENTERPRISE ERP',
       line1: 'Empower Your Business',
       highlight: 'With Customizable SAP',
       line2: 'Solutions With ZisanTech',
-      description: 'Elevate your small or medium-sized enterprise to the next level with our certified SAP S/4HANA solutions, agile implementations, and 24/7 dedicated support.',
-      bgImage: '/slide1_bg.webp',
+      description: 'Elevate your enterprise with certified SAP S/4HANA solutions, clean-core implementations, cloud migrations, and 24/7 dedicated support.',
+      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=85',
       btnText: 'GET A FREE DEMO',
-      btnLink: '#contact-cta',
-      secondaryBtnText: 'EXPLORE SERVICES',
-      secondaryBtnLink: '#services'
+      secondaryBtnText: 'EXPLORE SERVICES'
     },
     {
-      badge: 'CERTIFIED RISE WITH SAP PRACTICE',
-      line1: 'Unlock The Power Of',
-      highlight: 'SAP S/4HANA Cloud ERP',
-      line2: 'With ZisanTech Enterprise',
-      description: 'Your Trusted Partner for Cloud, On-Premise, and Hybrid Solutions, empowering your enterprise to achieve operational excellence and real-time visibility.',
-      bgImage: '/slide2_bg.webp',
+      id: 2,
+      badge: 'ENTERPRISE IT & DATA INFRASTRUCTURE',
+      line1: 'Driving Smarter Operations',
+      highlight: '& Connected Experiences',
+      line2: 'With Modern IT Systems',
+      description: 'Your trusted partner for Enterprise Cloud, On-Premise Data Centers, Gate Management, and Weighbridge integrations, empowering operational excellence.',
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=85',
       btnText: 'CONSULT AN ARCHITECT',
-      btnLink: '#contact-cta',
-      secondaryBtnText: 'EXPLORE SOLUTIONS',
-      secondaryBtnLink: '#services'
+      secondaryBtnText: 'EXPLORE SOLUTIONS'
     },
     {
-      badge: '10+ YEARS OF PROVEN DELIVERY',
-      line1: 'Best SAP ERP Consultancy',
-      highlight: 'Tailored For Enterprise Growth',
-      line2: '& Process Automation',
-      description: 'Comprehensive SAP consulting, tailored ERP modules for Indian manufacturing and retail, and hands-on professional corporate training.',
-      bgImage: '/slide3_bg.webp',
-      btnText: 'SCHEDULE DEMO',
-      btnLink: '#contact-cta',
-      secondaryBtnText: 'ABOUT ZISANTECH',
-      secondaryBtnLink: '#about'
+      id: 3,
+      badge: 'PROVEN SAP ERP DELIVERY',
+      line1: 'Analyze → Design → Deploy',
+      highlight: 'Support With Impact',
+      line2: 'Comprehensive Deployment',
+      description: 'We collaborate with companies to enhance workflows, boost productivity, and fuel expansion by offering comprehensive SAP consulting, smooth integration, and continuous improvement.',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=85',
+      btnText: 'SCHEDULE AUDIT',
+      secondaryBtnText: 'ABOUT ZISANTECH'
+    },
+    {
+      id: 4,
+      badge: 'HYBRID CLOUD & CYBER INFRASTRUCTURE',
+      line1: 'Our Work Is For',
+      highlight: 'Your Success & Growth',
+      line2: 'Sustainable IT Partnerships',
+      description: 'Leveraging deep SAP expertise and modern IT solutions, we help organizations enhance operational efficiency and equip enterprise teams with simulated real-world project experiences.',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=85',
+      btnText: 'GET CONSULTATION',
+      secondaryBtnText: 'KNOW OUR STORY'
     }
   ];
 
-  // Auto-slide every 6 seconds
+  // Auto-play timer (6.5s per slide)
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6500);
+    return () => clearInterval(interval);
+  }, [isPaused, heroSlides.length]);
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  // Mawai 3-Feature Benefit Cards below Hero
+  const benefitCards = [
+    {
+      icon: BarChart3,
+      title: 'Swift ERP Implementation',
+      desc: 'Minimize downtime with our seasoned consulting team, ensuring a fast and seamless SAP Cloud & S/4HANA rollout.'
+    },
+    {
+      icon: TrendingUp,
+      title: 'Real-time Analytics',
+      desc: 'Harness the power of real-time data insights with SAP analytics, empowering proactive decision-making across all business units.'
+    },
+    {
+      icon: Clock,
+      title: '24/7 Dedicated Support',
+      desc: 'Continuous operational support to optimize performance, resolve bottlenecks, and ensure uninterrupted business operations.'
+    }
+  ];
+
+  // 6 Upgraded Premium Luxury SAP Enterprise Service Cards with Imagery & Depth
+  const enterpriseServices = [
+    {
+      id: 1,
+      title: 'SAP Rollout',
+      category: 'SAP SERVICES',
+      code: 'SR-01',
+      desc: 'Standardized multi-location and multi-entity SAP rollout solutions, ensuring seamless template extension, localized statutory compliance, and flawless business continuity.',
+      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+      icon: Layers,
+      highlight: 'Enterprise Template',
+      features: ['Multi-entity template adoption', 'Data harmonization & cutover', 'End-user change management']
+    },
+    {
+      id: 2,
+      title: 'SAP Custom Solutions',
+      category: 'SAP SERVICES',
+      code: 'CS-02',
+      desc: 'Bespoke SAP enhancements and workflow automations tailored to your unique business workflows, closing critical process gaps without bloating core system logic.',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+      icon: Compass,
+      highlight: 'Workflow Automation',
+      features: ['Custom report programs & enhancements', 'User exit & BAdI extensions', 'Automated business validations']
+    },
+    {
+      id: 3,
+      title: 'SAP Support',
+      category: 'SAP SERVICES',
+      code: 'SP-03',
+      desc: 'Dependable Level 1 to Level 3 support, ticket governance, preventive landscape maintenance, and continuous performance tuning for mission-critical operations.',
+      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
+      icon: Clock,
+      highlight: 'Reliable SLA Support',
+      features: ['24/7 incident & problem handling', 'System health checks & patching', 'Continuous user assistance']
+    },
+    {
+      id: 4,
+      title: 'SAP Integration',
+      category: 'SAP SERVICES',
+      code: 'IN-04',
+      desc: 'Seamless integration with external platforms including Gate Management, Weighbridge, Bank Integration, E-commerce portals, and HRMS applications.',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
+      icon: Network,
+      highlight: 'Platform Interconnect',
+      features: ['Gate Management & Weighbridge', 'Bank host-to-host payment APIs', 'Third-party cloud SaaS connectors']
+    },
+    {
+      id: 5,
+      title: 'SAP Consulting',
+      category: 'SAP SERVICES',
+      code: 'CN-05',
+      desc: 'Strategic guidance on SAP S/4HANA deployment, business process optimization, landscape rationalization, and digital roadmap execution.',
+      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+      icon: ShieldCheck,
+      highlight: 'Strategic Advisory',
+      features: ['Business process re-engineering', 'S/4HANA migration readiness', 'License & landscape audits']
+    },
+    {
+      id: 6,
+      title: 'SAP E-Invoice & E-Way Bill',
+      category: 'SAP SERVICES',
+      code: 'EI-06',
+      desc: 'Direct automated integration with Government NIC tax portals for seamless real-time GST E-Invoicing, QR code generation, and instant E-Way bill clearance.',
+      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+      icon: FileCheck,
+      highlight: 'Statutory Automation',
+      features: ['Direct NIC portal API integration', 'Real-time IRN & QR generation', 'Automated cancel & reconciliation']
+    }
+  ];
+
+  // Exactly 6 Industries Served
+  const sixIndustries = [
+    {
+      id: 'manufacturing',
+      name: 'Manufacturing',
+      tagline: 'End-to-End Shop Floor to Top Floor Orchestration',
+      desc: 'Empowering discrete and process manufacturers with lean production workflows, integrated supply chains, synchronized shop floor planning, and predictive maintenance.',
+      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1000&q=80',
+      icon: Factory,
+      metrics: 'Synchronized MRP'
+    },
+    {
+      id: 'retail-textile',
+      name: 'Retail & Textile',
+      tagline: 'Unified Merchandising & Omnichannel Inventory',
+      desc: 'Real-time inventory management, unified POS integrations, demand forecasting, and agile supply chain logistics tailored for fast-moving retail and textile operations.',
+      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80',
+      icon: ShoppingBag,
+      metrics: 'Unified SKU Matrix'
+    },
+    {
+      id: 'oil-gas',
+      name: 'Oil & Gas',
+      tagline: 'Asset Integrity, Safety & Upstream-to-Downstream Operations',
+      desc: 'Robust plant maintenance, asset tracking, regulatory environmental compliance, and integrated procurement for high-stakes oil and energy infrastructure.',
+      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=80',
+      icon: Fuel,
+      metrics: 'Asset Governance'
+    },
+    {
+      id: 'agro-chemical',
+      name: 'Agro Chemical',
+      tagline: 'Batch Traceability, Formulation Integrity & Safety',
+      desc: 'Precise recipe management, batch serialization, hazardous goods documentation, and compliance with stringent environmental and agricultural chemical regulations.',
+      image: 'https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=1000&q=80',
+      icon: Sprout,
+      metrics: 'Traceable Batches'
+    },
+    {
+      id: 'steel',
+      name: 'Steel',
+      tagline: 'Heavy Industrial Production, Metallurgy & Rolling Planning',
+      desc: 'Heat tracking, billet inventory optimization, scrap accounting, quality certification, and integrated transport dispatch for primary and secondary steel producers.',
+      image: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1000&q=80',
+      icon: Workflow,
+      metrics: 'Continuous Heat Tracking'
+    },
+    {
+      id: 'pharma',
+      name: 'Pharma',
+      tagline: 'GMP Validation, Quality Control & Cold-Chain Logistics',
+      desc: 'Adherence to 21 CFR Part 11 protocols, electronic batch records (eBR), automated certificate of analysis (CoA), and temperature-controlled logistics traceability.',
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=80',
+      icon: FlaskConical,
+      metrics: 'GMP Compliance'
+    }
+  ];
+
+  // Authentic 4-Step Approach: Analyze -> Design -> Deploy -> Support
+  const approachSteps = [
+    {
+      step: '01',
+      title: 'Analyze',
+      phase: 'Business & Process Discovery',
+      desc: 'We analyze your existing workflows and identify operational inefficiencies, uncovering bottlenecks in data flow and process synchronization.',
+      icon: Search,
+      deliverable: 'Workflow & Gap Analysis'
+    },
+    {
+      step: '02',
+      title: 'Design',
+      phase: 'Tailored Solution Architecture',
+      desc: 'We design streamlined, standardized processes and custom SAP configurations that fit seamlessly into your specific business requirements.',
+      icon: SlidersHorizontal,
+      deliverable: 'Tailored SAP Solution Blueprint'
+    },
+    {
+      step: '03',
+      title: 'Deploy',
+      phase: 'Seamless Integration & Testing',
+      desc: 'Our team deploys solutions with smooth integration across Gate, Weighbridge, HRMS, E-commerce, and banking platforms with rigorous quality checks.',
+      icon: Server,
+      deliverable: 'Tested Live Production Deployment'
+    },
+    {
+      step: '04',
+      title: 'Support',
+      phase: 'Continuous Improvement & SLA',
+      desc: 'Dependable support, ongoing monitoring, and continuous process optimization ensuring your business runs efficiently and adapts to changing needs.',
+      icon: TrendingUp,
+      deliverable: 'Dependable Ongoing Support'
+    }
+  ];
+
+  // Authentic ZisanTech Capabilities
+  const techExpertise = [
+    {
+      title: 'SAP Consulting & Modules',
+      tag: 'SAP Expertise 90%',
+      items: ['SAP SD (Sales & Distribution)', 'SAP MM (Materials Management)', 'SAP PP (Production Planning)', 'SAP QM & FICO Financial Management'],
+      icon: Database
+    },
+    {
+      title: 'System Integration',
+      tag: 'System Integration 70%',
+      items: ['Gate Management System Integration', 'Weighbridge Hardware & Software Linking', 'Bank Host-to-Host Payment Handshake', 'E-commerce & Custom Portal Connectors'],
+      icon: Network
+    },
+    {
+      title: 'Technical Modules & Dev',
+      tag: 'IT & Digital Solutions 95%',
+      items: ['SAP ABAP Advanced Programming', 'SAP BASIS Administration', 'SAP PI/PO & CPI Cloud Integration', 'Custom Web & Mobile Enterprise Apps'],
+      icon: Code2
+    },
+    {
+      title: 'Regulatory & Governance',
+      tag: 'Continuous Improvement',
+      items: ['Statutory E-Invoice & E-Way System', 'Data Security & Transaction Compliance', 'HRMS & Payroll Management Integration', '24/7 SLA Support & Ticket Governance'],
+      icon: ShieldCheck
+    }
+  ];
 
   return (
-    <div className="bg-white text-slate-800 font-sans selection:bg-[#063B83] selection:text-white overflow-hidden">
-      {/* =========================================================================
-          1. MAWAI AUTHENTIC REVOLUTION SLIDER HERO BANNER
-      ========================================================================= */}
-      <section className="relative w-full h-[580px] sm:h-[640px] md:h-[680px] lg:h-[720px] overflow-hidden bg-slate-950">
-        {/* Slides Container - Smooth crossfade with Framer Motion luxury animated text */}
-        {slides.map((slide, index) => {
+    <div className="w-full bg-[#FFFFFF] text-[#252B29] selection:bg-[#087F5B] selection:text-white font-sans overflow-hidden">
+      
+      {/* ========================================================
+          1. MAWAI REVOLUTION SLIDER HERO BANNER (SAP & IT IMAGERY)
+          ======================================================== */}
+      <section
+        className="relative w-full h-[620px] sm:h-[680px] md:h-[720px] lg:h-[760px] overflow-hidden bg-[#252B29]"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Slides Container */}
+        {heroSlides.map((slide, index) => {
           const isActive = index === currentSlide;
           return (
             <div
-              key={index}
+              key={slide.id}
               className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Visual with Luxury Cinematic Ken Burns Effect */}
+              {/* Animated Cinematic Zoom on SAP & IT Image */}
               <motion.img
-                src={slide.bgImage}
+                src={slide.image}
                 alt={slide.line1}
                 animate={
                   isActive
-                    ? { scale: [1, 1.12], x: [0, -12], y: [0, -8] }
+                    ? { scale: [1, 1.15], x: [0, -12], y: [0, -8] }
                     : { scale: 1, x: 0, y: 0 }
                 }
                 transition={{
                   duration: 8,
                   ease: [0.25, 0.1, 0.25, 1]
                 }}
-                className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80';
-                }}
+                className="absolute inset-0 w-full h-full object-cover filter brightness-[0.40] contrast-125"
               />
 
-              {/* Digital Transformation Glass HUD Overlay with Royal Navy Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/35"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,rgba(6,59,131,0.35)_0%,transparent_65%)]"></div>
+              {/* Multi-Stop Emerald & Gold Vignette Gradients */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#252B29] via-[#252B29]/90 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#252B29] via-transparent to-[#252B29]/80"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_40%,rgba(8,127,91,0.35)_0%,transparent_65%)]"></div>
 
-              {/* Slide Content: Active Staggered Fluid Motion */}
-              {isActive && (
-                <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-                  <div className="max-w-3xl text-left space-y-5 sm:space-y-6 pt-8 sm:pt-0">
-                    {/* 1. Top Badge with Electric Cyan Accent Bar */}
+              {/* Hero Content - Staggered Kinetic Text Animations */}
+              <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center pt-10">
+                <div className="max-w-3xl space-y-6">
+                  
+                  {/* Badge with Entrance Motion */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -20, scale: 0.9 }}
+                    animate={isActive ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -20, scale: 0.9 }}
+                    transition={{ duration: 0.6, delay: 0.15 }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1F1D]/90 border border-[#C6A66B]/60 text-[#DFCA9C] text-xs font-bold tracking-widest uppercase shadow-xl"
+                  >
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#087F5B] animate-pulse"></span>
+                    <span>{slide.badge}</span>
+                  </motion.div>
+
+                  {/* Headline with 3D Word-Drop Motion */}
+                  <div className="space-y-1">
                     <motion.div
-                      key={`badge-${currentSlide}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 shadow-md"
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                      transition={{ duration: 0.7, delay: 0.25 }}
+                      className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#FFFFFF] tracking-tight leading-[1.12] font-heading drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]"
                     >
-                      <span className="w-5 h-0.5 bg-[#08B9E8] rounded-full shadow-[0_0_8px_#08B9E8]"></span>
-                      <span className="text-[11px] sm:text-xs font-bold tracking-widest text-slate-100 uppercase font-mono">
-                        {slide.badge}
-                      </span>
+                      {slide.line1}
                     </motion.div>
 
-                    {/* 2. Main Headline - 2-Tone Typography with Brand Cyan/Electric Blue Highlight */}
-                    <motion.h1
-                      key={`headline-${currentSlide}`}
-                      initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
-                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                      transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-extrabold text-white leading-[1.14] tracking-tight font-heading"
-                    >
-                      {slide.line1} <br />
-                      <span className="text-[#08B9E8] drop-shadow-[0_2px_14px_rgba(8,185,232,0.45)]">
-                        {slide.highlight}
-                      </span>{' '}
-                      <br />
-                      {slide.line2}
-                    </motion.h1>
-
-                    {/* 3. Description */}
-                    <motion.p
-                      key={`desc-${currentSlide}`}
-                      initial={{ opacity: 0, y: 25 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-xs sm:text-sm md:text-base text-slate-200 leading-relaxed max-w-xl font-normal"
-                    >
-                      {slide.description}
-                    </motion.p>
-
-                    {/* 4. Action CTA Buttons - Brand Royal & Electric Blue Demo Button */}
                     <motion.div
-                      key={`btns-${currentSlide}`}
-                      initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                      className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
+                      initial={{ opacity: 0, x: 40 }}
+                      animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+                      transition={{ duration: 0.7, delay: 0.35 }}
+                      className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#DFCA9C] via-[#C6A66B] to-[#DFCA9C] tracking-tight leading-[1.12] font-heading drop-shadow-[0_4px_15px_rgba(198,166,107,0.3)]"
                     >
-                      <a
-                        href={slide.btnLink}
-                        className="w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#063B83] via-[#087FE5] to-[#08B9E8] hover:from-[#087FE5] hover:to-[#063B83] text-white text-xs sm:text-sm font-extrabold tracking-wider uppercase rounded-lg shadow-xl shadow-[#087FE5]/30 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-                      >
-                        <span>{slide.btnText}</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                      </a>
+                      {slide.highlight}
+                    </motion.div>
 
-                      <a
-                        href={slide.secondaryBtnLink}
-                        className="w-full sm:w-auto text-center px-6 sm:px-7 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm tracking-wider uppercase rounded-lg backdrop-blur-md border border-white/25 transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-                      >
-                        {slide.secondaryBtnText}
-                      </a>
+                    <motion.div
+                      initial={{ opacity: 0, y: 25 }}
+                      animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+                      transition={{ duration: 0.7, delay: 0.45 }}
+                      className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#FFFFFF] tracking-tight leading-[1.12] font-heading"
+                    >
+                      {slide.line2}
                     </motion.div>
                   </div>
+
+                  {/* Description with Smooth Fade & Slide */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 25 }}
+                    animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+                    transition={{ duration: 0.7, delay: 0.55 }}
+                    className="text-sm sm:text-base lg:text-lg text-[#E8F1EC]/90 font-light leading-relaxed max-w-2xl drop-shadow-md"
+                  >
+                    {slide.description}
+                  </motion.p>
+
+                  {/* Buttons with Hover Elevation */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.7, delay: 0.65 }}
+                    className="flex flex-wrap items-center gap-4 pt-2"
+                  >
+                    <div className="relative group cursor-default select-none transition-transform duration-300 hover:scale-105">
+                      <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#087F5B] via-[#C6A66B] to-[#087F5B] opacity-85 blur-md group-hover:opacity-100 transition duration-300"></div>
+                      <div className="relative px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/60 text-[#FFFFFF] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-2xl flex items-center gap-2">
+                        <span>{slide.btnText}</span>
+                        <ArrowRight className="w-4 h-4 text-[#DFCA9C]" />
+                      </div>
+                    </div>
+
+                    <div className="relative cursor-default select-none px-7 py-3.5 rounded-xl bg-[#1A1F1D]/90 hover:bg-[#1A1F1D] border border-[#C6A66B]/50 text-[#DFCA9C] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                      <span>{slide.secondaryBtnText}</span>
+                      <Sparkles className="w-4 h-4 text-[#087F5B]" />
+                    </div>
+                  </motion.div>
+
                 </div>
-              )}
+              </div>
             </div>
           );
         })}
 
-        {/* Carousel Arrow Controls */}
+        {/* Carousel Navigation Arrows */}
         <button
-          onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#087FE5] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
+          type="button"
+          onClick={prevSlide}
           aria-label="Previous Slide"
+          className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1A1F1D]/80 hover:bg-[#087F5B] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20 shadow-xl backdrop-blur-sm group"
         >
-          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#DFCA9C] group-hover:text-white" />
         </button>
 
         <button
-          onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#087FE5] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
+          type="button"
+          onClick={nextSlide}
           aria-label="Next Slide"
+          className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1A1F1D]/80 hover:bg-[#087F5B] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20 shadow-xl backdrop-blur-sm group"
         >
-          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#DFCA9C] group-hover:text-white" />
         </button>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center space-x-2">
-          {slides.map((_, i) => (
+        {/* Pagination Dots */}
+        <div className="absolute bottom-6 sm:bottom-8 inset-x-0 z-30 flex items-center justify-center gap-2.5">
+          {heroSlides.map((_, idx) => (
             <button
-              key={i}
-              onClick={() => setCurrentSlide(i)}
-              className={`h-2 transition-all rounded-full cursor-pointer ${
-                i === currentSlide ? 'w-8 bg-[#087FE5]' : 'w-2.5 bg-white/40 hover:bg-white'
+              key={idx}
+              type="button"
+              onClick={() => setCurrentSlide(idx)}
+              className={`transition-all duration-300 rounded-full ${
+                idx === currentSlide
+                  ? 'w-9 h-2.5 bg-gradient-to-r from-[#087F5B] to-[#C6A66B] shadow-lg shadow-[#087F5B]/50'
+                  : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
               }`}
-              aria-label={`Slide ${i + 1}`}
+              aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
         </div>
       </section>
 
-      {/* =========================================================================
-          2. MAWAI 3-FEATURE BENEFIT BAR (Brand Matching Blue Hover Cards)
-      ========================================================================= */}
-      <section id="benefits" className="relative z-30 -mt-8 sm:-mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* ========================================================
+          2. MAWAI 3-FEATURE BENEFIT BAR (Emerald & Gold Hover Cards)
+          ======================================================== */}
+      <section className="relative z-30 -mt-10 sm:-mt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: Swift ERP Implementation */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="group relative bg-white hover:bg-[#071B49] p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 hover:border-[#087FE5]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden cursor-pointer"
-          >
-            {/* Ambient Deep Navy Background & Glow on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
-            <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,127,229,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          {benefitCards.map((card, i) => {
+            const IconComp = card.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                className="group relative bg-[#FFFFFF] hover:bg-[#252B29] p-7 sm:p-8 rounded-2xl shadow-xl border border-[#D2E2D9] hover:border-[#C6A66B] transition-all duration-500 overflow-hidden cursor-default select-none"
+              >
+                {/* Ambient Emerald & Gold Gradient on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#252B29] via-[#1A1F1D] to-[#252B29] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
+                <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,127,91,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-            <div className="relative z-10 space-y-4">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
-                <BarChart3 className="w-7 h-7" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-white transition-colors font-heading">
-                Swift ERP Implementation
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">
-                Minimize downtime with our seasoned consulting team, ensuring a fast and seamless SAP S/4HANA Cloud rollout.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Card 2: Real-time Analytics */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="group relative bg-white hover:bg-[#071B49] p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 hover:border-[#087FE5]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden cursor-pointer"
-          >
-            {/* Ambient Deep Navy Background & Wave on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
-            <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,185,232,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-            <div className="relative z-10 space-y-4">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
-                <Rocket className="w-7 h-7" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-white transition-colors font-heading">
-                Real-time Analytics
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">
-                Gain a decisive operational edge with instant data insights from SAP, driving enterprise efficiency and executive visibility.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Card 3: Affordable Scalability */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="group relative bg-white hover:bg-[#071B49] p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 hover:border-[#087FE5]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden cursor-pointer"
-          >
-            {/* Ambient Deep Navy Background & Wave on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
-            <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,127,229,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-            <div className="relative z-10 space-y-4">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
-                <ThumbsUp className="w-7 h-7" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-white transition-colors font-heading">
-                Affordable Scalability
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">
-                Enjoy the scalability and flexibility of SAP Cloud offerings, adapting seamlessly to your corporate growth without friction.
-              </p>
-            </div>
-          </motion.div>
+                <div className="relative z-10 space-y-4">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#087F5B] to-[#044230] text-white flex items-center justify-center shadow-lg shadow-[#087F5B]/20 group-hover:scale-110 transition-transform duration-300 border border-[#C6A66B]/40">
+                    <IconComp className="w-7 h-7 text-[#DFCA9C]" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#252B29] group-hover:text-white transition-colors duration-300 font-heading">
+                    {card.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#252B29]/75 group-hover:text-[#E8F1EC]/85 leading-relaxed transition-colors duration-300">
+                    {card.desc}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
-      {/* =========================================================================
-          3. MAWAI "ABOUT SECTION" (Digitize Your Business Processes - Brand Blue Layout)
-      ========================================================================= */}
-      <section id="about" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* ========================================================
+          3. MAWAI "ABOUT SECTION" (Dual-Layer Image Montage & Interactive Hover)
+          ======================================================== */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left Multi-Layer Image Montage */}
+          
+          {/* Left Multi-Layer Image Montage with Interactive Zoom */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7 }}
             className="lg:col-span-6 relative pb-8 sm:pb-0"
           >
-            {/* Vertical Brand Electric Blue Accent Strip */}
-            <div className="w-2.5 h-16 bg-gradient-to-b from-[#087FE5] to-[#08B9E8] rounded-full absolute -top-4 right-10 z-20 shadow-lg shadow-[#087FE5]/30 hidden sm:block"></div>
+            {/* Vertical Emerald Accent Strip */}
+            <div className="w-2.5 h-16 bg-gradient-to-b from-[#087F5B] to-[#C6A66B] rounded-full absolute -top-4 right-10 z-20 shadow-lg shadow-[#087F5B]/30 hidden sm:block"></div>
 
-            {/* Base Image: Team Collaboration in Office */}
-            <div className="relative w-full sm:w-[82%] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+            {/* Base Image: Team Collaboration with Hover Zoom */}
+            <div className="relative w-full sm:w-[82%] rounded-2xl overflow-hidden shadow-xl border-4 border-white group">
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                alt="ZisanTech SAP Team"
-                className="w-full h-[360px] sm:h-[420px] object-cover"
+                alt="ZisanTech Enterprise Team"
+                className="w-full h-[360px] sm:h-[420px] object-cover filter brightness-95 contrast-105 transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
             </div>
 
-            {/* Overlapping Image: Digital City Hologram Network with 3D Float Animation */}
+            {/* Overlapping Image with Infinite Float & Smooth Hover Zoom */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative sm:absolute sm:right-0 sm:bottom-4 w-full sm:w-[68%] rounded-2xl overflow-hidden shadow-2xl border-4 border-white mt-4 sm:mt-0 z-10 group cursor-pointer"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative sm:absolute sm:right-0 sm:bottom-4 w-full sm:w-[68%] rounded-2xl overflow-hidden shadow-2xl border-4 border-white mt-4 sm:mt-0 z-10 group cursor-default"
             >
               <img
                 src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80"
                 alt="Digital Transformation Cloud Architecture"
-                className="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                className="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-700 ease-out group-hover:scale-115"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#063B83]/70 via-transparent to-transparent"></div>
-              {/* 3D Sheen Light Swipe on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
-            </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#252B29]/80 via-transparent to-transparent"></div>
 
-            {/* Floating Counter Badge: 360+ Satisfied Clients */}
-            <div className="relative sm:absolute sm:-bottom-6 sm:left-4 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-100 flex items-center gap-3.5 mt-4 sm:mt-0 max-w-xs">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center font-bold shadow-md shadow-[#087FE5]/20 flex-shrink-0">
-                <Users className="w-6 h-6" />
+              {/* Floating Experience Badge with Shimmer */}
+              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-lg border border-[#D2E2D9] flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#087F5B] text-white flex items-center justify-center font-bold shadow-md shadow-[#087F5B]/30">
+                    <ShieldCheck className="w-5 h-5 text-[#DFCA9C]" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-[#252B29]">Enterprise Excellence</p>
+                    <p className="text-[11px] text-[#087F5B] font-semibold">10+ Years Advisory Heritage</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-2xl sm:text-3xl font-black text-[#087FE5] leading-none font-heading">
-                  360+
-                </p>
-                <p className="text-xs font-bold text-[#071B49] mt-1">
-                  Satisfied Clients
-                </p>
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right Text Content with Brand Blue Styling */}
+          {/* Right Text Column with Animated Reveal */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
             className="lg:col-span-6 space-y-6"
           >
-            <div>
-              <div className="inline-flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5] font-mono">
-                  DIGITIZE YOUR BUSINESS PROCESSES
-                </span>
-                <span className="w-8 h-0.5 bg-[#087FE5] rounded-full"></span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-[#071B49] mt-3 leading-[1.2] font-heading">
-                <span className="text-[#087FE5]">ZisanTech,</span> Your Partner in Building a Sustainable Digital Future with SAP
-              </h2>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8F1EC] text-[#087F5B] text-xs font-bold uppercase tracking-wider border border-[#087F5B]/30 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-[#C6A66B]" />
+              <span>Know Our Story • ZisanTech Solutions</span>
             </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed">
-              ZisanTech, a leading enterprise RISE with SAP S/4HANA Partner, delivers proven solutions drawn from over a decade of verified industry expertise, recognized for innovative ERP services including:
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#252B29] leading-[1.2] font-heading">
+              <AnimatedHeading
+                text="Digitize Your Business Processes With Our Top SAP Solutions"
+                highlightWords={['Digitize', 'Business', 'Processes', 'SAP']}
+                highlightClass="text-[#087F5B]"
+              />
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#252B29]/80 leading-relaxed font-light">
+              ZisanTech Solutions is dedicated to helping businesses embrace digital transformation through intelligent SAP solutions and modern IT services. Our focus is on aligning technology with real business objectives to improve efficiency, visibility, and decision-making.
             </p>
 
-            {/* Feature 1: ZisanTech Services */}
-            <div className="space-y-4 pt-1">
-              <div className="flex items-start gap-4 p-3.5 rounded-xl hover:bg-slate-50 transition-colors">
-                <div className="w-12 h-12 rounded-xl border-2 border-[#087FE5]/40 text-[#087FE5] flex items-center justify-center flex-shrink-0 shadow-sm bg-blue-50/60">
-                  <Rocket className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-[#071B49] font-heading">
-                    ZisanTech Services
-                  </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed mt-0.5">
-                    As a certified SAP Gold Partner, ZisanTech provides licensing, implementation, consulting, and 24/7 SLA hyper-care support services.
-                  </p>
-                </div>
-              </div>
+            <p className="text-xs sm:text-sm text-[#252B29]/75 leading-relaxed">
+              With a strong foundation in SAP consulting and training, we enable organizations to build capable teams while implementing systems that deliver long-term value. Our approach emphasizes clarity, adaptability, and measurable outcomes in every project we undertake.
+            </p>
 
-              {/* Feature 2: Customized ERP */}
-              <div className="flex items-start gap-4 p-3.5 rounded-xl hover:bg-slate-50 transition-colors">
-                <div className="w-12 h-12 rounded-xl border-2 border-[#087FE5]/40 text-[#087FE5] flex items-center justify-center flex-shrink-0 shadow-sm bg-blue-50/60">
-                  <Globe className="w-6 h-6" />
+            {/* Mawai Bullet Points with Icon Pulse */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              {[
+                'Swift ERP Implementation & Support',
+                'Gate & Weighbridge Integration',
+                'Statutory E-Invoice & E-Way System',
+                '24/7 SLA Mission-Critical Support'
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#252B29] group">
+                  <div className="w-5 h-5 rounded-full bg-[#087F5B]/15 text-[#087F5B] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Check className="w-3 h-3 text-[#087F5B] stroke-[3]" />
+                  </div>
+                  <span>{item}</span>
                 </div>
-                <div>
-                  <h4 className="text-base font-bold text-[#071B49] font-heading">
-                    Customized ERP Add-ons
-                  </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed mt-0.5">
-                    Specialized GST E-Invoicing, E-Way Bill integrations, and automated statutory compliance modules built for Indian enterprises.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Inset Promo Card (Brand Blue Stripe & Button) */}
-            <div className="p-5 rounded-xl bg-gradient-to-r from-slate-50 to-[#f5f8fc] border-t-4 border-[#087FE5] shadow-sm flex items-center justify-between mt-4">
-              <div>
-                <p className="text-sm font-bold text-[#071B49]">
-                  Affordable ERP Solution for your Business
-                </p>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Tailored implementations engineered for enterprise agility
-                </p>
+            {/* CTA Button */}
+            <div className="pt-2">
+              <div className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-default select-none">
+                <span>Discover More About Us</span>
+                <ArrowRight className="w-4 h-4 text-[#DFCA9C]" />
               </div>
-              <a
-                href="#services"
-                className="text-xs font-bold text-[#087FE5] hover:text-[#063B83] flex items-center gap-1 uppercase tracking-wider transition-colors cursor-pointer"
-              >
-                <span>MORE</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
             </div>
           </motion.div>
+
         </div>
       </section>
 
-      {/* =========================================================================
-          4. MAWAI "WHY CHOOSE US" SECTION (Full-width Navy Blue with 3D Depth)
-      ========================================================================= */}
-      <section id="why-us" className="bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] text-white py-20 relative overflow-hidden">
+
+      {/* ========================================================
+          4. MAWAI "WHY CHOOSE US" SECTION
+          ======================================================== */}
+      <section className="bg-gradient-to-br from-[#252B29] via-[#1A1F1D] to-[#252B29] text-white py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-7 space-y-6"
-            >
-              <span className="text-xs font-bold uppercase tracking-widest text-[#08B9E8] font-mono">
-                WHY CHOOSE ZISANTECH
-              </span>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-16 space-y-3"
+          >
+            <span className="text-xs font-bold uppercase tracking-widest text-[#DFCA9C] font-mono">
+              THE ZISANTECH ADVANTAGE
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-white font-heading">
+              <AnimatedHeading text="Why Choose ZisanTech" highlightWords={['ZisanTech']} />
+            </h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#087F5B] to-[#C6A66B] mx-auto mt-2 rounded-full"></div>
+            <p className="text-sm sm:text-base text-[#E8F1EC]/80 leading-relaxed pt-2">
+              At ZisanTech Solutions, we provide dependable, business-focused solutions designed to simplify your operations and support sustainable growth.
+            </p>
+          </motion.div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight font-heading">
-                Your Certified RISE with SAP S/4HANA Cloud Implementation Partner
-              </h2>
-
-              <p className="text-sm text-slate-200 leading-relaxed">
-                We take pride in our extensive experience and dedication to delivering innovative solutions that drive business success. We're doing the right thing, the right way.
-              </p>
-
-              <div className="space-y-3 pt-2">
-                {[
-                  'End-to-end SAP services, pre and post-implementation.',
-                  'Trusted SAP partner with proven enterprise delivery.',
-                  '10+ Years of specialized SAP S/4HANA implementations.',
-                  'Automated Indian statutory compliance: E-Invoice & E-Way Bill.',
-                  'Expert certified SAP consultants with 24/7 round-the-clock support.'
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm text-slate-200">
-                    <div className="w-5 h-5 rounded-full bg-[#087FE5] text-white flex items-center justify-center flex-shrink-0 shadow">
-                      <CheckCircle className="w-3.5 h-3.5" />
-                    </div>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-4">
-                <a
-                  href="#contact-cta"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#087FE5] hover:bg-[#063B83] text-white text-xs font-bold uppercase tracking-wider rounded transition-all shadow-lg hover:-translate-y-0.5 active:scale-95"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: ShieldCheck,
+                title: 'Process Optimization',
+                desc: 'Streamlined, standardized processes that boost productivity and reduce operational friction.'
+              },
+              {
+                icon: Layers,
+                title: 'Tailored Implementation',
+                desc: 'Customizing SAP solutions to fit your specific business requirements and maximize ROI.'
+              },
+              {
+                icon: Award,
+                title: 'Quality & Improvement',
+                desc: 'Rigorous testing and ongoing monitoring maintaining reliability and high performance.'
+              },
+              {
+                icon: Users,
+                title: 'Workforce Enablement',
+                desc: 'Empowering teams by integrating SAP tools that simplify management and elevate skillsets.'
+              }
+            ].map((pillar, i) => {
+              const IconPillar = pillar.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 35 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.12 }}
+                  whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.25 } }}
+                  className="p-6 rounded-2xl bg-[#FFFFFF]/[0.05] hover:bg-[#FFFFFF]/[0.1] border border-white/10 hover:border-[#C6A66B]/60 transition-all duration-300 group cursor-default"
                 >
-                  <span>Connect With An Architect</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Right Video / Visual Banner */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-5"
-            >
-              <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 relative group cursor-pointer bg-slate-900">
-                <img
-                  src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
-                  alt="Enterprise IT Team"
-                  className="w-full h-[360px] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-[#063B83]/40 group-hover:bg-[#071B49]/50 transition-colors flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-white text-[#063B83] flex items-center justify-center shadow-2xl pl-1 group-hover:scale-110 transition-transform">
-                    <Play className="w-7 h-7 fill-current" />
+                  <div className="w-12 h-12 rounded-xl bg-[#087F5B]/25 text-[#DFCA9C] flex items-center justify-center mb-4 border border-[#087F5B]/40 group-hover:scale-110 transition-transform">
+                    <IconPillar className="w-6 h-6 text-[#DFCA9C]" />
                   </div>
-                </div>
-                {/* 3D Light Sheen Swipe on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
-              </div>
-            </motion.div>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#DFCA9C] transition-colors font-heading">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-xs text-[#E8F1EC]/70 leading-relaxed">
+                    {pillar.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
-      {/* =========================================================================
+
+      {/* ========================================================
           5. MAWAI FUN FACTS / METRICS STRIP
-      ========================================================================= */}
-      <section id="metrics" className="bg-[#f5f8fc] py-16 border-y border-slate-200">
+          ======================================================== */}
+      <section className="bg-[#F5F3ED] py-16 border-y border-[#D2E2D9]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="space-y-2"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-2 group cursor-default"
             >
-              <p className="text-4xl sm:text-5xl font-extrabold text-[#063B83] font-heading">
+              <p className="text-4xl sm:text-5xl font-extrabold text-[#087F5B] font-heading group-hover:scale-110 transition-transform duration-300">
                 {COMPANY_INFO.experienceYears}
               </p>
-              <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">Years of Trust</p>
+              <p className="text-xs uppercase tracking-wider text-[#252B29]/70 font-bold">Years of Trust</p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="space-y-2"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-2 group cursor-default"
             >
-              <p className="text-4xl sm:text-5xl font-extrabold text-[#087FE5] font-heading">
+              <p className="text-4xl sm:text-5xl font-extrabold text-[#C6A66B] font-heading group-hover:scale-110 transition-transform duration-300">
                 {COMPANY_INFO.clientsCount}
               </p>
-              <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">Happy Clients</p>
+              <p className="text-xs uppercase tracking-wider text-[#252B29]/70 font-bold">Enterprise Engagements</p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="space-y-2"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="space-y-2 group cursor-default"
             >
-              <p className="text-4xl sm:text-5xl font-extrabold text-[#063B83] font-heading">
+              <p className="text-4xl sm:text-5xl font-extrabold text-[#087F5B] font-heading group-hover:scale-110 transition-transform duration-300">
                 {COMPANY_INFO.consultantsCount}
               </p>
-              <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">SAP Consultants</p>
+              <p className="text-xs uppercase tracking-wider text-[#252B29]/70 font-bold">SAP Consultants</p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="space-y-2"
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-2 group cursor-default"
             >
-              <p className="text-4xl sm:text-5xl font-extrabold text-[#087FE5] font-heading">
-                {COMPANY_INFO.studentsTrained}
+              <p className="text-4xl sm:text-5xl font-extrabold text-[#C6A66B] font-heading group-hover:scale-110 transition-transform duration-300">
+                24/7
               </p>
-              <p className="text-xs uppercase tracking-wider text-slate-600 font-bold">Trained Professionals</p>
+              <p className="text-xs uppercase tracking-wider text-[#252B29]/70 font-bold">SLA Availability</p>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================================
-          6. MAWAI "INDUSTRIES WE SERVE" SECTION (With 3D Hover Zoom)
-      ========================================================================= */}
-      <section id="industries" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* ========================================================
+          6. MAWAI "INDUSTRIES WE SERVE" (Smooth 3D Photographic Zoom)
+          ======================================================== */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -605,177 +820,204 @@ export const ConceptEnterprise: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16 space-y-3"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
-            Industries We Serve
+          <span className="text-xs font-bold uppercase tracking-widest text-[#087F5B]">
+            INDUSTRIES WE SERVE
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#071B49] font-heading">
-            Digitize your industry performance with our top SAP ERP Solution
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#252B29] font-heading">
+            <AnimatedHeading
+              text="Digitize Your Industry Performance With Our SAP ERP Solutions"
+              highlightWords={['Digitize', 'Industry', 'Performance', 'SAP']}
+              highlightClass="text-[#087F5B]"
+            />
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            Your industry-specific customized SAP ERP solutions for all business sizes, ensuring statutory compliance. We optimize processes, integrate best practices, and drive operational success.
+          <div className="w-16 h-1 bg-gradient-to-r from-[#087F5B] to-[#C6A66B] mx-auto mt-2 rounded-full"></div>
+          <p className="text-sm text-[#252B29]/75 leading-relaxed pt-2">
+            Tailored SAP ERP solutions engineered for discrete and process manufacturing, retail networks, and specialized regulatory sectors.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {INDUSTRIES.map((ind: IndustryItem, i) => (
+          {sixIndustries.map((ind, i) => (
             <motion.div
               key={ind.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              whileHover={{ y: -8, scale: 1.015 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
-              <a
-                href="#contact-cta"
-                className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#087FE5]/30 transition-all duration-500 h-[360px] flex flex-col justify-end p-7 border border-slate-200/80 hover:border-[#087FE5] block bg-slate-900"
-              >
-                {/* Background Image with Smooth 3D Scale Zoom */}
+              <div className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-[380px] flex flex-col justify-end p-7 border border-[#D2E2D9] hover:border-[#C6A66B] block bg-[#252B29]">
+                {/* Background Image with Smooth Scale Zoom on Hover */}
                 <img
                   src={ind.image}
                   alt={ind.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-120 filter brightness-90 group-hover:brightness-100 contrast-110"
                 />
 
-                {/* Multi-Stop Gradient Overlay (Dark Navy at Bottom, Light Vignette) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071B49] via-[#071B49]/60 to-black/20 group-hover:from-[#063B83]/95 group-hover:via-[#071B49]/70 transition-all duration-500" />
+                {/* Multi-Stop Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#252B29] via-[#252B29]/60 to-transparent"></div>
 
-                {/* 3D Light Sheen Sweep Effect on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
-
-                {/* Top-Right Pill Badge */}
-                <div className="absolute top-4 right-4 z-20">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#071B49]/80 backdrop-blur-md text-[10px] font-mono font-bold text-[#08B9E8] border border-[#08B9E8]/30 shadow-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#08B9E8] animate-pulse" />
-                    SAP Vertical
+                {/* Top Badge */}
+                <div className="absolute top-4 left-4 z-20">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#1A1F1D]/80 text-[#DFCA9C] border border-[#C6A66B]/40 backdrop-blur-sm">
+                    {ind.metrics}
                   </span>
                 </div>
 
-                {/* Bottom Content Area with Smooth Text Stagger */}
-                <div className="relative z-20 space-y-2.5">
-                  <div className="inline-block px-2.5 py-0.5 rounded bg-[#087FE5]/30 backdrop-blur-md border border-[#087FE5]/40 text-[#08B9E8] text-[10px] font-bold uppercase tracking-wider font-mono">
-                    {ind.tagline || 'ENTERPRISE ERP VERTICAL'}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#08B9E8] transition-colors font-heading leading-tight">
+                {/* Content with Upward Slide on Hover */}
+                <div className="relative z-10 space-y-2 transform transition-transform duration-300 group-hover:translate-y-[-6px]">
+                  <h3 className="text-2xl font-bold text-white font-heading group-hover:text-[#DFCA9C] transition-colors">
                     {ind.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 leading-relaxed">
-                    {ind.summary}
+                  <p className="text-xs text-[#E8F1EC]/85 leading-relaxed line-clamp-3">
+                    {ind.desc}
                   </p>
-                  <div className="pt-2 flex items-center text-xs font-bold text-[#08B9E8] group-hover:text-white transition-colors">
-                    <span>Explore Industry Architecture</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-2 transition-transform duration-300" />
+                  <div className="pt-2 flex items-center gap-2 text-xs font-bold text-[#DFCA9C]">
+                    <span>Learn More</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </div>
-              </a>
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* =========================================================================
-          7. MAWAI "SERVICES & SOLUTIONS" CARDS SECTION (3D Hover Glow & Sheen)
-      ========================================================================= */}
-      <section id="services" className="bg-[#f5f8fc] py-24 border-t border-slate-200 relative overflow-hidden">
-        {/* Subtle decorative background aura */}
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-[#087FE5]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-0 w-80 h-80 bg-[#063B83]/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* ========================================================
+          7. PREMIUM ANIMATED SAP & ENTERPRISE SERVICE CARDS
+          ======================================================== */}
+      <section className="bg-[#F5F3ED] py-24 sm:py-32 border-t border-[#D2E2D9] relative overflow-hidden">
+        {/* Subtle decorative emerald & gold ambient glow rings */}
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#087F5B]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-[#C6A66B]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#087FE5]/10 border border-[#087FE5]/20 text-xs font-bold uppercase tracking-widest text-[#063B83] mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#087FE5] animate-pulse" />
-                Proven Enterprise Practice
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#071B49] font-heading tracking-tight">
-                Enterprise SAP & IT Services
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl">
-                End-to-end consulting, migration, customization, and 24/7 managed support powered by certified SAP architects.
-              </p>
+          
+          {/* Section Header with Word Reveal Animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4"
+          >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1EC] border border-[#087F5B]/30 text-[#087F5B] text-xs font-bold uppercase tracking-wider shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-[#C6A66B]" />
+              <span>Certified Enterprise Capabilities</span>
             </div>
-            <a
-              href="#contact-cta"
-              className="mt-6 md:mt-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#063B83] to-[#087FE5] hover:shadow-lg hover:shadow-[#087FE5]/25 transition-all group"
-            >
-              <span>Explore All Services</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </div>
+            
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#252B29] font-heading leading-tight">
+              <AnimatedHeading
+                text="Our Core SAP & Enterprise Solutions"
+                highlightWords={['Core', 'SAP', 'Enterprise', 'Solutions']}
+                highlightClass="text-[#087F5B]"
+              />
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-[#087F5B] via-[#C6A66B] to-[#087F5B] mx-auto rounded-full"></div>
+            <p className="text-sm sm:text-base text-[#252B29]/75 leading-relaxed pt-2">
+              Driving smarter operations and connected experiences with flexible, future-ready SAP solutions.
+            </p>
+          </motion.div>
 
+          {/* 6 Upgraded Premium Luxury Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.slice(0, 6).map((service: ServiceItem, idx) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                whileHover={{ y: -10 }}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#087FE5]/20 transition-all duration-500 border border-slate-200/90 hover:border-[#087FE5] flex flex-col justify-between"
-              >
-                <div>
-                  {/* Image container with 3D sheen swipe reflection & zoom */}
-                  <div className="h-56 w-full overflow-hidden relative">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-0.5 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#071B49]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                    
-                    {/* 3D Sheen Light Reflection Sweep on Hover */}
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+            {enterpriseServices.map((service, idx) => {
+              const IconService = service.icon;
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 45 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.12 }}
+                  whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                  className="rounded-3xl bg-[#FFFFFF] border border-[#D2E2D9] hover:border-[#C6A66B] shadow-[0_10px_30px_-5px_rgba(37,43,41,0.06)] hover:shadow-[0_25px_50px_-12px_rgba(8,127,91,0.2),0_0_30px_rgba(198,166,107,0.2)] transition-all duration-500 overflow-hidden flex flex-col justify-between group"
+                >
+                  <div>
+                    {/* Top Photographic Header with Ken Burns Hover Zoom */}
+                    <div className="relative h-44 overflow-hidden bg-[#252B29]">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover filter brightness-[0.75] contrast-110 transition-transform duration-700 ease-out group-hover:scale-115"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1F1D] via-[#1A1F1D]/40 to-transparent" />
+                      
+                      {/* Top Overlay Badge & Code */}
+                      <div className="absolute top-4 inset-x-4 flex items-center justify-between z-10">
+                        <span className="px-2.5 py-1 rounded-md bg-[#252B29]/90 border border-white/20 text-[11px] font-mono font-bold text-[#DFCA9C] backdrop-blur-sm shadow-md">
+                          {service.code}
+                        </span>
+                        <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#087F5B]/90 text-white border border-[#087F5B] backdrop-blur-sm shadow-md">
+                          {service.highlight}
+                        </span>
+                      </div>
 
-                    {/* Category Badge */}
-                    <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-md bg-[#071B49]/90 backdrop-blur-md text-[#08B9E8] text-[10px] font-bold uppercase font-mono tracking-wider border border-[#087FE5]/40 shadow-md">
-                      {service.category}
+                      {/* Floating Icon with 3D Pop on Hover */}
+                      <div className="absolute -bottom-5 left-6 z-20">
+                        <div className="w-13 h-13 p-3 rounded-2xl bg-[#FFFFFF] border-2 border-[#D2E2D9] group-hover:border-[#C6A66B] shadow-xl text-[#087F5B] flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                          <IconService className="w-7 h-7 text-[#087F5B] transition-transform duration-300 group-hover:scale-110" />
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur text-[#063B83] flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-75 transition-all shadow-md">
-                      <ArrowRight className="w-4 h-4" />
+                    {/* Card Body */}
+                    <div className="p-7 pt-9 space-y-4">
+                      <div>
+                        <span className="text-[11px] font-bold tracking-wider text-[#C6A66B] uppercase font-mono">
+                          {service.category}
+                        </span>
+                        <h3 className="text-xl font-bold text-[#252B29] group-hover:text-[#087F5B] transition-colors duration-300 font-heading mt-1">
+                          {service.title}
+                        </h3>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-[#252B29]/75 leading-relaxed">
+                        {service.desc}
+                      </p>
+
+                      {/* Staggered Features List with Animated Checks */}
+                      <div className="pt-3 border-t border-[#D2E2D9]/70 space-y-2">
+                        {service.features.map((feat, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: 0.15 + (i * 0.08) }}
+                            className="flex items-center gap-2.5 text-xs text-[#252B29]/85 group-hover:text-[#252B29] transition-colors"
+                          >
+                            <div className="w-4 h-4 rounded-full bg-[#E8F1EC] text-[#087F5B] flex items-center justify-center flex-shrink-0 border border-[#087F5B]/30 group-hover:border-[#087F5B]">
+                              <CheckCheck className="w-2.5 h-2.5 text-[#087F5B]" />
+                            </div>
+                            <span className="font-medium">{feat}</span>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Body Content */}
-                  <div className="p-6 space-y-3">
-                    <h3 className="text-xl font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors font-heading leading-snug">
-                      {service.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                      {service.shortDesc}
-                    </p>
+                  {/* Card Bottom Interactive CTA */}
+                  <div className="p-6 pt-4 border-t border-[#D2E2D9]/60 flex items-center justify-between text-xs font-bold text-[#087F5B] group-hover:text-[#252B29] transition-colors cursor-default select-none bg-[#F5F3ED]/40">
+                    <span className="tracking-wide">Delivering Smart IT Solutions</span>
+                    <div className="w-8 h-8 rounded-full bg-[#E8F1EC] group-hover:bg-[#087F5B] text-[#087F5B] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm group-hover:scale-105">
+                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" />
+                    </div>
                   </div>
-                </div>
-
-                <div className="p-6 pt-0">
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <a
-                      href="#contact-cta"
-                      className="text-xs font-bold text-[#063B83] group-hover:text-[#087FE5] flex items-center gap-1.5 transition-colors"
-                    >
-                      <span>Explore Scope</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                    <a
-                      href="#contact-cta"
-                      className="text-xs text-slate-400 group-hover:text-[#071B49] font-semibold transition-colors"
-                    >
-                      Enquire Now →
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
-      {/* =========================================================================
-          8. MAWAI "CAREERS / TRAINING" SECTION (Take Your Careers to New Heights)
-      ========================================================================= */}
-      <section id="training" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* ========================================================
+          8. MAWAI "OUR APPROACH" (Analyze → Design → Deploy → Support)
+          ======================================================== */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -783,213 +1025,208 @@ export const ConceptEnterprise: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16 space-y-3"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#087FE5]/10 border border-[#087FE5]/20 text-xs font-bold uppercase tracking-widest text-[#063B83]">
-            Career Incubation & Enablement
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#071B49] font-heading tracking-tight">
-            Take Your Careers to New Heights with the Leading ERP Solution Provider
+          <span className="text-xs font-bold uppercase tracking-widest text-[#087F5B]">
+            REAL-WORLD IMPACT METHODOLOGY
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#252B29] font-heading">
+            <AnimatedHeading
+              text="Our Consulting Approach"
+              highlightWords={['Consulting', 'Approach']}
+              highlightClass="text-[#087F5B]"
+            />
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Upskill with real enterprise projects, 24/7 dedicated server sandboxes, and structured curriculum designed by veteran SAP consultants.
+          <div className="w-16 h-1 bg-gradient-to-r from-[#087F5B] to-[#C6A66B] mx-auto mt-2 rounded-full"></div>
+          <p className="text-sm text-[#252B29]/75 leading-relaxed pt-2">
+            Analyze → Design → Deploy → Support with real-world impact.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TRAINING_MODULES.slice(0, 8).map((mod: TrainingItem, i) => (
-            <motion.div
-              key={mod.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.06 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl hover:shadow-[#087FE5]/20 border border-slate-200/90 hover:border-[#087FE5] transition-all duration-300 flex flex-col justify-between overflow-hidden"
-            >
-              {/* Subtle gradient corner glow */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#087FE5]/10 to-transparent rounded-bl-full pointer-events-none group-hover:from-[#087FE5]/20 transition-all" />
-
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[11px] font-mono font-bold text-[#063B83] bg-blue-50/90 border border-blue-200/60 px-2.5 py-1 rounded-md shadow-xs group-hover:bg-[#063B83] group-hover:text-white transition-colors">
-                    {mod.code}
-                  </span>
-                  <span className="text-[10px] font-bold text-slate-400 font-mono">Live Sandbox</span>
-                </div>
-                <h3 className="text-base font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors font-heading mb-2">
-                  {mod.title}
-                </h3>
-                <p className="text-xs text-slate-600 line-clamp-3 mb-4 leading-relaxed font-normal">
-                  {mod.shortDesc}
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                <a
-                  href="#contact-cta"
-                  className="text-xs font-bold text-[#087FE5] group-hover:text-[#063B83] flex items-center gap-1 group-hover:gap-1.5 transition-all"
-                >
-                  <span>Request Syllabus</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </a>
-                <span className="text-[11px] font-semibold text-slate-500 font-mono bg-slate-50 px-2 py-0.5 rounded">
-                  {mod.duration}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* =========================================================================
-          9. MAWAI "BLOGS" SECTION (Exact Match with Image 1: Date Block, Hover Zoom & Brand Blue)
-      ========================================================================= */}
-      <section id="blogs" className="bg-[#f8fafc] py-24 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Centered Mawai Header */}
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5] font-mono">
-              INSIGHTS & PERSPECTIVES
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#071B49] font-heading">
-              Blogs
-            </h2>
-            <div className="w-12 h-1 bg-[#087FE5] mx-auto mt-2 rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                id: 1,
-                day: '2',
-                month: 'DEC',
-                title: 'Empowering Your Business with SAP',
-                author: 'by Admin',
-                category: 'Technology',
-                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-                excerpt: 'How next-generation SAP ERP cloud architectures drive operational agility, eliminate process bottlenecks, and scale revenue.'
-              },
-              {
-                id: 2,
-                day: '7',
-                month: 'JAN',
-                title: 'SAP: Driving Industry Transformation ...',
-                author: 'by Admin',
-                category: 'Technology',
-                image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
-                excerpt: 'Explore how AI-integrated SAP S/4HANA automates predictive maintenance, supply chains, and statutory tax compliance.'
-              },
-              {
-                id: 3,
-                day: '12',
-                month: 'FEB',
-                title: 'SAP S/4HANA Cloud: Private or Public? ...',
-                author: 'by Admin',
-                category: 'Technology',
-                image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
-                excerpt: 'Comprehensive decision framework comparing private versus public cloud ERP deployments for high-growth enterprises.'
-              }
-            ].map((blog, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {approachSteps.map((step, idx) => {
+            const IconStep = step.icon;
+            return (
               <motion.div
-                key={blog.id}
-                initial={{ opacity: 0, y: 30 }}
+                key={step.step}
+                initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/90 hover:border-[#087FE5]/50 flex flex-col justify-between cursor-pointer"
+                transition={{ duration: 0.5, delay: idx * 0.12 }}
+                whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.25 } }}
+                className="p-7 rounded-2xl bg-[#F5F3ED] border border-[#D2E2D9] hover:border-[#C6A66B] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
-                <div>
-                  {/* Image with Top-Right Date Badge & Smooth Hover Zoom */}
-                  <div className="relative h-60 sm:h-64 w-full overflow-hidden bg-slate-100">
-                    <img
-                      src={blog.image}
-                      alt={blog.title}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                    />
-                    {/* Subtle Dark Vignette on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {/* Top-Right Mawai Date Badge (Brand Electric Blue & White) */}
-                    <div className="absolute top-3 right-3 z-20 bg-gradient-to-b from-[#087FE5] to-[#063B83] text-white px-3.5 py-2 rounded-lg shadow-lg text-center flex flex-col items-center justify-center min-w-[50px] border border-white/20 group-hover:scale-105 transition-transform">
-                      <span className="text-lg font-black leading-none font-heading">{blog.day}</span>
-                      <span className="text-[10px] font-extrabold tracking-wider leading-none mt-1 uppercase font-mono">{blog.month}</span>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="w-14 h-14 rounded-2xl bg-[#FFFFFF] border-2 border-[#087F5B] group-hover:border-[#C6A66B] flex items-center justify-center text-[#087F5B] shadow-md group-hover:scale-115 transition-transform duration-300">
+                      <IconStep className="w-6 h-6 text-[#087F5B]" />
                     </div>
-                  </div>
-
-                  {/* Content Container */}
-                  <div className="p-6 sm:p-7 space-y-3">
-                    {/* Meta info: by Admin & Technology */}
-                    <div className="flex items-center gap-4 text-xs font-medium text-slate-500">
-                      <span className="flex items-center gap-1.5 text-slate-600">
-                        <User className="w-3.5 h-3.5 text-[#087FE5]" />
-                        <span>{blog.author}</span>
-                      </span>
-                      <span className="flex items-center gap-1.5 text-slate-600">
-                        <Tag className="w-3.5 h-3.5 text-[#087FE5]" />
-                        <span>{blog.category}</span>
-                      </span>
-                    </div>
-
-                    {/* Blog Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-[#087FE5] transition-colors leading-snug font-heading">
-                      <a href="#contact-cta">{blog.title}</a>
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
-                      {blog.excerpt}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-6 sm:p-7 pt-0">
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="text-xs font-bold text-[#087FE5] group-hover:text-[#063B83] flex items-center gap-1 transition-colors">
-                      <span>Read Full Insight</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                    <span className="text-2xl font-black text-[#252B29]/20 group-hover:text-[#C6A66B] transition-colors font-mono">
+                      {step.step}
                     </span>
                   </div>
+
+                  <div>
+                    <span className="text-[11px] font-bold text-[#087F5B] uppercase tracking-wider">
+                      {step.phase}
+                    </span>
+                    <h3 className="text-xl font-bold text-[#252B29] mt-0.5 font-heading">
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-[#252B29]/75 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-[#D2E2D9] text-[11px] font-medium text-[#C6A66B]">
+                  <span className="text-[#252B29]/60">Deliverable:</span> <br />
+                  <strong className="text-[#252B29]">{step.deliverable}</strong>
                 </div>
               </motion.div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* =========================================================================
-          10. MAWAI CALL TO ACTION SECTION (Navy Blue Banner)
-      ========================================================================= */}
-      <section id="contact-cta" className="bg-gradient-to-r from-[#071B49] via-[#05143A] to-[#030A1C] text-white py-16 relative overflow-hidden">
+
+      {/* ========================================================
+          9. TECHNOLOGY EXPERTISE SHOWCASE
+          ======================================================== */}
+      <section className="bg-[#F5F3ED] py-24 border-t border-[#D2E2D9]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-3xl mx-auto mb-16 space-y-3"
+          >
+            <span className="text-xs font-bold uppercase tracking-widest text-[#087F5B]">
+              TECHNICAL EXCELLENCE
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#252B29] font-heading">
+              <AnimatedHeading
+                text="SAP & Technology Expertise"
+                highlightWords={['SAP', 'Technology', 'Expertise']}
+                highlightClass="text-[#087F5B]"
+              />
+            </h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#087F5B] to-[#C6A66B] mx-auto mt-2 rounded-full"></div>
+            <p className="text-sm text-[#252B29]/75 leading-relaxed pt-2">
+              We combine advanced technical skills, real-world project experience, and a strong understanding of business needs to create impactful, tailored solutions.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {techExpertise.map((tech, idx) => {
+              const IconTech = tech.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 35 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.12 }}
+                  whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.25 } }}
+                  className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#D2E2D9] hover:border-[#087F5B] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#E8F1EC] text-[#087F5B] flex items-center justify-center border border-[#087F5B]/20">
+                      <IconTech className="w-5 h-5 text-[#087F5B]" />
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider text-[#C6A66B] font-bold">
+                        {tech.tag}
+                      </span>
+                      <h3 className="text-base font-bold text-[#252B29] font-heading mt-0.5">
+                        {tech.title}
+                      </h3>
+                    </div>
+
+                    <ul className="space-y-2 pt-2 border-t border-[#D2E2D9]">
+                      {tech.items.map((it, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs text-[#252B29]/75 leading-snug">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B] mt-1.5 flex-shrink-0"></span>
+                          <span>{it}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-[#D2E2D9] text-[11px] text-[#087F5B] font-bold">
+                    Verified Capabilities
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* ========================================================
+          10. MAWAI CALL TO ACTION SECTION
+          ======================================================== */}
+      <section className="bg-gradient-to-r from-[#087F5B] via-[#055B41] to-[#044230] text-white py-16 relative overflow-hidden">
+        {/* Subtle decorative champagne gold ambient lighting */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#C6A66B]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#C6A66B]/15 rounded-full blur-3xl pointer-events-none"></div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-heading">
-            Need Expert SAP ERP Consulting for Your Business?
-          </h2>
-          <p className="text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Speak directly with our senior SAP S/4HANA architects to evaluate your ERP roadmap, cloud migration strategy, and statutory tax integrations.
-          </p>
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={`tel:${COMPANY_INFO.primaryPhone}`}
-              className="w-full sm:w-auto text-center px-8 py-3.5 bg-[#087FE5] hover:bg-white hover:text-[#071B49] text-white text-xs font-bold uppercase tracking-wider rounded transition-all shadow-xl active:scale-95"
-            >
-              Get a Free Demo / Consultation
-            </a>
-            <a
-              href={`tel:${COMPANY_INFO.primaryPhone}`}
-              className="w-full sm:w-auto text-center px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all active:scale-95"
-            >
-              Call: {COMPANY_INFO.primaryPhone}
-            </a>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/20 border border-[#C6A66B]/40 text-[#DFCA9C] text-xs font-bold tracking-wider uppercase"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#DFCA9C]" />
+            <span>Contact Details • ZisanTech Solutions</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-heading"
+          >
+            Ready to Transform Your Business With Innovative Technology?
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-sm sm:text-base text-[#E8F1EC]/90 max-w-2xl mx-auto leading-relaxed"
+          >
+            Contact ZisanTech Solutions today and let our experts help you achieve your goals. Whether scaling your business or optimizing your SAP landscape, we help you grow smarter.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <div className="cursor-default select-none px-8 py-3.5 bg-white hover:bg-[#F5F3ED] text-[#087F5B] text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl hover:scale-105 flex items-center gap-2">
+              <span>Get a Free Demo / Consultation</span>
+              <ArrowRight className="w-4 h-4 text-[#C6A66B]" />
+            </div>
+
+            <div className="cursor-default select-none px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl border border-white/20 transition-all flex items-center gap-2">
+              <PhoneCall className="w-4 h-4 text-[#DFCA9C]" />
+              <span>{COMPANY_INFO.primaryPhone}</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Floating Action / Chat Button on the Right Edge */}
-      <a
-        href="#contact-cta"
-        className="fixed right-6 bottom-8 z-40 w-14 h-14 rounded-full bg-[#087FE5] hover:bg-[#063B83] text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all group"
-        aria-label="Enquire / Chat"
-      >
-        <MessageSquare className="w-6 h-6 group-hover:scale-110 transition-transform" />
-      </a>
     </div>
   );
 };

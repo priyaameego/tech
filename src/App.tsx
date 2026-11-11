@@ -29,7 +29,7 @@ export const App: React.FC = () => {
     <ConceptProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans selection:bg-[#087FE5] selection:text-white">
+        <div className="min-h-screen flex flex-col bg-[#F5F3ED] text-[#252B29] font-sans selection:bg-[#087F5B] selection:text-white">
           {/* Clean Premium Sticky Navbar with Brand Logo & SAP Partner Badge */}
           <Navbar />
 

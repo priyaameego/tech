@@ -15,53 +15,59 @@ export default {
     },
     extend: {
       colors: {
-        // Exact ZisanTech Official Brand Identity Tokens
-        navy: {
-          950: "#040F2B", // Ultra deep navy
-          900: "#071B49", // Primary Deep Navy Blue
-          850: "#0B2663",
-          800: "#063B83", // Corporate Blue
-          700: "#0A4EAB",
-          600: "#087FE5", // Electric Blue
-          500: "#08B9E8", // Cyan
-          100: "#E3F2FD",
-          50: "#F3F7FC",  // Light Blue Grey
+        // Strict Luxury Emerald & Gold Palette
+        pearl: "#FFFFFF",
+        graphite: {
+          DEFAULT: "#252B29",
+          900: "#1A1F1D",
+          800: "#252B29",
+          700: "#323B38",
+          600: "#444E4B",
+          500: "#5D6B67",
         },
-        corporate: {
-          navy: "#071B49",
-          blue: "#063B83",
-          electric: "#087FE5",
-          cyan: "#08B9E8",
-          surface: "#F3F7FC",
-          charcoal: "#18243A",
-          dark: "#040F2B",
-          border: "rgba(8, 185, 232, 0.2)",
-          borderSoft: "rgba(7, 27, 73, 0.1)",
+        emerald: {
+          DEFAULT: "#087F5B",
+          dark: "#055B41",
+          deep: "#044230",
+          light: "#0B9B70",
+          glow: "rgba(8, 127, 91, 0.35)",
         },
-        charcoal: {
-          DEFAULT: "#18243A",
-          light: "#2A3B5A",
-          muted: "#4A5D7E",
+        sage: {
+          DEFAULT: "#E8F1EC",
+          light: "#F0F6F3",
+          border: "#D2E2D9",
+        },
+        gold: {
+          DEFAULT: "#C6A66B",
+          dark: "#A6894D",
+          light: "#DFCA9C",
+          glow: "rgba(198, 166, 107, 0.3)",
+        },
+        ivory: {
+          DEFAULT: "#F5F3ED",
+          warm: "#EDEAE1",
+          light: "#FAF9F5",
         },
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Manrope', 'system-ui', 'sans-serif'],
         heading: ['Sora', 'Plus Jakarta Sans', 'sans-serif'],
         display: ['Sora', 'Plus Jakarta Sans', 'sans-serif'],
-        mono: ['Space Grotesk', 'JetBrains Mono', 'monospace'],
+        serif: ['Cinzel', 'Playfair Display', 'serif'],
       },
       boxShadow: {
-        'brand-glow': '0 0 35px rgba(8, 185, 232, 0.3)',
-        'electric-glow': '0 8px 30px rgba(8, 127, 229, 0.35)',
-        'corporate-card': '0 10px 30px rgba(7, 27, 73, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
-        'corporate-hover': '0 20px 45px rgba(7, 27, 73, 0.16), 0 0 30px rgba(8, 185, 232, 0.15)',
-        'dark-card': '0 16px 40px rgba(4, 15, 43, 0.55)',
+        'luxury-card': '0 10px 30px -5px rgba(37, 43, 41, 0.06), 0 20px 40px -10px rgba(8, 127, 91, 0.05)',
+        'luxury-hover': '0 20px 40px -10px rgba(37, 43, 41, 0.12), 0 0 30px rgba(198, 166, 107, 0.2)',
+        'emerald-glow': '0 10px 30px rgba(8, 127, 91, 0.25)',
+        'gold-glow': '0 10px 30px rgba(198, 166, 107, 0.25)',
+        'dark-luxury': '0 20px 50px rgba(10, 15, 13, 0.6)',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-out forwards',
-        'slide-up': 'slideUp 0.6s ease-out forwards',
+        'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'slide-up': 'slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
         'float-slow': 'floatSlow 6s ease-in-out infinite',
+        'ken-burns': 'kenBurns 24s ease-out infinite alternate',
       },
       keyframes: {
         fadeIn: {
@@ -69,16 +75,21 @@ export default {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         pulseSubtle: {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.92', transform: 'scale(1.02)' },
+          '50%': { opacity: '0.94', transform: 'scale(1.02)' },
         },
         floatSlow: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-8px)' },
+        },
+        kenBurns: {
+          '0%': { transform: 'scale(1) translate(0, 0)' },
+          '50%': { transform: 'scale(1.08) translate(-1%, -1%)' },
+          '100%': { transform: 'scale(1.12) translate(1%, 0)' },
         },
       },
     },

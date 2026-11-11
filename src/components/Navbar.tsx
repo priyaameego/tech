@@ -6,46 +6,40 @@ import {
   Phone,
   Mail,
   MapPin,
-  ArrowRight,
+  Sparkles,
+  Award,
   Factory,
   ShoppingBag,
   Fuel,
   Sprout,
   Workflow,
   FlaskConical,
-  Award,
-  Sparkles,
   GraduationCap,
-  Cpu,
   Layers,
-  BookOpen,
-  Briefcase,
-  Users
+  Cpu,
+  ShieldCheck,
+  CheckCircle2,
+  Globe2,
+  Compass,
+  ArrowRight
 } from 'lucide-react';
-import { SERVICES, TRAINING_MODULES, INDUSTRIES, COMPANY_INFO } from '../data/siteData';
+import { COMPANY_INFO } from '../data/siteData';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileActiveSubmenu, setMobileActiveSubmenu] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Smooth scroll handler to stay on the Homepage
-  const scrollToSection = (sectionId: string) => {
-    setActiveDropdown(null);
-    setMobileMenuOpen(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    if (sectionId === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  // Robust hover bridge: generous 450ms timeout ensures dropdown never vanishes unexpectedly
   const handleMouseEnter = (menuName: string) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
@@ -56,488 +50,371 @@ export const Navbar: React.FC = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 450);
+    }, 300);
   };
 
-  const handleDropdownClick = (menuName: string, sectionId: string) => {
-    if (activeDropdown === menuName) {
-      scrollToSection(sectionId);
-    } else {
-      setActiveDropdown(menuName);
-    }
+  const toggleDropdownClick = (menuName: string) => {
+    setActiveDropdown(activeDropdown === menuName ? null : menuName);
   };
 
-  const industryIcons: Record<string, React.ReactNode> = {
-    'manufacturing': <Factory className="w-4 h-4 text-[#063B83]" />,
-    'retail-textile': <ShoppingBag className="w-4 h-4 text-[#087FE5]" />,
-    'oil-gas': <Fuel className="w-4 h-4 text-[#063B83]" />,
-    'agro-chemical': <Sprout className="w-4 h-4 text-[#087FE5]" />,
-    'steel': <Workflow className="w-4 h-4 text-[#063B83]" />,
-    'pharma': <FlaskConical className="w-4 h-4 text-[#087FE5]" />
+  const toggleMobileSubmenu = (menuName: string) => {
+    setMobileActiveSubmenu(mobileActiveSubmenu === menuName ? null : menuName);
   };
+
+  // Six genuine industry items
+  const industriesList = [
+    { name: 'Manufacturing', icon: Factory, desc: 'Shop-floor execution, S/4HANA supply chain synchronization' },
+    { name: 'Retail & Textile', icon: ShoppingBag, desc: 'Omnichannel inventory & unified merchandise management' },
+    { name: 'Oil & Gas', icon: Fuel, desc: 'Upstream-to-downstream asset tracking & plant operations' },
+    { name: 'Agro Chemical', icon: Sprout, desc: 'Batch traceability, formulation & regulatory compliance' },
+    { name: 'Steel', icon: Workflow, desc: 'Heavy industrial production, metallurgy & continuous rolling' },
+    { name: 'Pharma', icon: FlaskConical, desc: 'GMP validation, cold-chain logistics & batch serialization' },
+  ];
+
+  // Verified services items
+  const servicesList = [
+    { title: 'SAP Rollout', desc: 'Standardized multi-location template deployment' },
+    { title: 'SAP Custom Solutions', desc: 'Tailored workflow automations & enhancements' },
+    { title: 'SAP Support', desc: 'Level 1 to Level 3 SLA-governed support' },
+    { title: 'SAP Integration', desc: 'Gate Management, Weighbridge, Bank, E-commerce, HRMS' },
+    { title: 'SAP Consulting', desc: 'Business process optimization & digital roadmaps' },
+    { title: 'SAP E-Invoice & E-Way Bill', desc: 'Automated real-time NIC portal clearance' },
+  ];
+
+  // SAP Training modules
+  const trainingList = [
+    { category: 'Functional Modules', items: ['SAP FICO (Financial & Cost Management)', 'SAP MM (Materials Management)', 'SAP SD (Sales & Distribution)', 'SAP PP (Production Planning)', 'SAP QM (Quality Management)', 'SAP HCM (Human Capital Management)'] },
+    { category: 'Technical Modules', items: ['SAP ABAP on HANA', 'SAP BASIS Administration', 'SAP CPI (Cloud Integration)', 'SAP PI/PO Process Orchestration', 'SAP CIDS Data Services'] }
+  ];
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-white shadow-sm font-sans">
-      {/* 1. TOP MICRO-BAR: Professional Top Bar with Direct Quick Links */}
-      <div className="bg-[#f5f8fc] border-b border-slate-200 text-xs text-slate-600 py-2 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center space-x-5">
-            <a
-              href={`mailto:${COMPANY_INFO.primaryEmail}`}
-              className="flex items-center gap-1.5 text-slate-700 hover:text-[#063B83] transition-colors font-medium"
-            >
-              <Mail className="w-3.5 h-3.5 text-[#087FE5]" />
-              <span>{COMPANY_INFO.primaryEmail}</span>
-            </a>
-            <span className="text-slate-300">|</span>
-            <div className="flex items-center gap-1.5 text-slate-600">
-              <MapPin className="w-3.5 h-3.5 text-[#087FE5]" />
-              <span>{COMPANY_INFO.address}</span>
-            </div>
-            <span className="text-slate-300">|</span>
-            <a
-              href={`tel:${COMPANY_INFO.primaryPhone}`}
-              className="flex items-center gap-1.5 text-slate-700 hover:text-[#063B83] transition-colors font-medium"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#087FE5]" />
-              <span>{COMPANY_INFO.primaryPhone}</span>
-            </a>
+    <header className="w-full sticky top-0 z-50 bg-[#FFFFFF] shadow-md border-b border-[#D2E2D9] font-sans">
+      
+      {/* Top Luxury Ivory/Sage Utility Strip */}
+      <div className="hidden lg:block border-b border-[#D2E2D9] bg-[#F5F3ED] text-xs text-[#252B29]/80 py-2">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <span className="flex items-center gap-1.5 text-[#087F5B] font-bold tracking-wide">
+              <Sparkles className="w-3.5 h-3.5 text-[#C6A66B]" />
+              Global Enterprise SAP & IT Consulting
+            </span>
+            <span className="text-[#D2E2D9]">•</span>
+            <span className="flex items-center gap-1.5 text-[#252B29] font-medium hover:text-[#087F5B] transition-colors cursor-default">
+              <Phone className="w-3 h-3 text-[#C6A66B]" />
+              {COMPANY_INFO.primaryPhone}
+            </span>
+            <span className="text-[#D2E2D9]">•</span>
+            <span className="flex items-center gap-1.5 text-[#252B29] font-medium hover:text-[#087F5B] transition-colors cursor-default">
+              <Mail className="w-3 h-3 text-[#C6A66B]" />
+              {COMPANY_INFO.primaryEmail}
+            </span>
           </div>
-
-          {/* Quick links & Consultation button */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3 text-[11px] font-semibold text-slate-600">
-              <span className="text-slate-400 font-normal">Quick:</span>
-              <button
-                onClick={() => scrollToSection('blogs')}
-                className="hover:text-[#087FE5] transition-colors flex items-center gap-1 text-[#063B83] font-bold"
-              >
-                <BookOpen className="w-3 h-3 text-[#087FE5]" />
-                <span>Blogs</span>
-              </button>
-              <span className="text-slate-300">·</span>
-              <button
-                onClick={() => scrollToSection('training')}
-                className="hover:text-[#087FE5] transition-colors"
-              >
-                Careers
-              </button>
-            </div>
-            <span className="text-slate-300">|</span>
-            <a
-              href={COMPANY_INFO.social.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="w-6 h-6 rounded-full bg-white border border-slate-200 hover:bg-[#087FE5] hover:text-white hover:border-[#087FE5] flex items-center justify-center text-slate-600 font-bold text-[10px] transition-all"
-              aria-label="LinkedIn"
-            >
-              in
-            </a>
-            <button
-              onClick={() => scrollToSection('contact-cta')}
-              className="px-3.5 py-1.5 bg-[#063B83] hover:bg-[#087FE5] text-white text-[11px] font-semibold rounded shadow-sm transition-colors cursor-pointer"
-            >
-              Request Consultation
-            </button>
+            <span className="flex items-center gap-1.5 text-[#252B29]/80 cursor-default font-medium">
+              <MapPin className="w-3 h-3 text-[#C6A66B]" />
+              {COMPANY_INFO.address}
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#087F5B]/15 text-[#087F5B] border border-[#087F5B]/30">
+              Enterprise Grade SLA
+            </span>
           </div>
         </div>
       </div>
 
-      {/* 2. MAIN HEADER: Brand Logo (Left), Navigation (Center), Authentic SAP Gold Partner (Right) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between relative">
-        {/* Left: Official ZisanTech Brand Logo (Restored original clean vector logo) */}
-        <button
-          onClick={() => scrollToSection('top')}
-          className="flex items-center gap-2 group flex-shrink-0 cursor-pointer text-left"
-          aria-label="ZisanTech Home"
-        >
-          <img
-            src="/zisantech_official_logo.png"
-            alt="ZisanTech - INNOVATE • DEVELOP • GROW"
-            className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/zisantech_logo_transparent.png';
-            }}
-          />
-        </button>
+      {/* Main Solid Pure White Navbar */}
+      <div className="bg-[#FFFFFF] w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            
+            {/* Logo on Pure White */}
+            <div className="flex items-center space-x-3 cursor-default select-none group py-2">
+              <img
+                src="/zisantech_luxury_logo.png"
+                alt="ZisanTech Enterprise Consulting"
+                className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
 
-        {/* Center: Desktop Navigation Bar with Rich Interactive Preview Mega-Menus */}
-        <nav className="hidden lg:flex items-center space-x-1 font-sans">
-          <button
-            onClick={() => scrollToSection('top')}
-            className="px-3.5 py-2.5 text-sm font-bold tracking-wide text-[#063B83] border-b-2 border-[#063B83] transition-colors cursor-pointer"
-          >
-            Home
-          </button>
+            {/* Desktop Navigation Items on Pure White Background - Crisp Dark Graphite Text */}
+            <nav className="hidden lg:flex items-center space-x-1 font-semibold text-sm text-[#252B29]">
+              
+              {/* Home */}
+              <div className="px-4 py-2 text-[#087F5B] font-extrabold tracking-wide border-b-2 border-[#087F5B] cursor-default select-none">
+                Home
+              </div>
 
-          {/* 1. Services Dropdown (Preview Catalog - Stays on Homepage) */}
-          <div
-            className="relative py-2"
-            onMouseEnter={() => handleMouseEnter('services')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              onClick={() => handleDropdownClick('services', 'services')}
-              className="px-3.5 py-1 text-sm font-semibold tracking-wide flex items-center gap-1 text-slate-700 hover:text-[#063B83] transition-colors cursor-pointer"
-            >
-              Services
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180' : ''}`} />
-            </button>
-
-            {activeDropdown === 'services' && (
+              {/* About Us Dropdown */}
               <div
-                className="absolute left-0 top-full pt-2 z-50 animate-fade-in"
+                className="relative"
+                onMouseEnter={() => handleMouseEnter('about')}
+                onMouseLeave={handleMouseLeave}
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleDropdownClick('about')}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-lg transition-colors cursor-default select-none ${activeDropdown === 'about' ? 'text-[#087F5B] bg-[#E8F1EC]' : 'text-[#252B29] hover:text-[#087F5B]'}`}
+                >
+                  <span className="font-semibold">About Us</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#C6A66B] transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {activeDropdown === 'about' && (
+                  <div className="absolute top-full left-0 mt-2 w-80 rounded-2xl bg-[#FFFFFF] border border-[#D2E2D9] shadow-2xl p-4 text-[#252B29] animate-fade-in z-50">
+                    <div className="text-[11px] font-bold tracking-wider text-[#087F5B] uppercase px-3 py-1.5 border-b border-[#D2E2D9]">
+                      Corporate Overview
+                    </div>
+                    <div className="mt-2 space-y-1">
+                      <div className="px-3 py-2.5 rounded-xl hover:bg-[#F5F3ED] transition-colors cursor-default">
+                        <div className="text-sm font-bold text-[#252B29]">Who We Are</div>
+                        <div className="text-xs text-[#252B29]/70 mt-0.5">Premier SAP consulting and intelligent enterprise engineering</div>
+                      </div>
+                      <div className="px-3 py-2.5 rounded-xl hover:bg-[#F5F3ED] transition-colors cursor-default">
+                        <div className="text-sm font-bold text-[#252B29]">Our Core Principles</div>
+                        <div className="text-xs text-[#252B29]/70 mt-0.5">Precision architecture, clean-core governance & client longevity</div>
+                      </div>
+                      <div className="px-3 py-2.5 rounded-xl hover:bg-[#F5F3ED] transition-colors cursor-default">
+                        <div className="text-sm font-bold text-[#252B29]">Executive Leadership</div>
+                        <div className="text-xs text-[#252B29]/70 mt-0.5">Seasoned SAP architects with 10+ years enterprise tenure</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-[#D2E2D9] px-3 flex items-center justify-between text-xs text-[#C6A66B] font-semibold">
+                      <span>Consulting Excellence</span>
+                      <ShieldCheck className="w-4 h-4 text-[#087F5B]" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Our Services Dropdown */}
+              <div
+                className="relative"
                 onMouseEnter={() => handleMouseEnter('services')}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="w-[660px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-xl shadow-2xl p-6 grid grid-cols-2 gap-6">
-                  <div>
-                    <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-                      <Cpu className="w-4 h-4 text-[#063B83]" />
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#063B83]">SAP Services Preview</h4>
-                    </div>
-                    <ul className="space-y-1">
-                      {SERVICES.filter(s => s.category.includes('SAP')).map((s) => (
-                        <li key={s.id}>
-                          <button
-                            onClick={() => scrollToSection('services')}
-                            className="w-full text-left p-2 rounded hover:bg-[#f5f8fc] text-xs text-slate-700 hover:text-[#063B83] transition-colors group cursor-pointer block"
-                          >
-                            <span className="font-semibold block">{s.title}</span>
-                            <span className="text-[11px] text-slate-500 line-clamp-1">{s.shortDesc}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <button
+                  type="button"
+                  onClick={() => toggleDropdownClick('services')}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-lg transition-colors cursor-default select-none ${activeDropdown === 'services' ? 'text-[#087F5B] bg-[#E8F1EC]' : 'text-[#252B29] hover:text-[#087F5B]'}`}
+                >
+                  <span className="font-semibold">Our Services</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#C6A66B] transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180' : ''}`} />
+                </button>
 
-                  <div>
-                    <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-                      <Layers className="w-4 h-4 text-[#087FE5]" />
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#087FE5]">Enterprise & Cloud</h4>
+                {activeDropdown === 'services' && (
+                  <div className="absolute top-full -left-20 mt-2 w-[540px] rounded-2xl bg-[#FFFFFF] border border-[#D2E2D9] shadow-2xl p-5 text-[#252B29] animate-fade-in z-50">
+                    <div className="flex items-center justify-between px-3 pb-2.5 border-b border-[#D2E2D9]">
+                      <span className="text-[11px] font-bold tracking-wider text-[#087F5B] uppercase">SAP & Enterprise Solutions</span>
+                      <span className="text-[10px] font-bold text-[#087F5B] bg-[#087F5B]/10 px-2.5 py-0.5 rounded border border-[#087F5B]/30">Production-Ready</span>
                     </div>
-                    <ul className="space-y-1">
-                      {SERVICES.filter(s => !s.category.includes('SAP')).map((s) => (
-                        <li key={s.id}>
-                          <button
-                            onClick={() => scrollToSection('services')}
-                            className="w-full text-left p-2 rounded hover:bg-[#f5f8fc] text-xs text-slate-700 hover:text-[#087FE5] transition-colors group cursor-pointer block"
-                          >
-                            <span className="font-semibold block">{s.title}</span>
-                            <span className="text-[11px] text-slate-500 line-clamp-1">{s.shortDesc}</span>
-                          </button>
-                        </li>
+                    <div className="grid grid-cols-2 gap-2 mt-3">
+                      {servicesList.map((svc, idx) => (
+                        <div key={idx} className="p-3 rounded-xl hover:bg-[#F5F3ED] transition-colors cursor-default group">
+                          <div className="text-sm font-bold text-[#252B29] group-hover:text-[#087F5B] transition-colors">{svc.title}</div>
+                          <div className="text-xs text-[#252B29]/70 mt-1 leading-relaxed">{svc.desc}</div>
+                        </div>
                       ))}
-                    </ul>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                      <button
-                        onClick={() => scrollToSection('services')}
-                        className="text-xs font-bold text-[#063B83] hover:text-[#087FE5] flex items-center gap-1 cursor-pointer"
-                      >
-                        Explore All Services On Homepage <ArrowRight className="w-3 h-3" />
-                      </button>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* 2. Training Dropdown (Preview Catalog - Stays on Homepage) */}
-          <div
-            className="relative py-2"
-            onMouseEnter={() => handleMouseEnter('training')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              onClick={() => handleDropdownClick('training', 'training')}
-              className="px-3.5 py-1 text-sm font-semibold tracking-wide flex items-center gap-1 text-slate-700 hover:text-[#063B83] transition-colors cursor-pointer"
-            >
-              Training
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'training' ? 'rotate-180' : ''}`} />
-            </button>
-
-            {activeDropdown === 'training' && (
+              {/* Industries Dropdown */}
               <div
-                className="absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50 animate-fade-in"
-                onMouseEnter={() => handleMouseEnter('training')}
-                onMouseLeave={handleMouseLeave}
-              >
-                <div className="w-[700px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-xl shadow-2xl p-6 grid grid-cols-2 gap-6">
-                  <div>
-                    <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-                      <GraduationCap className="w-4 h-4 text-[#063B83]" />
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#063B83]">Functional Modules Preview</h4>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1 max-h-[280px] overflow-y-auto pr-1">
-                      {TRAINING_MODULES.filter(t => t.type === 'functional').map((t) => (
-                        <button
-                          key={t.id}
-                          onClick={() => scrollToSection('training')}
-                          className="w-full text-left p-1.5 rounded hover:bg-[#f5f8fc] text-xs group block cursor-pointer"
-                        >
-                          <span className="font-bold text-[#087FE5] block text-[10px]">{t.code}</span>
-                          <span className="text-slate-700 group-hover:text-[#063B83] font-medium truncate block">{t.title.split(' (')[0]}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-                      <Cpu className="w-4 h-4 text-[#087FE5]" />
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#087FE5]">Technical Modules Preview</h4>
-                    </div>
-                    <ul className="space-y-1">
-                      {TRAINING_MODULES.filter(t => t.type === 'technical').map((t) => (
-                        <li key={t.id}>
-                          <button
-                            onClick={() => scrollToSection('training')}
-                            className="w-full text-left block p-1.5 rounded hover:bg-[#f5f8fc] text-xs group cursor-pointer"
-                          >
-                            <span className="font-bold text-[#063B83] mr-1.5 text-[10px]">{t.code}</span>
-                            <span className="text-slate-700 group-hover:text-[#087FE5] font-medium">{t.title}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-4 p-3 rounded-lg bg-[#f5f8fc] border border-slate-200">
-                      <p className="text-xs font-bold text-[#063B83]">100% Placement & Live Sandbox</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5">Hands-on real enterprise scenarios</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* 3. Industries Dropdown (Preview Catalog - Stays on Homepage) */}
-          <div
-            className="relative py-2"
-            onMouseEnter={() => handleMouseEnter('industries')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              onClick={() => handleDropdownClick('industries', 'industries')}
-              className="px-3.5 py-1 text-sm font-semibold tracking-wide flex items-center gap-1 text-slate-700 hover:text-[#063B83] transition-colors cursor-pointer"
-            >
-              Industries
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'industries' ? 'rotate-180' : ''}`} />
-            </button>
-
-            {activeDropdown === 'industries' && (
-              <div
-                className="absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50 animate-fade-in"
+                className="relative"
                 onMouseEnter={() => handleMouseEnter('industries')}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="w-[620px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-xl shadow-2xl p-6">
-                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#063B83]">
-                      We Serve Industries
-                    </h4>
-                    <button
-                      onClick={() => scrollToSection('industries')}
-                      className="text-xs text-[#087FE5] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
-                    >
-                      View All 6 Industries <ArrowRight className="w-3 h-3" />
-                    </button>
-                  </div>
+                <button
+                  type="button"
+                  onClick={() => toggleDropdownClick('industries')}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-lg transition-colors cursor-default select-none ${activeDropdown === 'industries' ? 'text-[#087F5B] bg-[#E8F1EC]' : 'text-[#252B29] hover:text-[#087F5B]'}`}
+                >
+                  <span className="font-semibold">Industries</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#C6A66B] transition-transform duration-200 ${activeDropdown === 'industries' ? 'rotate-180' : ''}`} />
+                </button>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    {INDUSTRIES.map((ind) => (
-                      <button
-                        key={ind.id}
-                        onClick={() => scrollToSection('industries')}
-                        className="w-full text-left flex items-start gap-3 p-2.5 rounded-lg hover:bg-[#f5f8fc] border border-transparent hover:border-slate-200 transition-all group cursor-pointer"
-                      >
-                        <div className="p-2 rounded-md bg-slate-100 group-hover:bg-[#063B83] group-hover:text-white transition-colors flex-shrink-0">
-                          {industryIcons[ind.id] || <Sparkles className="w-4 h-4 text-[#063B83]" />}
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-slate-800 group-hover:text-[#063B83] transition-colors">
-                            {ind.name}
-                          </p>
-                          <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
-                            {ind.tagline}
-                          </p>
-                        </div>
-                      </button>
-                    ))}
+                {activeDropdown === 'industries' && (
+                  <div className="absolute top-full -left-12 mt-2 w-[480px] rounded-2xl bg-[#FFFFFF] border border-[#D2E2D9] shadow-2xl p-5 text-[#252B29] animate-fade-in z-50">
+                    <div className="flex items-center justify-between px-3 pb-2.5 border-b border-[#D2E2D9]">
+                      <span className="text-[11px] font-bold tracking-wider text-[#087F5B] uppercase">Six Specialized Sectors</span>
+                      <span className="text-[10px] text-[#C6A66B] bg-[#F5F3ED] px-2.5 py-0.5 rounded border border-[#C6A66B]/40 font-bold">Best Practices</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2.5 mt-3">
+                      {industriesList.map((ind, idx) => {
+                        const IconComp = ind.icon;
+                        return (
+                          <div key={idx} className="flex items-start gap-3 p-3 rounded-xl hover:bg-[#F5F3ED] transition-colors cursor-default group">
+                            <div className="p-2 rounded-lg bg-[#E8F1EC] text-[#087F5B] border border-[#087F5B]/30 group-hover:border-[#C6A66B]/50 transition-colors flex-shrink-0">
+                              <IconComp className="w-4 h-4" />
+                            </div>
+                            <div>
+                              <div className="text-sm font-bold text-[#252B29] group-hover:text-[#087F5B] transition-colors">{ind.name}</div>
+                              <div className="text-[11px] text-[#252B29]/70 mt-0.5 leading-snug">{ind.desc}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* 4. Company Dropdown (Preview & Scroll to Homepage Sections) */}
-          <div
-            className="relative py-2"
-            onMouseEnter={() => handleMouseEnter('company')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              onClick={() => handleDropdownClick('company', 'about')}
-              className="px-3.5 py-1 text-sm font-semibold tracking-wide flex items-center gap-1 text-slate-700 hover:text-[#063B83] transition-colors cursor-pointer"
-            >
-              Company
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'company' ? 'rotate-180' : ''}`} />
-            </button>
-
-            {activeDropdown === 'company' && (
+              {/* SAP Training Dropdown */}
               <div
-                className="absolute right-0 top-full pt-2 z-50 animate-fade-in"
-                onMouseEnter={() => handleMouseEnter('company')}
+                className="relative"
+                onMouseEnter={() => handleMouseEnter('training')}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="w-[380px] bg-white border border-slate-200 rounded-xl shadow-2xl p-4 space-y-2">
-                  <button
-                    onClick={() => scrollToSection('about')}
-                    className="w-full text-left flex items-start gap-3 p-2.5 rounded-lg hover:bg-[#f5f8fc] transition-colors group cursor-pointer"
-                  >
-                    <div className="p-2 rounded bg-blue-50 text-[#063B83] group-hover:bg-[#063B83] group-hover:text-white transition-colors">
-                      <Users className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800 group-hover:text-[#063B83]">About ZisanTech</p>
-                      <p className="text-[11px] text-slate-500">Global enterprise technology & SAP practice</p>
-                    </div>
-                  </button>
+                <button
+                  type="button"
+                  onClick={() => toggleDropdownClick('training')}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-lg transition-colors cursor-default select-none ${activeDropdown === 'training' ? 'text-[#087F5B] bg-[#E8F1EC]' : 'text-[#252B29] hover:text-[#087F5B]'}`}
+                >
+                  <span className="font-semibold">SAP Training</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#C6A66B] transition-transform duration-200 ${activeDropdown === 'training' ? 'rotate-180' : ''}`} />
+                </button>
 
-                  <button
-                    onClick={() => scrollToSection('blogs')}
-                    className="w-full text-left flex items-start gap-3 p-2.5 rounded-lg hover:bg-[#f5f8fc] transition-colors group cursor-pointer"
-                  >
-                    <div className="p-2 rounded bg-sky-50 text-[#087FE5] group-hover:bg-[#087FE5] group-hover:text-white transition-colors">
-                      <BookOpen className="w-4 h-4" />
+                {activeDropdown === 'training' && (
+                  <div className="absolute top-full right-0 mt-2 w-[520px] rounded-2xl bg-[#FFFFFF] border border-[#D2E2D9] shadow-2xl p-5 text-[#252B29] animate-fade-in z-50">
+                    <div className="flex items-center justify-between px-3 pb-2.5 border-b border-[#D2E2D9]">
+                      <span className="text-[11px] font-bold tracking-wider text-[#087F5B] uppercase">Enterprise Skill Enablement</span>
+                      <span className="text-[10px] text-[#252B29]/70 font-semibold">Functional & Technical</span>
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs font-bold text-slate-800 group-hover:text-[#087FE5]">Blogs & Insights</p>
-                        <span className="px-1.5 py-0.5 rounded bg-sky-100 text-[#087FE5] text-[9px] font-bold">New</span>
-                      </div>
-                      <p className="text-[11px] text-slate-500">SAP S/4HANA migration & tech articles</p>
+                    <div className="grid grid-cols-2 gap-4 mt-3">
+                      {trainingList.map((col, idx) => (
+                        <div key={idx} className="space-y-1.5">
+                          <div className="text-xs font-bold text-[#C6A66B] uppercase tracking-wider px-2 pb-1 border-b border-[#D2E2D9]">
+                            {col.category}
+                          </div>
+                          {col.items.map((item, itemIdx) => (
+                            <div key={itemIdx} className="px-2.5 py-1.5 rounded-lg hover:bg-[#F5F3ED] transition-colors cursor-default text-xs text-[#252B29]/85 font-medium">
+                              {item}
+                            </div>
+                          ))}
+                        </div>
+                      ))}
                     </div>
-                  </button>
+                  </div>
+                )}
+              </div>
 
-                  <button
-                    onClick={() => scrollToSection('why-us')}
-                    className="w-full text-left flex items-start gap-3 p-2.5 rounded-lg hover:bg-[#f5f8fc] transition-colors group cursor-pointer"
-                  >
-                    <div className="p-2 rounded bg-blue-50 text-[#063B83] group-hover:bg-[#063B83] group-hover:text-white transition-colors">
-                      <Briefcase className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800 group-hover:text-[#063B83]">Why Choose Us</p>
-                      <p className="text-[11px] text-slate-500">Certified consultants & 24/7 delivery</p>
-                    </div>
-                  </button>
+              {/* Contact Us */}
+              <div className="px-4 py-2 text-[#252B29] hover:text-[#087F5B] transition-colors cursor-default select-none font-semibold">
+                Contact Us
+              </div>
+            </nav>
+
+            {/* Action Consultation Button on Pure White Navbar */}
+            <div className="hidden lg:flex items-center space-x-3">
+              <div className="relative group cursor-default select-none">
+                <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-[#087F5B] via-[#C6A66B] to-[#087F5B] opacity-80 blur-sm group-hover:opacity-100 transition duration-300"></div>
+                <div className="relative px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-[#FFFFFF] text-sm font-bold tracking-wide shadow-lg flex items-center gap-2">
+                  <span>Get Consultation</span>
+                  <Sparkles className="w-4 h-4 text-[#DFCA9C]" />
                 </div>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2.5 rounded-xl text-[#252B29] hover:text-[#087F5B] bg-[#F5F3ED] border border-[#D2E2D9] focus:outline-none"
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6 text-[#087F5B]" /> : <Menu className="w-6 h-6 text-[#252B29]" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Navigation (Pure White) */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-[#FFFFFF] border-b border-[#D2E2D9] px-6 py-5 text-[#252B29] space-y-4 animate-fade-in shadow-2xl">
+          <div className="py-2 text-base font-bold text-[#087F5B] border-b border-[#D2E2D9] cursor-default">
+            Home
+          </div>
+
+          <div>
+            <div
+              onClick={() => toggleMobileSubmenu('about')}
+              className="flex items-center justify-between py-2 text-base font-bold text-[#252B29] cursor-default"
+            >
+              <span>About Us</span>
+              <ChevronDown className={`w-4 h-4 text-[#C6A66B] transition-transform ${mobileActiveSubmenu === 'about' ? 'rotate-180' : ''}`} />
+            </div>
+            {mobileActiveSubmenu === 'about' && (
+              <div className="pl-4 py-2 space-y-2 text-sm text-[#252B29]/75 border-l border-[#087F5B]/30 font-medium">
+                <div className="cursor-default">Who We Are</div>
+                <div className="cursor-default">Our Core Principles</div>
+                <div className="cursor-default">Executive Leadership</div>
               </div>
             )}
           </div>
 
-          <button
-            onClick={() => scrollToSection('contact-cta')}
-            className="px-3.5 py-2.5 text-sm font-semibold tracking-wide text-slate-700 hover:text-[#063B83] transition-colors cursor-pointer"
-          >
-            Contact
-          </button>
-        </nav>
-
-        {/* Right: Authentic SAP Gold Partner Logo in Clean Subtle Card (Matches Original) */}
-        <div className="hidden lg:flex items-center space-x-2 flex-shrink-0 pl-3">
-          <div className="flex items-center p-1.5 bg-white border border-slate-200 rounded-lg shadow-sm hover:shadow transition-all">
-            <img
-              src="/sap_gold_partner_perfect.svg"
-              alt="Official SAP Gold Partner"
-              className="h-9 sm:h-10 w-auto object-contain"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/sap_gold_partner.png';
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Mobile Hamburger Toggle */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded text-slate-700 hover:text-[#063B83] hover:bg-slate-100"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <div className="p-1 bg-white border border-slate-200 rounded-lg shadow-sm">
-              <img
-                src="/sap_gold_partner_perfect.svg"
-                alt="Official SAP Gold Partner"
-                className="h-8 w-auto object-contain"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/sap_gold_partner.png';
-                }}
-              />
+          <div>
+            <div
+              onClick={() => toggleMobileSubmenu('services')}
+              className="flex items-center justify-between py-2 text-base font-bold text-[#252B29] cursor-default"
+            >
+              <span>Our Services</span>
+              <ChevronDown className={`w-4 h-4 text-[#C6A66B] transition-transform ${mobileActiveSubmenu === 'services' ? 'rotate-180' : ''}`} />
             </div>
-            <button
-              onClick={() => scrollToSection('contact-cta')}
-              className="px-3.5 py-1.5 bg-[#063B83] text-white text-xs font-bold rounded shadow-sm"
-            >
-              Consult Now
-            </button>
+            {mobileActiveSubmenu === 'services' && (
+              <div className="pl-4 py-2 space-y-2 text-sm text-[#252B29]/75 border-l border-[#087F5B]/30 font-medium">
+                {servicesList.map((svc, i) => (
+                  <div key={i} className="cursor-default">{svc.title}</div>
+                ))}
+              </div>
+            )}
           </div>
 
-          <div className="space-y-1">
-            <button
-              onClick={() => scrollToSection('top')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f5f8fc] rounded"
+          <div>
+            <div
+              onClick={() => toggleMobileSubmenu('industries')}
+              className="flex items-center justify-between py-2 text-base font-bold text-[#252B29] cursor-default"
             >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection('services')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f5f8fc] rounded"
+              <span>Industries</span>
+              <ChevronDown className={`w-4 h-4 text-[#C6A66B] transition-transform ${mobileActiveSubmenu === 'industries' ? 'rotate-180' : ''}`} />
+            </div>
+            {mobileActiveSubmenu === 'industries' && (
+              <div className="pl-4 py-2 space-y-2 text-sm text-[#252B29]/75 border-l border-[#087F5B]/30 font-medium">
+                {industriesList.map((ind, i) => (
+                  <div key={i} className="cursor-default">{ind.name}</div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div>
+            <div
+              onClick={() => toggleMobileSubmenu('training')}
+              className="flex items-center justify-between py-2 text-base font-bold text-[#252B29] cursor-default"
             >
-              Services
-            </button>
-            <button
-              onClick={() => scrollToSection('training')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f5f8fc] rounded"
-            >
-              SAP Training
-            </button>
-            <button
-              onClick={() => scrollToSection('industries')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f5f8fc] rounded"
-            >
-              Industries We Serve
-            </button>
-            <button
-              onClick={() => scrollToSection('about')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f5f8fc] rounded"
-            >
-              About ZisanTech
-            </button>
-            <button
-              onClick={() => scrollToSection('blogs')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-[#087FE5] hover:bg-[#f5f8fc] rounded font-bold"
-            >
-              Blogs & Insights
-            </button>
-            <button
-              onClick={() => scrollToSection('contact-cta')}
-              className="w-full text-left block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f5f8fc] rounded"
-            >
-              Contact Us
-            </button>
+              <span>SAP Training</span>
+              <ChevronDown className={`w-4 h-4 text-[#C6A66B] transition-transform ${mobileActiveSubmenu === 'training' ? 'rotate-180' : ''}`} />
+            </div>
+            {mobileActiveSubmenu === 'training' && (
+              <div className="pl-4 py-2 space-y-2 text-sm text-[#252B29]/75 border-l border-[#087F5B]/30 font-medium">
+                <div className="text-xs font-bold text-[#087F5B] uppercase">Functional Modules</div>
+                <div className="cursor-default">SAP FICO, MM, SD, PP, QM, HCM</div>
+                <div className="text-xs font-bold text-[#087F5B] uppercase pt-1">Technical Modules</div>
+                <div className="cursor-default">SAP ABAP, BASIS, CPI, PI/PO</div>
+              </div>
+            )}
+          </div>
+
+          <div className="py-2 text-base font-bold text-[#252B29] cursor-default">
+            Contact Us
+          </div>
+
+          <div className="pt-3">
+            <div className="w-full py-3 rounded-xl bg-gradient-to-r from-[#087F5B] to-[#055B41] border border-[#C6A66B]/50 text-[#FFFFFF] text-center font-bold text-sm shadow-lg flex items-center justify-center gap-2 cursor-default select-none">
+              <span>Get Consultation</span>
+              <Sparkles className="w-4 h-4 text-[#DFCA9C]" />
+            </div>
           </div>
         </div>
       )}

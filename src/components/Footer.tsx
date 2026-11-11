@@ -3,219 +3,190 @@ import {
   Phone,
   Mail,
   MapPin,
-  ArrowRight,
+  Sparkles,
   ShieldCheck,
   CheckCircle2,
-  BookOpen,
-  Sparkles,
-  Award,
   Globe2,
-  Lock
+  Award,
+  Layers,
+  ArrowUpRight
 } from 'lucide-react';
-import { COMPANY_INFO, INDUSTRIES } from '../data/siteData';
+import { COMPANY_INFO } from '../data/siteData';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-gradient-to-b from-[#071B49] via-[#05143A] to-[#020A1E] text-slate-300 font-sans border-t border-slate-700/80 relative overflow-hidden">
-      {/* Subtle background ambient lighting */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#087FE5]/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-10 w-80 h-80 bg-[#08B9E8]/10 rounded-full blur-3xl pointer-events-none"></div>
+    <footer className="bg-[#1A1F1D] text-[#E8F1EC] font-sans border-t border-[#C6A66B]/30 relative overflow-hidden">
+      {/* Subtle luxury ambient emerald and gold lighting */}
+      <div className="absolute top-0 right-10 w-96 h-96 bg-[#087F5B]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#C6A66B]/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* 1. TOP FOOTER CONTACT & ASSURANCE STRIP */}
-      <div className="bg-[#030E26]/90 py-6 border-b border-slate-800/80 backdrop-blur-md relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3.5 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
-              <Phone className="w-5 h-5" />
+      {/* Top Luxury Contact Strip */}
+      <div className="bg-[#252B29]/90 py-7 border-b border-[#C6A66B]/20 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Phone contact */}
+            <div className="flex items-center gap-4 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#087F5B] to-[#044230] border border-[#C6A66B]/40 text-[#FFFFFF] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#087F5B]/20">
+                <Phone className="w-5 h-5 text-[#DFCA9C]" />
+              </div>
+              <div>
+                <p className="text-[11px] text-[#C6A66B] uppercase tracking-wider font-semibold">Speak with an SAP Director</p>
+                <div className="text-sm font-bold text-[#FFFFFF] cursor-default">{COMPANY_INFO.primaryPhone}</div>
+              </div>
             </div>
-            <div>
-              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Talk to an Enterprise Architect</p>
-              <a href={`tel:${COMPANY_INFO.primaryPhone}`} className="text-sm font-bold text-white hover:text-[#08B9E8] transition-colors">
-                {COMPANY_INFO.primaryPhone}
-              </a>
-            </div>
-          </div>
 
-          <div className="flex items-center gap-3.5 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
-              <Mail className="w-5 h-5" />
+            {/* Email contact */}
+            <div className="flex items-center gap-4 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#087F5B] to-[#044230] border border-[#C6A66B]/40 text-[#FFFFFF] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#087F5B]/20">
+                <Mail className="w-5 h-5 text-[#DFCA9C]" />
+              </div>
+              <div>
+                <p className="text-[11px] text-[#C6A66B] uppercase tracking-wider font-semibold">Official Advisory Enquiry</p>
+                <div className="text-sm font-bold text-[#FFFFFF] cursor-default">{COMPANY_INFO.primaryEmail}</div>
+              </div>
             </div>
-            <div>
-              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Official Consulting Enquiry</p>
-              <a href={`mailto:${COMPANY_INFO.primaryEmail}`} className="text-sm font-bold text-white hover:text-[#08B9E8] transition-colors">
-                {COMPANY_INFO.primaryEmail}
-              </a>
-            </div>
-          </div>
 
-          <div className="flex items-center gap-3.5 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
-              <MapPin className="w-5 h-5" />
+            {/* Address */}
+            <div className="flex items-center gap-4 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#087F5B] to-[#044230] border border-[#C6A66B]/40 text-[#FFFFFF] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#087F5B]/20">
+                <MapPin className="w-5 h-5 text-[#DFCA9C]" />
+              </div>
+              <div>
+                <p className="text-[11px] text-[#C6A66B] uppercase tracking-wider font-semibold">Headquarters & Advisory Center</p>
+                <p className="text-xs text-[#FFFFFF] font-medium">{COMPANY_INFO.address}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Headquarters & Delivery Hub</p>
-              <p className="text-xs text-white font-medium">{COMPANY_INFO.address}</p>
-            </div>
+
           </div>
         </div>
       </div>
 
-      {/* 2. MAIN 4-COLUMN FOOTER: High-end layout */}
+      {/* Main Luxury Footer Content Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
-          {/* Col 1: About ZisanTech with Official Brand Logo & Clean Uncut SAP Gold Partner Badge (Span 4) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          {/* Brand & Introduction Column (Span 4) */}
           <div className="lg:col-span-4 space-y-5">
-            <a href="/" className="inline-block p-3 bg-white rounded-xl shadow-lg border border-slate-200 hover:scale-[1.02] transition-transform">
-              <img
-                src="/zisantech_official_logo.png"
-                alt="ZisanTech - INNOVATE • DEVELOP • GROW"
-                className="h-10 sm:h-12 w-auto object-contain"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/zisantech_logo_transparent.png';
-                }}
-              />
-            </a>
+            <div className="flex items-center space-x-3 cursor-default select-none">
+              <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-[#087F5B] to-[#044230] border border-[#C6A66B]/50 shadow-lg shadow-[#087F5B]/20">
+                <span className="text-[#DFCA9C] font-serif font-extrabold text-xl">Z</span>
+                <span className="text-[#FFFFFF] font-sans text-xs ml-0.5 font-bold">T</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold tracking-tight text-[#FFFFFF] font-heading">
+                  Zisan<span className="text-[#C6A66B]">Tech</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.22em] text-[#C6A66B] font-medium">
+                  Enterprise SAP Consulting
+                </span>
+              </div>
+            </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed pr-4">
-              ZisanTech Solutions is an enterprise SAP Consulting and Technology Practice. We drive full-lifecycle SAP S/4HANA Cloud implementations, legacy migrations, custom ERP automation, and career-oriented workforce training programs.
+            <p className="text-xs text-[#E8F1EC]/75 leading-relaxed pr-4">
+              ZisanTech delivers intelligent SAP solutions and modern enterprise technology services to help businesses transform operations, modernize business processes, and achieve long-term commercial success.
             </p>
 
-            {/* Official SAP Gold Partner Showcase Badge */}
-            <div className="pt-2">
-              <div className="p-3 bg-white rounded-xl shadow-md border border-slate-200 inline-flex items-center gap-3">
+            <div className="flex items-center gap-3 pt-2">
+              <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-[#C6A66B]/30 text-[11px] font-medium text-[#DFCA9C] flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#087F5B]" />
+                10+ Years Advisory Experience
+              </div>
+              <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-[#087F5B]/40 text-[11px] font-medium text-[#E8F1EC] flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#087F5B]" />
+                24/7 SLA Support
+              </div>
+            </div>
+          </div>
+
+          {/* Visual Navigation Labels (Span 4) */}
+          <div className="lg:col-span-4 grid grid-cols-2 gap-6">
+            <div>
+              <h4 className="text-xs font-bold text-[#C6A66B] uppercase tracking-wider mb-4 border-b border-white/10 pb-2">
+                Enterprise Solutions
+              </h4>
+              <ul className="space-y-2.5 text-xs text-[#E8F1EC]/70">
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">SAP S/4HANA Migration</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Clean-Core Architecture</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">SAP Cloud Integration (CPI)</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Statutory E-Invoicing</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">SAP AMS & SLA Operations</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Workflow & Custom BTP</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-xs font-bold text-[#C6A66B] uppercase tracking-wider mb-4 border-b border-white/10 pb-2">
+                Industries We Serve
+              </h4>
+              <ul className="space-y-2.5 text-xs text-[#E8F1EC]/70">
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Manufacturing</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Retail & Textile</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Oil & Gas</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Agro Chemical</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Steel</li>
+                <li className="cursor-default hover:text-[#FFFFFF] transition-colors">Pharma</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Premium Map Image Card (Span 4) */}
+          <div className="lg:col-span-4">
+            <div className="rounded-2xl overflow-hidden border border-[#C6A66B]/30 bg-[#252B29] shadow-xl relative group">
+              <div className="p-3.5 border-b border-white/10 flex items-center justify-between bg-black/20">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#087F5B] animate-pulse"></div>
+                  <span className="text-xs font-semibold text-[#FFFFFF] tracking-wide">Global Delivery Center</span>
+                </div>
+                <span className="text-[11px] text-[#C6A66B] font-mono">New Delhi, India</span>
+              </div>
+
+              {/* Verified High-Precision Stylized Map Graphic */}
+              <div className="relative h-44 w-full overflow-hidden bg-[#151917]">
                 <img
-                  src="/sap_gold_partner_perfect.svg"
-                  alt="Official SAP Gold Partner"
-                  className="h-10 sm:h-11 w-auto object-contain"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/sap_gold_partner.png';
-                  }}
+                  src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80"
+                  alt="ZisanTech Strategic Consulting Center Map"
+                  className="w-full h-full object-cover opacity-60 filter contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
                 />
-                <div className="border-l border-slate-200 pl-3">
-                  <p className="text-[11px] font-extrabold text-[#071B49] leading-tight">Certified Partner</p>
-                  <p className="text-[10px] text-slate-500 font-medium">Enterprise SAP Delivery</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1F1D] via-[#1A1F1D]/40 to-transparent" />
+                
+                {/* Pin indicator with luxury gold/emerald glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                  <div className="relative">
+                    <div className="w-8 h-8 rounded-full bg-[#087F5B]/30 animate-ping absolute -inset-1" />
+                    <div className="relative w-7 h-7 rounded-full bg-gradient-to-br from-[#087F5B] to-[#044230] border-2 border-[#C6A66B] shadow-xl flex items-center justify-center">
+                      <MapPin className="w-3.5 h-3.5 text-[#DFCA9C]" />
+                    </div>
+                  </div>
+                  <div className="mt-1 px-2.5 py-0.5 rounded-md bg-[#252B29]/90 border border-[#C6A66B]/40 text-[10px] font-semibold text-[#FFFFFF] tracking-wider uppercase shadow-lg">
+                    ZisanTech HQ
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-2 text-[11px] text-slate-400 pt-1">
-              <ShieldCheck className="w-4 h-4 text-[#08B9E8]" />
-              <span>ISO 9001:2015 & SAP Global Delivery Standards</span>
-            </div>
-          </div>
-
-          {/* Col 2: Quick Links (Span 3 - Prominently Featuring Blogs & Insights as requested) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white border-b-2 border-[#087FE5] pb-2 inline-block">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              <li>
-                <a
-                  href="/#blogs"
-                  className="text-[#08B9E8] font-bold hover:text-white transition-colors flex items-center justify-between group"
-                >
-                  <span className="flex items-center gap-2">
-                    <BookOpen className="w-3.5 h-3.5 text-[#08B9E8]" />
-                    <span>Blogs & Tech Insights</span>
-                  </span>
-                  <span className="px-1.5 py-0.5 rounded bg-[#087FE5]/20 text-[#08B9E8] text-[9px] font-bold group-hover:bg-[#087FE5] group-hover:text-white transition-colors">
-                    Articles
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="/#about" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="text-slate-500">›</span> About ZisanTech
-                </a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="text-slate-500">›</span> SAP S/4HANA Implementations
-                </a>
-              </li>
-              <li>
-                <a href="/#training" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="text-slate-500">›</span> SAP Professional Training
-                </a>
-              </li>
-              <li>
-                <a href="/#industries" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="text-slate-500">›</span> Industries We Serve
-                </a>
-              </li>
-              <li>
-                <a href="/#why-us" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="text-slate-500">›</span> Why Choose ZisanTech
-                </a>
-              </li>
-              <li>
-                <a href="/#contact-cta" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="text-slate-500">›</span> Contact Support & Enquiries
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Industries We Serve (Span 2) */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white border-b-2 border-[#087FE5] pb-2 inline-block">
-              Industries
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              {INDUSTRIES.map((ind) => (
-                <li key={ind.id}>
-                  <a
-                    href="/#industries"
-                    className="hover:text-white transition-colors flex items-center gap-1.5"
-                  >
-                    <span className="text-slate-500">›</span> {ind.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 4: Corporate Hub & Architecture Consultation (Span 3) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white border-b-2 border-[#087FE5] pb-2 inline-block">
-              Corporate Office
-            </h4>
-            <p className="text-xs text-slate-300 leading-relaxed">{COMPANY_INFO.address}</p>
-
-            <div className="rounded-xl bg-gradient-to-br from-[#063B83]/90 to-[#031842] border border-slate-700/80 p-4 space-y-2.5 shadow-xl">
-              <div className="flex items-center gap-2">
-                <Globe2 className="w-4 h-4 text-[#08B9E8]" />
-                <p className="text-xs font-bold text-white">Global Delivery Capabilities</p>
+              <div className="p-3 text-[11px] text-[#E8F1EC]/70 flex items-center justify-between">
+                <span>{COMPANY_INFO.address}</span>
+                <span className="text-[#087F5B] font-medium flex items-center gap-1">
+                  Active Hub
+                </span>
               </div>
-              <p className="text-[11px] text-slate-300">
-                Delivering verified SAP consulting for India, Middle East, and worldwide clients.
-              </p>
-              <a
-                href="#contact-cta"
-                className="mt-2 w-full py-2 bg-gradient-to-r from-[#087FE5] to-[#08B9E8] hover:from-[#063B83] hover:to-[#087FE5] text-white text-[11px] font-bold uppercase tracking-wider rounded text-center block transition-all shadow-md"
-              >
-                Schedule Consultation
-              </a>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* 3. BOTTOM COPYRIGHT & COMPLIANCE BAR */}
-      <div className="bg-[#010614] py-5 border-t border-slate-800 text-xs text-slate-400 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[11px]">
-            © {new Date().getFullYear()} ZisanTech Solutions. All Rights Reserved. SAP, SAP S/4HANA, and RISE with SAP are registered trademarks of SAP SE.
-          </p>
-          <div className="flex items-center space-x-6 text-[11px]">
-            <a href="#about" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#about" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#contact-cta" className="hover:text-white transition-colors flex items-center gap-1">
-              <Lock className="w-3 h-3 text-[#08B9E8]" /> Client Portal
-            </a>
+        </div>
+
+        {/* Bottom Copyright & Disclaimer */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E8F1EC]/60 gap-4">
+          <div>
+            © {new Date().getFullYear()} ZisanTech Solutions. All rights reserved.
+          </div>
+          <div className="flex items-center space-x-6 text-[#E8F1EC]/50">
+            <span className="cursor-default hover:text-[#C6A66B] transition-colors">Enterprise Privacy Standards</span>
+            <span>•</span>
+            <span className="cursor-default hover:text-[#C6A66B] transition-colors">Information Security Governance</span>
+            <span>•</span>
+            <span className="cursor-default hover:text-[#C6A66B] transition-colors">Terms of Consulting</span>
           </div>
         </div>
       </div>
