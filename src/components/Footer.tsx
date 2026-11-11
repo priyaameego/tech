@@ -195,7 +195,7 @@ export const Footer: React.FC = () => {
               </p>
               <a
                 href="#contact-cta"
-                className="mt-2 w-full py-2 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 text-[11px] font-bold uppercase tracking-wider rounded text-center block transition-colors shadow-md"
+                className="mt-2 w-full py-2 bg-gradient-to-r from-[#087FE5] to-[#08B9E8] hover:from-[#063B83] hover:to-[#087FE5] text-white text-[11px] font-bold uppercase tracking-wider rounded text-center block transition-all shadow-md"
               >
                 Schedule Consultation
               </a>

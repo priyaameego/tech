@@ -17,7 +17,11 @@ import {
   Cpu,
   GraduationCap,
   Play,
-  MessageSquare
+  MessageSquare,
+  Rocket,
+  ThumbsUp,
+  BarChart3,
+  Globe
 } from 'lucide-react';
 import {
   COMPANY_INFO,
@@ -97,11 +101,20 @@ export const ConceptEnterprise: React.FC = () => {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Visual (Absolute positioning ensures text is NEVER pushed down) */}
-              <img
+              {/* Background Visual with Luxury Cinematic Ken Burns Effect */}
+              <motion.img
                 src={slide.bgImage}
                 alt={slide.line1}
-                className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75 scale-105 transition-transform duration-[6000ms]"
+                animate={
+                  isActive
+                    ? { scale: [1, 1.12], x: [0, -12], y: [0, -8] }
+                    : { scale: 1, x: 0, y: 0 }
+                }
+                transition={{
+                  duration: 8,
+                  ease: [0.25, 0.1, 0.25, 1]
+                }}
+                className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-75"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80';
@@ -116,7 +129,7 @@ export const ConceptEnterprise: React.FC = () => {
               {isActive && (
                 <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
                   <div className="max-w-3xl text-left space-y-5 sm:space-y-6 pt-8 sm:pt-0">
-                    {/* 1. Mawai Top Badge with Gold Accent Bar */}
+                    {/* 1. Top Badge with Electric Cyan Accent Bar */}
                     <motion.div
                       key={`badge-${currentSlide}`}
                       initial={{ opacity: 0, y: 20 }}
@@ -124,13 +137,13 @@ export const ConceptEnterprise: React.FC = () => {
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 shadow-md"
                     >
-                      <span className="w-5 h-0.5 bg-[#F59E0B] rounded-full"></span>
+                      <span className="w-5 h-0.5 bg-[#08B9E8] rounded-full shadow-[0_0_8px_#08B9E8]"></span>
                       <span className="text-[11px] sm:text-xs font-bold tracking-widest text-slate-100 uppercase font-mono">
                         {slide.badge}
                       </span>
                     </motion.div>
 
-                    {/* 2. Main Headline - Exact 2-Tone Mawai Style with Gold SAP Highlights */}
+                    {/* 2. Main Headline - 2-Tone Typography with Brand Cyan/Electric Blue Highlight */}
                     <motion.h1
                       key={`headline-${currentSlide}`}
                       initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
@@ -139,7 +152,7 @@ export const ConceptEnterprise: React.FC = () => {
                       className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-extrabold text-white leading-[1.14] tracking-tight font-heading"
                     >
                       {slide.line1} <br />
-                      <span className="text-[#F59E0B] drop-shadow-[0_2px_12px_rgba(245,158,11,0.3)]">
+                      <span className="text-[#08B9E8] drop-shadow-[0_2px_14px_rgba(8,185,232,0.45)]">
                         {slide.highlight}
                       </span>{' '}
                       <br />
@@ -157,7 +170,7 @@ export const ConceptEnterprise: React.FC = () => {
                       {slide.description}
                     </motion.p>
 
-                    {/* 4. Action CTA Buttons - Mawai Gold Demo Button */}
+                    {/* 4. Action CTA Buttons - Brand Royal & Electric Blue Demo Button */}
                     <motion.div
                       key={`btns-${currentSlide}`}
                       initial={{ opacity: 0, y: 20, scale: 0.96 }}
@@ -167,7 +180,7 @@ export const ConceptEnterprise: React.FC = () => {
                     >
                       <a
                         href={slide.btnLink}
-                        className="w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 text-xs sm:text-sm font-extrabold tracking-wider uppercase rounded-lg shadow-xl shadow-[#F59E0B]/20 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                        className="w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#063B83] via-[#087FE5] to-[#08B9E8] hover:from-[#087FE5] hover:to-[#063B83] text-white text-xs sm:text-sm font-extrabold tracking-wider uppercase rounded-lg shadow-xl shadow-[#087FE5]/30 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                       >
                         <span>{slide.btnText}</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
@@ -187,10 +200,10 @@ export const ConceptEnterprise: React.FC = () => {
           );
         })}
 
-        {/* Carousel Arrow Controls (Mawai Style round dark glass buttons) */}
+        {/* Carousel Arrow Controls */}
         <button
           onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#F59E0B] hover:text-slate-950 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#087FE5] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
           aria-label="Previous Slide"
         >
           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -198,7 +211,7 @@ export const ConceptEnterprise: React.FC = () => {
 
         <button
           onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#F59E0B] hover:text-slate-950 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#087FE5] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-90 cursor-pointer"
           aria-label="Next Slide"
         >
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -211,7 +224,7 @@ export const ConceptEnterprise: React.FC = () => {
               key={i}
               onClick={() => setCurrentSlide(i)}
               className={`h-2 transition-all rounded-full cursor-pointer ${
-                i === currentSlide ? 'w-8 bg-[#F59E0B]' : 'w-2.5 bg-white/40 hover:bg-white'
+                i === currentSlide ? 'w-8 bg-[#087FE5]' : 'w-2.5 bg-white/40 hover:bg-white'
               }`}
               aria-label={`Slide ${i + 1}`}
             />
@@ -220,140 +233,212 @@ export const ConceptEnterprise: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          2. MAWAI 3-FEATURE BENEFIT BAR (Overlapping 3D Tilt Cards)
+          2. MAWAI 3-FEATURE BENEFIT BAR (Brand Matching Blue Hover Cards)
       ========================================================================= */}
       <section id="benefits" className="relative z-30 -mt-8 sm:-mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1: Swift ERP Implementation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="bg-white p-7 rounded-xl shadow-xl border-t-4 border-[#063B83] space-y-3 transition-shadow duration-300 hover:shadow-2xl"
+            className="group relative bg-white hover:bg-[#071B49] p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 hover:border-[#087FE5]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#063B83] flex items-center justify-center shadow-sm">
-              <Clock className="w-6 h-6" />
+            {/* Ambient Deep Navy Background & Glow on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,127,229,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+            <div className="relative z-10 space-y-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
+                <BarChart3 className="w-7 h-7" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-white transition-colors font-heading">
+                Swift ERP Implementation
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">
+                Minimize downtime with our seasoned consulting team, ensuring a fast and seamless SAP S/4HANA Cloud rollout.
+              </p>
             </div>
-            <h3 className="text-lg font-bold text-[#071B49]">Swift ERP Implementation</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Minimize downtime with our seasoned consulting team, ensuring a fast and seamless SAP S/4HANA Cloud rollout.
-            </p>
           </motion.div>
 
+          {/* Card 2: Real-time Analytics */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="bg-white p-7 rounded-xl shadow-xl border-t-4 border-[#087FE5] space-y-3 transition-shadow duration-300 hover:shadow-2xl"
+            className="group relative bg-white hover:bg-[#071B49] p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 hover:border-[#087FE5]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-xl bg-sky-50 text-[#087FE5] flex items-center justify-center shadow-sm">
-              <TrendingUp className="w-6 h-6" />
+            {/* Ambient Deep Navy Background & Wave on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,185,232,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+            <div className="relative z-10 space-y-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
+                <Rocket className="w-7 h-7" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-white transition-colors font-heading">
+                Real-time Analytics
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">
+                Gain a decisive operational edge with instant data insights from SAP, driving enterprise efficiency and executive visibility.
+              </p>
             </div>
-            <h3 className="text-lg font-bold text-[#071B49]">Real-time Analytics</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Gain a decisive operational edge with instant data insights from SAP, driving enterprise efficiency and executive visibility.
-            </p>
           </motion.div>
 
+          {/* Card 3: Affordable Scalability */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="bg-white p-7 rounded-xl shadow-xl border-t-4 border-[#063B83] space-y-3 transition-shadow duration-300 hover:shadow-2xl"
+            className="group relative bg-white hover:bg-[#071B49] p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 hover:border-[#087FE5]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#063B83] flex items-center justify-center shadow-sm">
-              <ShieldCheck className="w-6 h-6" />
+            {/* Ambient Deep Navy Background & Wave on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#071B49] via-[#05143A] to-[#040F2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-0"></div>
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-[radial-gradient(circle,rgba(8,127,229,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+            <div className="relative z-10 space-y-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center shadow-lg shadow-[#087FE5]/20 group-hover:scale-105 transition-transform">
+                <ThumbsUp className="w-7 h-7" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-[#071B49] group-hover:text-white transition-colors font-heading">
+                Affordable Scalability
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">
+                Enjoy the scalability and flexibility of SAP Cloud offerings, adapting seamlessly to your corporate growth without friction.
+              </p>
             </div>
-            <h3 className="text-lg font-bold text-[#071B49]">Affordable Scalability</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Enjoy the scalability and flexibility of SAP Cloud offerings, adapting seamlessly to your corporate growth without friction.
-            </p>
           </motion.div>
         </div>
       </section>
 
       {/* =========================================================================
-          3. MAWAI "ABOUT SECTION" (Digitize Your Business Processes)
+          3. MAWAI "ABOUT SECTION" (Digitize Your Business Processes - Brand Blue Layout)
       ========================================================================= */}
       <section id="about" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Text */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          {/* Left Multi-Layer Image Montage */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
+            className="lg:col-span-6 relative pb-8 sm:pb-0"
           >
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5]">
-                Digitize Your Business Processes
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#071B49] mt-2 leading-tight font-heading">
-                ZisanTech, Your Partner in Building a Sustainable Digital Future with SAP
-              </h2>
+            {/* Vertical Brand Electric Blue Accent Strip */}
+            <div className="w-2.5 h-16 bg-gradient-to-b from-[#087FE5] to-[#08B9E8] rounded-full absolute -top-4 right-10 z-20 shadow-lg shadow-[#087FE5]/30 hidden sm:block"></div>
+
+            {/* Base Image: Team Collaboration in Office */}
+            <div className="relative w-full sm:w-[82%] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                alt="ZisanTech SAP Team"
+                className="w-full h-[360px] sm:h-[420px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
             </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed">
-              ZisanTech Solutions is a premier technology and ERP consulting practice drawn from over a decade of verified industry expertise. As an enterprise partner, we provide licensing, implementation, consulting, custom development, and round-the-clock support services.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
-              <div className="p-4 rounded-xl bg-[#f5f8fc] border-l-4 border-[#063B83] space-y-1.5 shadow-sm">
-                <h4 className="text-sm font-bold text-[#071B49]">Affordable ERP Solution</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Tailored implementations engineered for enterprise agility and mid-market growth.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#f5f8fc] border-l-4 border-[#087FE5] space-y-1.5 shadow-sm">
-                <h4 className="text-sm font-bold text-[#071B49]">Customized ERP Add-ons</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  GST E-Invoicing, E-Way Bill, and proprietary workflow automation for Indian compliance.
-                </p>
-              </div>
+            {/* Overlapping Image: Digital City Hologram Network */}
+            <div className="relative sm:absolute sm:right-0 sm:bottom-4 w-full sm:w-[68%] rounded-2xl overflow-hidden shadow-2xl border-4 border-white mt-4 sm:mt-0 z-10 group">
+              <img
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80"
+                alt="Digital Transformation Cloud Architecture"
+                className="w-full h-[220px] sm:h-[260px] object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#063B83]/70 via-transparent to-transparent"></div>
             </div>
 
-            <div className="pt-2">
-              <a
-                href="#services"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#063B83] hover:bg-[#087FE5] text-white text-xs font-bold uppercase tracking-wider rounded shadow transition-all hover:-translate-y-0.5 active:scale-95"
-              >
-                <span>Discover More</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+            {/* Floating Counter Badge: 360+ Satisfied Clients */}
+            <div className="relative sm:absolute sm:-bottom-6 sm:left-4 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-100 flex items-center gap-3.5 mt-4 sm:mt-0 max-w-xs">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#063B83] to-[#087FE5] text-white flex items-center justify-center font-bold shadow-md shadow-[#087FE5]/20 flex-shrink-0">
+                <Users className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl sm:text-3xl font-black text-[#087FE5] leading-none font-heading">
+                  360+
+                </p>
+                <p className="text-xs font-bold text-[#071B49] mt-1">
+                  Satisfied Clients
+                </p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Image Composition */}
+          {/* Right Text Content with Brand Blue Styling */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5 relative"
+            className="lg:col-span-6 space-y-6"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80"
-                alt="ZisanTech SAP Consulting"
-                className="w-full h-[400px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071B49]/80 via-transparent to-transparent"></div>
-              <div className="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 flex items-center justify-between shadow-lg">
-                <div>
-                  <p className="text-xs font-bold text-[#071B49]">Certified SAP Consultants</p>
-                  <p className="text-[11px] text-slate-500">24/7 SLA Hyper-care Support</p>
+            <div>
+              <div className="inline-flex items-center gap-2">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#087FE5] font-mono">
+                  DIGITIZE YOUR BUSINESS PROCESSES
+                </span>
+                <span className="w-8 h-0.5 bg-[#087FE5] rounded-full"></span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-[#071B49] mt-3 leading-[1.2] font-heading">
+                <span className="text-[#087FE5]">ZisanTech,</span> Your Partner in Building a Sustainable Digital Future with SAP
+              </h2>
+            </div>
+
+            <p className="text-sm text-slate-600 leading-relaxed">
+              ZisanTech, a leading enterprise RISE with SAP S/4HANA Partner, delivers proven solutions drawn from over a decade of verified industry expertise, recognized for innovative ERP services including:
+            </p>
+
+            {/* Feature 1: ZisanTech Services */}
+            <div className="space-y-4 pt-1">
+              <div className="flex items-start gap-4 p-3.5 rounded-xl hover:bg-slate-50 transition-colors">
+                <div className="w-12 h-12 rounded-xl border-2 border-[#087FE5]/40 text-[#087FE5] flex items-center justify-center flex-shrink-0 shadow-sm bg-blue-50/60">
+                  <Rocket className="w-6 h-6" />
                 </div>
-                <div className="w-10 h-10 rounded-full bg-[#063B83] text-white flex items-center justify-center shadow">
-                  <Award className="w-5 h-5" />
+                <div>
+                  <h4 className="text-base font-bold text-[#071B49] font-heading">
+                    ZisanTech Services
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed mt-0.5">
+                    As a certified SAP Gold Partner, ZisanTech provides licensing, implementation, consulting, and 24/7 SLA hyper-care support services.
+                  </p>
                 </div>
               </div>
+
+              {/* Feature 2: Customized ERP */}
+              <div className="flex items-start gap-4 p-3.5 rounded-xl hover:bg-slate-50 transition-colors">
+                <div className="w-12 h-12 rounded-xl border-2 border-[#087FE5]/40 text-[#087FE5] flex items-center justify-center flex-shrink-0 shadow-sm bg-blue-50/60">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-[#071B49] font-heading">
+                    Customized ERP Add-ons
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed mt-0.5">
+                    Specialized GST E-Invoicing, E-Way Bill integrations, and automated statutory compliance modules built for Indian enterprises.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Inset Promo Card (Brand Blue Stripe & Button) */}
+            <div className="p-5 rounded-xl bg-gradient-to-r from-slate-50 to-[#f5f8fc] border-t-4 border-[#087FE5] shadow-sm flex items-center justify-between mt-4">
+              <div>
+                <p className="text-sm font-bold text-[#071B49]">
+                  Affordable ERP Solution for your Business
+                </p>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Tailored implementations engineered for enterprise agility
+                </p>
+              </div>
+              <a
+                href="#services"
+                className="text-xs font-bold text-[#087FE5] hover:text-[#063B83] flex items-center gap-1 uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <span>MORE</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </motion.div>
         </div>
